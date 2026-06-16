@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LOGISTICARGO SYSTEM — v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://static.balsamiq.com/prototype/v1/js/tailwindcss-3.4.17.js"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'emerald':   '#1DB87A',
+        'emerald-d': '#0F8A58',
+        'ink':       '#0D1117',
+        'ink-2':     '#161B22',
+        'ink-3':     '#21262D',
+        'ink-4':     '#30363D',
+        'slate':     '#8B949E',
+        'slate-l':   '#C9D1D9',
+        'white':     '#F0F6FC',
+        'purple':    '#8B5CF6',
+        'purple-d':  '#6D28D9',
+        'amber':     '#F59E0B',
+        'danger':    '#F85149',
+        'info':      '#58A6FF',
+      },
+      fontFamily: {
+        sans:    ['Inter', 'sans-serif'],
+        display: ['Poppins', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<script defer src="https://static.balsamiq.com/prototype/v1/js/alpinejs-collapse-3.14.9.min.js"></script>
+<script defer src="https://static.balsamiq.com/prototype/v1/js/alpinejs-3.14.9.min.js"></script>
+<style>
+  [x-cloak] { display: none !important; }
+  * { box-sizing: border-box; }
+
+  body { font-family: 'Inter', sans-serif; background: #0D1117; color: #C9D1D9; }
+
+  /* ── Sidebar ── */
+  .sidebar { background: #161B22; border-right: 1px solid #21262D; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-radius: 8px; font-size: 13.5px; color: #8B949E; cursor: pointer; transition: all .15s; }
+  .nav-item:hover { background: #21262D; color: #C9D1D9; }
+  .nav-item.active { background: linear-gradient(135deg, #1DB87A22, #8B5CF622); color: #1DB87A; border: 1px solid #1DB87A33; }
+  .nav-item .ms { font-size: 18px; }
+
+  /* ── Cards ── */
+  .card { background: #161B22; border: 1px solid #21262D; border-radius: 12px; }
+  .card-hover:hover { border-color: #30363D; transform: translateY(-1px); transition: all .2s; }
+
+  /* ── Stat card accent ── */
+  .stat-emerald { border-left: 3px solid #1DB87A; }
+  .stat-purple  { border-left: 3px solid #8B5CF6; }
+  .stat-amber   { border-left: 3px solid #F59E0B; }
+  .stat-info    { border-left: 3px solid #58A6FF; }
+
+  /* ── Badges ── */
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+  .badge-green  { background: #1DB87A22; color: #1DB87A; border: 1px solid #1DB87A44; }
+  .badge-orange { background: #F59E0B22; color: #F59E0B; border: 1px solid #F59E0B44; }
+  .badge-red    { background: #F8514922; color: #F85149; border: 1px solid #F8514944; }
+  .badge-blue   { background: #58A6FF22; color: #58A6FF; border: 1px solid #58A6FF44; }
+  .badge-purple { background: #8B5CF622; color: #8B5CF6; border: 1px solid #8B5CF644; }
+  .badge-slate  { background: #30363D;   color: #8B949E; border: 1px solid #30363D; }
+
+  /* ── Buttons ── */
+  .btn-primary { background: #1DB87A; color: #fff; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 6px; transition: all .15s; }
+  .btn-primary:hover { background: #0F8A58; }
+  .btn-secondary { background: #21262D; color: #C9D1D9; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid #30363D; display: inline-flex; align-items: center; gap: 6px; transition: all .15s; }
+  .btn-secondary:hover { background: #30363D; }
+  .btn-outline { background: transparent; color: #1DB87A; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid #1DB87A66; display: inline-flex; align-items: center; gap: 6px; transition: all .15s; }
+  .btn-outline:hover { background: #1DB87A18; }
+  .btn-danger { background: #F8514922; color: #F85149; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid #F8514944; display: inline-flex; align-items: center; gap: 6px; }
+  .btn-danger:hover { background: #F8514944; }
+
+  /* ── Inputs ── */
+  .input { background: #0D1117; border: 1px solid #30363D; border-radius: 8px; padding: 10px 14px; font-size: 13.5px; color: #C9D1D9; width: 100%; outline: none; font-family: 'Inter', sans-serif; }
+  .input::placeholder { color: #484F58; }
+  .input:focus { border-color: #1DB87A66; box-shadow: 0 0 0 3px #1DB87A18; }
+  .select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%238B949E' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 16px; padding-right: 36px; }
+  .label { display: block; font-size: 12px; font-weight: 500; color: #8B949E; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .04em; }
+
+  /* ── Tables ── */
+  .table-header { background: #0D1117; border-bottom: 1px solid #21262D; }
+  .table-row:hover { background: #161B2266; }
+  .table-row { border-bottom: 1px solid #21262D; }
+
+  /* ── Topbar ── */
+  .topbar { background: #161B22; border-bottom: 1px solid #21262D; height: 60px; }
+
+  /* ── Role pill on login ── */
+  .role-card { border: 1.5px solid #30363D; border-radius: 12px; padding: 16px; cursor: pointer; transition: all .2s; text-align: center; background: #0D1117; }
+  .role-card:hover { border-color: #1DB87A55; background: #1DB87A0A; }
+  .role-card.selected { border-color: #1DB87A; background: #1DB87A18; box-shadow: 0 0 20px #1DB87A22; }
+
+  /* ── Timeline ── */
+  .timeline-dot-done { width:14px; height:14px; border-radius:50%; background:#1DB87A; flex-shrink:0; box-shadow:0 0 8px #1DB87A88; }
+  .timeline-dot-active { width:14px; height:14px; border-radius:50%; background:#8B5CF6; flex-shrink:0; box-shadow:0 0 10px #8B5CF6AA; animation: pulse2 1.5s infinite; }
+  .timeline-dot-pending { width:14px; height:14px; border-radius:50%; background:#30363D; flex-shrink:0; }
+  @keyframes pulse2 { 0%,100%{box-shadow:0 0 6px #8B5CF688} 50%{box-shadow:0 0 16px #8B5CF6CC} }
+
+  /* ── Welcome screen ── */
+  @keyframes fadeIn  { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes scaleIn { from{opacity:0;transform:scale(.8)} to{opacity:1;transform:scale(1)} }
+  @keyframes grow    { from{width:0} to{width:100%} }
+  .anim-1 { animation: scaleIn .5s .2s both; }
+  .anim-2 { animation: fadeIn .4s .7s both; }
+  .anim-3 { animation: fadeIn .4s 1.1s both; }
+  .anim-4 { animation: fadeIn .4s 1.5s both; }
+  .anim-bar { animation: grow 1.2s 1.9s both; }
+
+  /* ── Sidebar bg grid ── */
+  .hex-bg { position:absolute; inset:0; opacity:.04;
+    background-image: repeating-linear-gradient(60deg, #1DB87A 0, #1DB87A 1px, transparent 0, transparent 50%),
+                      repeating-linear-gradient(120deg, #1DB87A 0, #1DB87A 1px, transparent 0, transparent 50%);
+    background-size: 28px 48px; pointer-events:none; }
+
+  /* ── Progress wizard ── */
+  .step-done   { background:#1DB87A; border:2px solid #1DB87A; color:#fff; }
+  .step-active { background:#8B5CF6; border:2px solid #8B5CF6; color:#fff; }
+  .step-pending{ background:#21262D; border:2px solid #30363D; color:#8B949E; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width:5px; height:5px; }
+  ::-webkit-scrollbar-track { background:#0D1117; }
+  ::-webkit-scrollbar-thumb { background:#30363D; border-radius:8px; }
+
+  /* chart bars (pure CSS) */
+  .bar { background: linear-gradient(to top, #1DB87A, #1DB87A99); border-radius:4px 4px 0 0; transition: height .3s; }
+  .bar-p { background: linear-gradient(to top, #8B5CF6, #8B5CF699); border-radius:4px 4px 0 0; }
+</style>
+</head>
+
+<body class="antialiased min-h-screen"
+  x-data="{
+    page: 'login',
+    role: '',
+    userName: '',
+    formData: {},
+    sidebarOpen: true,
+
+    doLogin() {
+      if (!this.role) return;
+      const names = { cliente:'Ana García', admin_logistico:'Carlos Mendoza', admin_general:'Laura Ríos' };
+      this.userName = names[this.role];
+      this.page = 'welcome';
+      setTimeout(() => {
+        this.page = this.role === 'cliente' ? 'dash_cliente'
+                  : this.role === 'admin_logistico' ? 'dash_logistico'
+                  : 'dash_admin';
+      }, 3200);
+    }
+  }">
+
+<!-- ════════════════ LOGIN ════════════════ -->
+<div x-show="page === 'login'" class="min-h-screen flex">
+
+  <!-- Left panel -->
+  <div class="hidden md:flex w-[44%] relative flex-col justify-between p-12 overflow-hidden"
+       style="background: linear-gradient(145deg, #0D1117 0%, #161B22 60%, #1a2635 100%)">
+    <div class="hex-bg"></div>
+    <!-- Decorative circles -->
+    <div style="position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,#1DB87A18,transparent 70%);pointer-events:none"></div>
+    <div style="position:absolute;bottom:-80px;left:-40px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,#8B5CF618,transparent 70%);pointer-events:none"></div>
+
+    <div class="relative z-10">
+      <div class="flex items-center gap-3 mb-2">
+        <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#1DB87A,#0F8A58);display:flex;align-items:center;justify-content:center">
+          <span class="material-symbols-outlined" style="color:#fff;font-size:20px">local_shipping</span>
+        </div>
+        <span style="font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;color:#F0F6FC;letter-spacing:.04em">LOGISTICARGO</span>
+      </div>
+      <p style="font-size:11px;color:#484F58;letter-spacing:.1em;text-transform:uppercase">Sistema de Gestión Logística</p>
+    </div>
+
+    <div class="relative z-10">
+      <h1 style="font-family:'Poppins',sans-serif;font-weight:800;font-size:36px;line-height:1.15;color:#F0F6FC;margin-bottom:16px">
+        Operación logística<br/>
+        <span style="background:linear-gradient(90deg,#1DB87A,#8B5CF6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">sin fricciones.</span>
+      </h1>
+      <p style="font-size:14px;color:#8B949E;line-height:1.7;max-width:320px">
+        Gestiona mudanzas, vehículos y equipos desde una plataforma unificada. Tiempo real, sin papeles.
+      </p>
+    </div>
+
+    <!-- mini stats -->
+    <div class="relative z-10 grid grid-cols-3 gap-4">
+      <div style="border:1px solid #21262D;border-radius:10px;padding:14px;background:#161B2288">
+        <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;color:#1DB87A">2.5k</p>
+        <p style="font-size:11px;color:#8B949E">Servicios completados</p>
+      </div>
+      <div style="border:1px solid #21262D;border-radius:10px;padding:14px;background:#161B2288">
+        <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;color:#8B5CF6">98%</p>
+        <p style="font-size:11px;color:#8B949E">Satisfacción</p>
+      </div>
+      <div style="border:1px solid #21262D;border-radius:10px;padding:14px;background:#161B2288">
+        <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;color:#F59E0B">42</p>
+        <p style="font-size:11px;color:#8B949E">Vehículos activos</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right panel -->
+  <div class="flex-1 flex items-center justify-center p-8" style="background:#0D1117">
+    <div style="width:100%;max-width:420px">
+      <!-- Logo mobile -->
+      <div class="md:hidden flex items-center gap-3 mb-8">
+        <div style="width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#1DB87A,#0F8A58);display:flex;align-items:center;justify-content:center">
+          <span class="material-symbols-outlined" style="color:#fff;font-size:18px">local_shipping</span>
+        </div>
+        <span style="font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;color:#F0F6FC">LOGISTICARGO</span>
+      </div>
+
+      <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;color:#F0F6FC;margin-bottom:4px">Bienvenido de vuelta</h2>
+      <p style="font-size:13px;color:#8B949E;margin-bottom:28px">Selecciona tu rol e ingresa tus credenciales</p>
+
+      <!-- Role selector -->
+      <p class="label" style="margin-bottom:10px">Tu rol en el sistema</p>
+      <div class="grid grid-cols-3 gap-3 mb-6">
+        <div class="role-card" :class="role==='cliente' && 'selected'" @click="role='cliente'">
+          <span class="material-symbols-outlined" style="font-size:22px" :style="role==='cliente' ? 'color:#1DB87A' : 'color:#8B949E'">person</span>
+          <p style="font-size:11.5px;font-weight:600;margin-top:6px" :style="role==='cliente' ? 'color:#1DB87A' : 'color:#C9D1D9'">Cliente</p>
+        </div>
+        <div class="role-card" :class="role==='admin_logistico' && 'selected'" @click="role='admin_logistico'">
+          <span class="material-symbols-outlined" style="font-size:22px" :style="role==='admin_logistico' ? 'color:#1DB87A' : 'color:#8B949E'">route</span>
+          <p style="font-size:11.5px;font-weight:600;margin-top:6px" :style="role==='admin_logistico' ? 'color:#1DB87A' : 'color:#C9D1D9'">Admin Logístico</p>
+        </div>
+        <div class="role-card" :class="role==='admin_general' && 'selected'" @click="role='admin_general'">
+          <span class="material-symbols-outlined" style="font-size:22px" :style="role==='admin_general' ? 'color:#1DB87A' : 'color:#8B949E'">shield_person</span>
+          <p style="font-size:11.5px;font-weight:600;margin-top:6px" :style="role==='admin_general' ? 'color:#1DB87A' : 'color:#C9D1D9'">Admin General</p>
+        </div>
+      </div>
+
+      <!-- Fields -->
+      <div style="margin-bottom:16px">
+        <label class="label">Correo electrónico</label>
+        <input class="input" type="email" placeholder="usuario@logisticargo.com" x-model="formData.email"/>
+      </div>
+      <div style="margin-bottom:6px">
+        <label class="label">Contraseña</label>
+        <input class="input" type="password" placeholder="••••••••" x-model="formData.pass"/>
+      </div>
+      <div style="text-align:right;margin-bottom:24px">
+        <a @click.prevent="page='recover'" style="font-size:12px;color:#1DB87A;cursor:pointer">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button class="btn-primary" style="width:100%;justify-content:center;padding:12px" @click="doLogin()">
+        <span class="material-symbols-outlined" style="font-size:17px">login</span>
+        Iniciar Sesión
+      </button>
+
+      <p style="text-align:center;margin-top:20px;font-size:13px;color:#8B949E">
+        ¿No tienes cuenta? <a @click.prevent="page='register'" style="color:#1DB87A;cursor:pointer;font-weight:500">Regístrate aquí</a>
+      </p>
+
+      <!-- role hint -->
+      <div x-show="!role" style="margin-top:20px;background:#F59E0B11;border:1px solid #F59E0B33;border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:8px">
+        <span class="material-symbols-outlined" style="color:#F59E0B;font-size:17px">info</span>
+        <p style="font-size:12px;color:#F59E0B">Selecciona un rol para continuar</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ WELCOME ════════════════ -->
+<div x-show="page === 'welcome'" x-cloak
+     style="min-height:100vh;background:linear-gradient(135deg,#0D1117 0%,#0a1a14 50%,#0f0d1a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden">
+  <!-- BG shapes -->
+  <div style="position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,#1DB87A0D,transparent 60%);top:-150px;right:-150px;pointer-events:none"></div>
+  <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,#8B5CF60D,transparent 60%);bottom:-100px;left:-100px;pointer-events:none"></div>
+
+  <div class="anim-1" style="width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,#1DB87A,#0F8A58);display:flex;align-items:center;justify-content:center;margin-bottom:24px;box-shadow:0 0 40px #1DB87A44">
+    <span class="material-symbols-outlined" style="color:#fff;font-size:36px">local_shipping</span>
+  </div>
+  <div class="anim-2" style="font-family:'Poppins',sans-serif;font-weight:800;font-size:28px;color:#F0F6FC;margin-bottom:8px;text-align:center">LOGISTICARGO SYSTEM</div>
+  <div class="anim-3" style="font-size:15px;color:#8B949E;margin-bottom:8px">Hola, <span x-text="userName" style="color:#1DB87A;font-weight:600"></span> 👋</div>
+  <div class="anim-4" style="font-size:13px;color:#484F58;margin-bottom:36px">Tu operación logística está lista</div>
+  <div style="width:240px;height:3px;background:#21262D;border-radius:8px;overflow:hidden">
+    <div class="anim-bar" style="height:100%;background:linear-gradient(90deg,#1DB87A,#8B5CF6)"></div>
+  </div>
+</div>
+
+<!-- ════════════════ RECOVER ════════════════ -->
+<div x-show="page === 'recover'" x-cloak class="min-h-screen flex items-center justify-center p-6" style="background:#0D1117">
+  <div class="card" style="max-width:400px;width:100%;padding:36px;text-align:center">
+    <div style="width:52px;height:52px;border-radius:14px;background:#8B5CF622;border:1px solid #8B5CF644;display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+      <span class="material-symbols-outlined" style="color:#8B5CF6;font-size:24px">lock_reset</span>
+    </div>
+    <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;color:#F0F6FC;margin-bottom:6px">Recuperar contraseña</h2>
+    <p style="font-size:13px;color:#8B949E;margin-bottom:24px">Ingresa tu correo y te enviamos un código de verificación.</p>
+    <div style="text-align:left;margin-bottom:20px">
+      <label class="label">Correo electrónico</label>
+      <input class="input" type="email" placeholder="usuario@logisticargo.com"/>
+    </div>
+    <button class="btn-primary" style="width:100%;justify-content:center">Enviar código</button>
+    <a @click.prevent="page='login'" style="display:block;margin-top:16px;font-size:13px;color:#8B949E;cursor:pointer">← Volver al inicio de sesión</a>
+  </div>
+</div>
+
+<!-- ════════════════ REGISTER ════════════════ -->
+<div x-show="page === 'register'" x-cloak class="min-h-screen flex items-center justify-center p-6" style="background:#0D1117">
+  <div class="card" style="max-width:520px;width:100%;padding:36px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px">
+      <div style="width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#1DB87A,#0F8A58);display:flex;align-items:center;justify-content:center">
+        <span class="material-symbols-outlined" style="color:#fff;font-size:18px">local_shipping</span>
+      </div>
+      <span style="font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;color:#F0F6FC">LOGISTICARGO</span>
+    </div>
+
+    <!-- Steps -->
+    <div style="display:flex;align-items:center;gap:0;margin-bottom:28px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="step-done" style="width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">1</div>
+        <span style="font-size:12px;color:#1DB87A;font-weight:500">Datos</span>
+      </div>
+      <div style="flex:1;height:1px;background:#30363D;margin:0 10px"></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="step-active" style="width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">2</div>
+        <span style="font-size:12px;color:#8B5CF6;font-weight:500">Seguridad</span>
+      </div>
+      <div style="flex:1;height:1px;background:#30363D;margin:0 10px"></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="step-pending" style="width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">3</div>
+        <span style="font-size:12px;color:#8B949E">Confirmar</span>
+      </div>
+    </div>
+
+    <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;color:#F0F6FC;margin-bottom:20px">Crear cuenta de Cliente</h2>
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div><label class="label">Nombre</label><input class="input" placeholder="Juan"/></div>
+      <div><label class="label">Apellido</label><input class="input" placeholder="García"/></div>
+    </div>
+    <div style="margin-bottom:16px"><label class="label">Correo electrónico</label><input class="input" type="email" placeholder="juan@empresa.com"/></div>
+    <div style="margin-bottom:16px"><label class="label">Teléfono</label><input class="input" placeholder="+57 300 123 4567"/></div>
+    <div class="grid grid-cols-2 gap-4 mb-24">
+      <div><label class="label">Contraseña</label><input class="input" type="password" placeholder="••••••••"/></div>
+      <div><label class="label">Confirmar</label><input class="input" type="password" placeholder="••••••••"/></div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:8px">
+      <button class="btn-secondary" @click="page='login'" style="flex:1;justify-content:center">Atrás</button>
+      <button class="btn-primary" @click="role='cliente';doLogin()" style="flex:1;justify-content:center">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     SHARED SIDEBAR COMPONENT (inline per role)
+═══════════════════════════════════════════════════ -->
+
+<!-- ═══ DASH: CLIENTE ═══ -->
+<div x-show="page === 'dash_cliente' || page === 'cl_solicitud' || page === 'cl_cotizacion' || page === 'cl_seguimiento'" x-cloak class="flex h-screen overflow-hidden">
+  <!-- Sidebar Cliente -->
+  <aside class="sidebar w-56 flex flex-col flex-shrink-0">
+    <div style="padding:20px 16px 16px;border-bottom:1px solid #21262D">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#1DB87A,#0F8A58);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <span class="material-symbols-outlined" style="color:#fff;font-size:16px">local_shipping</span>
+        </div>
+        <div>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:11px;color:#F0F6FC;letter-spacing:.04em">LOGISTICARGO</p>
+          <p style="font-size:10px;color:#8B949E">Portal Cliente</p>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px 10px;flex:1;overflow-y:auto">
+      <p style="font-size:10px;color:#484F58;padding:6px 8px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:4px">Principal</p>
+      <a class="nav-item" :class="page==='dash_cliente' && 'active'" @click.prevent="page='dash_cliente'">
+        <span class="material-symbols-outlined ms">dashboard</span>Dashboard
+      </a>
+      <a class="nav-item" :class="page==='cl_solicitud' && 'active'" @click.prevent="page='cl_solicitud'">
+        <span class="material-symbols-outlined ms">add_box</span>Solicitar Mudanza
+      </a>
+      <a class="nav-item" :class="page==='cl_cotizacion' && 'active'" @click.prevent="page='cl_cotizacion'">
+        <span class="material-symbols-outlined ms">request_quote</span>Mis Cotizaciones
+      </a>
+      <a class="nav-item" :class="page==='cl_seguimiento' && 'active'" @click.prevent="page='cl_seguimiento'">
+        <span class="material-symbols-outlined ms">track_changes</span>Seguimiento
+      </a>
+      <p style="font-size:10px;color:#484F58;padding:6px 8px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin:10px 0 4px">Cuenta</p>
+      <a class="nav-item"><span class="material-symbols-outlined ms">receipt_long</span>Pagos</a>
+      <a class="nav-item"><span class="material-symbols-outlined ms">headset_mic</span>Soporte</a>
+    </div>
+    <div style="padding:12px 10px;border-top:1px solid #21262D">
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+        <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#1DB87A,#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0">AG</div>
+        <div style="min-width:0">
+          <p style="font-size:12px;font-weight:600;color:#C9D1D9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" x-text="userName"></p>
+          <p style="font-size:10px;color:#8B949E">Cliente</p>
+        </div>
+        <a @click.prevent="page='login'" style="margin-left:auto"><span class="material-symbols-outlined" style="font-size:16px;color:#484F58">logout</span></a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Content area -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Topbar -->
+    <div class="topbar flex items-center justify-between px-6">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="material-symbols-outlined" style="font-size:16px;color:#484F58">home</span>
+        <span style="font-size:12px;color:#484F58">/</span>
+        <span style="font-size:12px;color:#8B949E" x-text="page==='dash_cliente'?'Dashboard':page==='cl_solicitud'?'Solicitar Mudanza':page==='cl_cotizacion'?'Cotizaciones':'Seguimiento'"></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="position:relative;cursor:pointer">
+          <span class="material-symbols-outlined" style="font-size:20px;color:#8B949E">notifications</span>
+          <span style="position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#F85149;border:2px solid #161B22"></span>
+        </div>
+        <div class="badge badge-green">
+          <span class="material-symbols-outlined" style="font-size:12px">circle</span>Cliente
+        </div>
+      </div>
+    </div>
+
+    <!-- DASH CLIENTE content -->
+    <div x-show="page === 'dash_cliente'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px">
+        <div>
+          <p style="font-size:12px;color:#8B949E;margin-bottom:2px">Bienvenida de vuelta,</p>
+          <h1 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;color:#F0F6FC" x-text="userName"></h1>
+        </div>
+        <button class="btn-primary" @click="page='cl_solicitud'">
+          <span class="material-symbols-outlined" style="font-size:16px">add</span>Nueva Mudanza
+        </button>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card stat-emerald" style="padding:18px">
+          <p style="font-size:11px;color:#8B949E;margin-bottom:6px">Servicios Activos</p>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:#1DB87A">2</p>
+          <p style="font-size:11px;color:#1DB87A77;margin-top:4px">+1 este mes</p>
+        </div>
+        <div class="card stat-purple" style="padding:18px">
+          <p style="font-size:11px;color:#8B949E;margin-bottom:6px">Completados</p>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:#8B5CF6">12</p>
+          <p style="font-size:11px;color:#8B5CF677;margin-top:4px">Total histórico</p>
+        </div>
+        <div class="card stat-amber" style="padding:18px">
+          <p style="font-size:11px;color:#8B949E;margin-bottom:6px">Próximo Servicio</p>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;color:#F59E0B">24 Jul</p>
+          <p style="font-size:11px;color:#F59E0B77;margin-top:4px">En 5 días</p>
+        </div>
+        <div class="card stat-info" style="padding:18px">
+          <p style="font-size:11px;color:#8B949E;margin-bottom:6px">Saldo Pendiente</p>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;color:#58A6FF">$1.25M</p>
+          <p style="font-size:11px;color:#58A6FF77;margin-top:4px">2 facturas</p>
+        </div>
+      </div>
+
+      <!-- Services list -->
+      <div class="card" style="padding:22px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+          <h2 style="font-size:15px;font-weight:600;color:#F0F6FC">Mis Servicios Recientes</h2>
+          <button class="btn-secondary" style="padding:6px 14px;font-size:12px">Ver todos</button>
+        </div>
+        <!-- table header -->
+        <div style="display:grid;grid-template-columns:1fr 1.2fr 1fr auto;gap:12px;padding:8px 12px;background:#0D1117;border-radius:6px;margin-bottom:8px">
+          <p style="font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Servicio</p>
+          <p style="font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Ruta</p>
+          <p style="font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Fecha</p>
+          <p style="font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Estado</p>
+        </div>
+        <!-- rows -->
+        <div style="display:grid;grid-template-columns:1fr 1.2fr 1fr auto;gap:12px;padding:12px;border-radius:8px;margin-bottom:4px;cursor:pointer" class="card-hover table-row" @click="page='cl_seguimiento'">
+          <div>
+            <p style="font-size:13px;font-weight:600;color:#F0F6FC">SRV-2024-00847</p>
+            <p style="font-size:11px;color:#8B949E">Residencial</p>
+          </div>
+          <div>
+            <p style="font-size:12px;color:#C9D1D9">Bogotá → Medellín</p>
+            <p style="font-size:11px;color:#8B949E">250 km</p>
+          </div>
+          <p style="font-size:12px;color:#C9D1D9;align-self:center">25 Oct 2024</p>
+          <span class="badge badge-green">Confirmado</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1.2fr 1fr auto;gap:12px;padding:12px;border-radius:8px;margin-bottom:4px;cursor:pointer" class="card-hover table-row">
+          <div>
+            <p style="font-size:13px;font-weight:600;color:#F0F6FC">SRV-2024-00848</p>
+            <p style="font-size:11px;color:#8B949E">Oficina</p>
+          </div>
+          <div>
+            <p style="font-size:12px;color:#C9D1D9">Bogotá → Cali</p>
+            <p style="font-size:11px;color:#8B949E">460 km</p>
+          </div>
+          <p style="font-size:12px;color:#C9D1D9;align-self:center">30 Oct 2024</p>
+          <span class="badge badge-orange">Pendiente</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1.2fr 1fr auto;gap:12px;padding:12px;border-radius:8px;cursor:pointer" class="card-hover">
+          <div>
+            <p style="font-size:13px;font-weight:600;color:#F0F6FC">SRV-2024-00846</p>
+            <p style="font-size:11px;color:#8B949E">Residencial</p>
+          </div>
+          <div>
+            <p style="font-size:12px;color:#C9D1D9">Bogotá → Bogotá</p>
+            <p style="font-size:11px;color:#8B949E">Local</p>
+          </div>
+          <p style="font-size:12px;color:#C9D1D9;align-self:center">15 Sep 2024</p>
+          <span class="badge badge-slate">Completado</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOLICITUD MUDANZA -->
+    <div x-show="page === 'cl_solicitud'" class="flex-1 overflow-y-auto p-6">
+      <h1 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;color:#F0F6FC;margin-bottom:6px">Solicitar Mudanza</h1>
+      <p style="font-size:13px;color:#8B949E;margin-bottom:24px">Completa los 4 pasos para agendar tu servicio.</p>
+
+      <!-- Steps bar -->
+      <div style="display:flex;align-items:center;gap:0;margin-bottom:28px">
+        <div style="display:flex;align-items:center;gap:6px"><div class="step-done" style="width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">1</div><span style="font-size:12px;color:#1DB87A">Origen/Destino</span></div>
+        <div style="flex:1;height:1px;background:#30363D;margin:0 8px"></div>
+        <div style="display:flex;align-items:center;gap:6px"><div class="step-active" style="width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">2</div><span style="font-size:12px;color:#8B5CF6">Inventario</span></div>
+        <div style="flex:1;height:1px;background:#30363D;margin:0 8px"></div>
+        <div style="display:flex;align-items:center;gap:6px"><div class="step-pending" style="width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">3</div><span style="font-size:12px;color:#8B949E">Fecha</span></div>
+        <div style="flex:1;height:1px;background:#30363D;margin:0 8px"></div>
+        <div style="display:flex;align-items:center;gap:6px"><div class="step-pending" style="width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">4</div><span style="font-size:12px;color:#8B949E">Confirmar</span></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card" style="padding:24px">
+          <h3 style="font-size:14px;font-weight:600;color:#F0F6FC;margin-bottom:18px;display:flex;align-items:center;gap:8px"><span class="material-symbols-outlined" style="color:#1DB87A;font-size:18px">my_location</span>Origen</h3>
+          <div style="margin-bottom:14px"><label class="label">Dirección de origen</label><input class="input" placeholder="Calle 85 #15-32, Bogotá"/></div>
+          <div style="margin-bottom:14px"><label class="label">Ciudad</label><input class="input" placeholder="Bogotá"/></div>
+          <div><label class="label">Tipo de propiedad</label>
+            <select class="input select"><option>Apartamento</option><option>Casa</option><option>Oficina</option><option>Bodega</option></select>
+          </div>
+        </div>
+        <div class="card" style="padding:24px">
+          <h3 style="font-size:14px;font-weight:600;color:#F0F6FC;margin-bottom:18px;display:flex;align-items:center;gap:8px"><span class="material-symbols-outlined" style="color:#8B5CF6;font-size:18px">location_on</span>Destino</h3>
+          <div style="margin-bottom:14px"><label class="label">Dirección de destino</label><input class="input" placeholder="Carrera 7 #12-34, Medellín"/></div>
+          <div style="margin-bottom:14px"><label class="label">Ciudad</label><input class="input" placeholder="Medellín"/></div>
+          <div><label class="label">Tipo de propiedad</label>
+            <select class="input select"><option>Apartamento</option><option>Casa</option><option>Oficina</option><option>Bodega</option></select>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:20px">
+        <button class="btn-secondary" @click="page='dash_cliente'">Cancelar</button>
+        <button class="btn-primary" @click="page='cl_cotizacion'">Siguiente → Cotización</button>
+      </div>
+    </div>
+
+    <!-- COTIZACIÓN -->
+    <div x-show="page === 'cl_cotizacion'" class="flex-1 overflow-y-auto p-6">
+      <h1 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;color:#F0F6FC;margin-bottom:4px">Cotización Automática</h1>
+      <p style="font-size:13px;color:#8B949E;margin-bottom:24px">Revisa el desglose y confirma tu servicio.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card" style="padding:24px;md:col-span:2">
+          <h3 style="font-size:14px;font-weight:600;color:#F0F6FC;margin-bottom:16px">Desglose de Costos — SRV-2024-00850</h3>
+          <div style="background:#0D1117;border-radius:8px;padding:16px;margin-bottom:16px">
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #21262D"><span style="font-size:13px;color:#8B949E">Costo base</span><span style="font-size:13px;color:#C9D1D9;font-weight:500">$1.200.000</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #21262D"><span style="font-size:13px;color:#8B949E">Volumen (15 m³)</span><span style="font-size:13px;color:#C9D1D9;font-weight:500">$300.000</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #21262D"><span style="font-size:13px;color:#8B949E">Distancia (250 km)</span><span style="font-size:13px;color:#C9D1D9;font-weight:500">$500.000</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #21262D"><span style="font-size:13px;color:#8B949E">Embalaje especializado</span><span style="font-size:13px;color:#C9D1D9;font-weight:500">$150.000</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0"><span style="font-size:13px;color:#8B949E">Seguro de carga</span><span style="font-size:13px;color:#C9D1D9;font-weight:500">$80.000</span></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#1DB87A18,#8B5CF618);border:1px solid #1DB87A33;border-radius:8px;padding:16px;margin-bottom:20px">
+            <span style="font-size:14px;font-weight:600;color:#F0F6FC">TOTAL ESTIMADO</span>
+            <span style="font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;color:#1DB87A">$2.230.000</span>
+          </div>
+          <div style="display:flex;gap:12px">
+            <button class="btn-secondary" @click="page='cl_solicitud'" style="flex:1;justify-content:center">Modificar</button>
+            <button class="btn-primary" @click="page='dash_cliente'" style="flex:1;justify-content:center">Confirmar y Agendar</button>
+          </div>
+        </div>
+        <div class="card" style="padding:20px">
+          <h3 style="font-size:13px;font-weight:600;color:#F0F6FC;margin-bottom:14px">Ruta del Servicio</h3>
+          <div style="display:flex;gap:10px;margin-bottom:12px"><span class="material-symbols-outlined" style="color:#1DB87A;font-size:18px">trip_origin</span><div><p style="font-size:11px;color:#8B949E">Origen</p><p style="font-size:12px;color:#C9D1D9">Calle 85 #15-32, Bogotá</p></div></div>
+          <div style="display:flex;gap:10px;margin-bottom:18px"><span class="material-symbols-outlined" style="color:#8B5CF6;font-size:18px">location_on</span><div><p style="font-size:11px;color:#8B949E">Destino</p><p style="font-size:12px;color:#C9D1D9">Carrera 7 #12-34, Medellín</p></div></div>
+          <div style="background:#0D1117;border-radius:8px;height:140px;display:flex;align-items:center;justify-content:center;border:1px solid #21262D">
+            <div style="text-align:center"><span class="material-symbols-outlined" style="font-size:32px;color:#30363D">map</span><p style="font-size:11px;color:#484F58;margin-top:6px">Mapa de ruta</p></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:14px;padding:10px;background:#0D1117;border-radius:6px">
+            <div style="text-align:center"><p style="font-size:11px;color:#8B949E">Distancia</p><p style="font-size:14px;font-weight:600;color:#1DB87A">250 km</p></div>
+            <div style="text-align:center"><p style="font-size:11px;color:#8B949E">Tiempo est.</p><p style="font-size:14px;font-weight:600;color:#8B5CF6">4-5 hrs</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEGUIMIENTO -->
+    <div x-show="page === 'cl_seguimiento'" class="flex-1 overflow-y-auto p-6">
+      <h1 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;color:#F0F6FC;margin-bottom:4px">Seguimiento — SRV-2024-00847</h1>
+      <p style="font-size:13px;color:#8B949E;margin-bottom:24px">Mudanzas García & Asociados · Bogotá → Medellín</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:13px;font-weight:600;color:#F0F6FC;margin-bottom:18px">Estado del Servicio</h3>
+          <!-- Timeline -->
+          <div style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;gap:14px;align-items:flex-start;padding-bottom:20px">
+              <div style="display:flex;flex-direction:column;align-items:center"><div class="timeline-dot-done"></div><div style="width:1px;flex:1;background:#1DB87A44;margin:4px 0"></div></div>
+              <div style="padding-bottom:4px"><p style="font-size:13px;font-weight:600;color:#1DB87A">Solicitud Recibida</p><p style="font-size:11px;color:#8B949E">20 Oct · 10:30 AM</p></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding-bottom:20px">
+              <div style="display:flex;flex-direction:column;align-items:center"><div class="timeline-dot-done"></div><div style="width:1px;flex:1;background:#1DB87A44;margin:4px 0"></div></div>
+              <div><p style="font-size:13px;font-weight:600;color:#1DB87A">Cotización Aprobada</p><p style="font-size:11px;color:#8B949E">20 Oct · 02:00 PM</p></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding-bottom:20px">
+              <div style="display:flex;flex-direction:column;align-items:center"><div class="timeline-dot-done"></div><div style="width:1px;flex:1;background:#1DB87A44;margin:4px 0"></div></div>
+              <div><p style="font-size:13px;font-weight:600;color:#1DB87A">Confirmado</p><p style="font-size:11px;color:#8B949E">21 Oct · 09:00 AM</p></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding-bottom:20px">
+              <div style="display:flex;flex-direction:column;align-items:center"><div class="timeline-dot-active"></div><div style="width:1px;flex:1;background:#8B5CF633;margin:4px 0"></div></div>
+              <div><p style="font-size:13px;font-weight:600;color:#8B5CF6">En Ruta al Origen</p><p style="font-size:11px;color:#8B949E">25 Oct · estimado 08:30 AM</p></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="display:flex;flex-direction:column;align-items:center"><div class="timeline-dot-pending"></div></div>
+              <div style="opacity:.45"><p style="font-size:13px;font-weight:600;color:#C9D1D9">En Proceso de Carga</p><p style="font-size:11px;color:#8B949E">Pendiente</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:13px;font-weight:600;color:#F0F6FC;margin-bottom:16px">Equipo Asignado</h3>
+          <div style="display:flex;align-items:center;gap:12px;padding:14px;background:#0D1117;border-radius:8px;margin-bottom:10px">
+            <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#F59E0B,#D97706);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0">CM</div>
+            <div><p style="font-size:13px;font-weight:600;color:#F0F6FC">Carlos Mendoza</p><p style="font-size:11px;color:#8B949E">Conductor · +57 310 123 4567</p></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:14px;background:#0D1117;border-radius:8px;margin-bottom:16px">
+            <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#58A6FF,#1D6FC8);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0">LR</div>
+            <div><p style="font-size:13px;font-weight:600;color:#F0F6FC">Luis Ramos</p><p style="font-size:11px;color:#8B949E">Auxiliar</p></div>
+          </div>
+          <div style="padding:14px;background:#0D1117;border-radius:8px">
+            <p style="font-size:11px;color:#8B949E;margin-bottom:4px">Vehículo Asignado</p>
+            <p style="font-size:13px;font-weight:600;color:#F0F6FC">Ford F-350 Camión Mediano</p>
+            <p style="font-size:11px;color:#8B949E">Placa: ABC-123</p>
+          </div>
+        </div>
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:13px;font-weight:600;color:#F0F6FC;margin-bottom:14px">Ubicación en Tiempo Real</h3>
+          <div style="background:#0D1117;border-radius:8px;height:160px;display:flex;align-items:center;justify-content:center;border:1px solid #21262D;margin-bottom:12px">
+            <div style="text-align:center"><span class="material-symbols-outlined" style="font-size:36px;color:#1DB87A">location_on</span><p style="font-size:11px;color:#8B949E;margin-top:6px">GPS en vivo</p></div>
+          </div>
+          <p style="font-size:11px;color:#8B949E;text-align:center;font-style:italic">Actualizado hace 5 minutos</p>
+          <div style="display:flex;gap:10px;margin-top:14px">
+            <button class="btn-outline" style="flex:1;justify-content:center;font-size:12px">Contactar</button>
+            <button class="btn-danger" style="flex:1;justify-content:center;font-size:12px">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ DASH: ADMIN LOGÍSTICO ═══ -->
+<div x-show="page === 'dash_logistico' || page === 'lg_agenda' || page === 'lg_vehiculos'" x-cloak class="flex h-screen overflow-hidden">
+  <!-- Sidebar Logístico -->
+  <aside class="sidebar w-56 flex flex-col flex-shrink-0">
+    <div style="padding:20px 16px 16px;border-bottom:1px solid #21262D">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <span class="material-symbols-outlined" style="color:#fff;font-size:16px">route</span>
+        </div>
+        <div>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:11px;color:#F0F6FC;letter-spacing:.04em">LOGISTICARGO</p>
+          <p style="font-size:10px;color:#8B949E">Panel Logístico</p>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px 10px;flex:1;overflow-y:auto">
+      <p style="font-size:10px;color:#484F58;padding:6px 8px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:4px">Operaciones</p>
+      <a class="nav-item" :class="page==='dash_logistico' && 'active'" @click.prevent="page='dash_logistico'">
+        <span class="material-symbols-outlined ms">dashboard</span>Dashboard
+      </a>
+      <a class="nav-item" :class="page==='lg_agenda' && 'active'" @click.prevent="page='lg_agenda'">
+        <span class="material-symbols-outlined ms">calendar_month</span>Agenda
+      </a>
+      <a class="nav-item"><span class="material-symbols-outlined ms">track_changes</span>Seguimiento Live</a>
+      <a class="nav-item" :class="page==='lg_vehiculos' && 'active'" @click.prevent="page='lg_vehiculos'">
+        <span class="material-symbols-outlined ms">local_shipping</span>Vehículos
+      </a>
+      <a class="nav-item"><span class="material-symbols-outlined ms">group</span>Empleados</a>
+      <p style="font-size:10px;color:#484F58;padding:6px 8px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin:10px 0 4px">Gestión</p>
+      <a class="nav-item"><span class="material-symbols-outlined ms">list_alt</span>Servicios</a>
+      <a class="nav-item"><span class="material-symbols-outlined ms">bar_chart</span>Reportes</a>
+    </div>
+    <div style="padding:12px 10px;border-top:1px solid #21262D">
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer" onmouseover="this.style.background='#21262D'" onmouseout="this.style.background='transparent'">
+        <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0">CM</div>
+        <div style="min-width:0">
+          <p style="font-size:12px;font-weight:600;color:#C9D1D9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" x-text="userName"></p>
+          <p style="font-size:10px;color:#8B5CF6">Admin Logístico</p>
+        </div>
+        <a @click.prevent="page='login'" style="margin-left:auto"><span class="material-symbols-outlined" style="font-size:16px;color:#484F58">logout</span></a>
+      </div>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <div class="topbar flex items-center justify-between px-6">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="material-symbols-outlined" style="font-size:16px;color:#484F58">home</span>
+        <span style="font-size:12px;color:#484F58">/</span>
+        <span style="font-size:12px;color:#8B949E" x-text="page==='dash_logistico'?'Dashboard':page==='lg_agenda'?'Agenda':'Vehículos'"></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="position:relative;background:#21262D;border-radius:8px;display:flex;align-items:center;gap:8px;padding:6px 12px">
+          <span class="material-symbols-outlined" style="font-size:15px;color:#484F58">search</span>
+          <input style="background:transparent;border:none;outline:none;font-size:13px;color:#C9D1D9;width:160px" placeholder="Buscar servicio..."/>
+        </div>
+        <div style="position:relative;cursor:pointer">
+          <span class="material-symbols-outlined" style="font-size:20px;color:#8B949E">notifications</span>
+          <span style="position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#F85149;border:2px solid #161B22"></span>
+        </div>
+        <div class="badge badge-purple">
+          <span class="material-symbols-outlined" style="font-size:12px">route</span>Logístico
+        </div>
+      </div>
+    </div>
+
+    <!-- DASH LOGÍSTICO -->
+    <div x-show="page === 'dash_logistico'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px">
+        <div>
+          <p style="font-size:12px;color:#8B949E;margin-bottom:2px">Panel operativo de hoy,</p>
+          <h1 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;color:#F0F6FC" x-text="userName"></h1>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn-secondary"><span class="material-symbols-outlined" style="font-size:16px">download</span>Exportar</button>
+          <button class="btn-primary" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9)">
+            <span class="material-symbols-outlined" style="font-size:16px">assignment_turned_in</span>Validar Solicitud
+          </button>
+        </div>
+      </div>
+
+      <!-- Operational stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card stat-purple" style="padding:18px">
+          <p style="font-size:11px;color:#8B949E;margin-bottom:6px">Servicios Hoy</p>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:#8B5CF6">8</p>
+          <p style="font-size:11px;color:#8B5CF677;margin-top:4px">3 en curso</p>
+        </div>
+        <div class="card stat-emerald" style="padding:18px">
+          <p style="font-size:11px;color:#8B949E;margin-bottom:6px">Vehículos Activos</p>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:#1DB87A">6</p>
+          <p style="font-size:11px;color:#1DB87A77;margin-top:4px">2 disponibles</p>
+        </div>
+        <div class="card stat-amber" style="padding:18px">
+          <p style="font-size:11px;color:#8B949E;margin-bottom:6px">Pendientes de Validar</p>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:#F59E0B">4</p>
+          <p style="font-size:11px;color:#F59E0B77;margin-top:4px">Requieren acción</p>
+        </div>
+        <div class="card stat-info" style="padding:18px">
+          <p style="font-size:11px;color:#8B949E;margin-bottom:6px">Empleados en Campo</p>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:#58A6FF">12</p>
+          <p style="font-size:11px;color:#58A6FF77;margin-top:4px">De 16 disponibles</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Servicios pendientes de validar -->
+        <div class="card" style="padding:22px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:16px">
+            <h3 style="font-size:14px;font-weight:600;color:#F0F6FC">Pendientes de Validar</h3>
+            <span class="badge badge-orange">4 nuevos</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="background:#0D1117;border-radius:8px;padding:14px;border:1px solid #30363D">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+                <div><p style="font-size:13px;font-weight:600;color:#F0F6FC">SRV-2024-00850</p><p style="font-size:11px;color:#8B949E">Bogotá → Medellín · Residencial</p></div>
+                <span class="badge badge-orange">Pendiente</span>
+              </div>
+              <div style="display:flex;gap:8px">
+                <button class="btn-primary" style="padding:6px 14px;font-size:12px;background:linear-gradient(135deg,#1DB87A,#0F8A58)">Validar</button>
+                <button class="btn-danger" style="padding:6px 14px;font-size:12px">Rechazar</button>
+              </div>
+            </div>
+            <div style="background:#0D1117;border-radius:8px;padding:14px;border:1px solid #30363D">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+                <div><p style="font-size:13px;font-weight:600;color:#F0F6FC">SRV-2024-00851</p><p style="font-size:11px;color:#8B949E">Bogotá → Cali · Oficina</p></div>
+                <span class="badge badge-orange">Pendiente</span>
+              </div>
+              <div style="display:flex;gap:8px">
+                <button class="btn-primary" style="padding:6px 14px;font-size:12px;background:linear-gradient(135deg,#1DB87A,#0F8A58)">Validar</button>
+                <button class="btn-danger" style="padding:6px 14px;font-size:12px">Rechazar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asignación rápida -->
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:14px;font-weight:600;color:#F0F6FC;margin-bottom:16px">Asignación Rápida</h3>
+          <div style="margin-bottom:14px"><label class="label">Servicio a asignar</label>
+            <select class="input select"><option>SRV-2024-00850 — Bogotá→Medellín</option><option>SRV-2024-00851 — Bogotá→Cali</option></select>
+          </div>
+          <div style="margin-bottom:14px"><label class="label">Vehículo disponible</label>
+            <select class="input select"><option>Camión Mediano · Ford F-350 · ABC-123</option><option>Camión Grande · Kenworth T680 · XYZ-456</option></select>
+          </div>
+          <div style="margin-bottom:18px"><label class="label">Conductor asignado</label>
+            <select class="input select"><option>Carlos Mendoza</option><option>Pedro Ruiz</option></select>
+          </div>
+          <button class="btn-primary" style="width:100%;justify-content:center;background:linear-gradient(135deg,#8B5CF6,#6D28D9)">
+            <span class="material-symbols-outlined" style="font-size:16px">assignment_ind</span>Asignar Ahora
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGENDA -->
+    <div x-show="page === 'lg_agenda'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <h1 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;color:#F0F6FC">Agenda de Servicios</h1>
+        <div style="display:flex;gap:10px">
+          <button class="btn-secondary" style="padding:7px 14px;font-size:12px">Mes</button>
+          <button class="btn-secondary" style="padding:7px 14px;font-size:12px;background:#8B5CF622;color:#8B5CF6;border-color:#8B5CF644">Semana</button>
+          <button class="btn-secondary" style="padding:7px 14px;font-size:12px">Lista</button>
+        </div>
+      </div>
+      <!-- Calendar grid -->
+      <div class="card" style="padding:20px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+          <button class="btn-secondary" style="padding:6px 12px">←</button>
+          <h3 style="font-size:15px;font-weight:600;color:#F0F6FC">Octubre 2024</h3>
+          <button class="btn-secondary" style="padding:6px 12px">→</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px">
+          <div style="text-align:center;font-size:11px;color:#8B949E;padding:6px;font-weight:600">LUN</div>
+          <div style="text-align:center;font-size:11px;color:#8B949E;padding:6px;font-weight:600">MAR</div>
+          <div style="text-align:center;font-size:11px;color:#8B949E;padding:6px;font-weight:600">MIÉ</div>
+          <div style="text-align:center;font-size:11px;color:#8B949E;padding:6px;font-weight:600">JUE</div>
+          <div style="text-align:center;font-size:11px;color:#8B949E;padding:6px;font-weight:600">VIE</div>
+          <div style="text-align:center;font-size:11px;color:#8B949E;padding:6px;font-weight:600">SÁB</div>
+          <div style="text-align:center;font-size:11px;color:#8B949E;padding:6px;font-weight:600">DOM</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+          <!-- week 1 padding -->
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">1</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">2</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">3</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">4</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">5</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">6</span></div>
+          <!-- week 2 -->
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">7</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">8</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#8B5CF614;border:1px solid #8B5CF633"><span style="font-size:12px;color:#8B5CF6;font-weight:600">9</span><div style="margin-top:4px;background:#8B5CF6;border-radius:4px;padding:3px 5px;font-size:10px;color:#fff">SRV-850</div></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">10</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">11</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#1DB87A14;border:1px solid #1DB87A33"><span style="font-size:12px;color:#1DB87A;font-weight:600">12</span><div style="margin-top:4px;background:#1DB87A;border-radius:4px;padding:3px 5px;font-size:10px;color:#fff">SRV-847</div><div style="margin-top:3px;background:#1DB87A;border-radius:4px;padding:3px 5px;font-size:10px;color:#fff">SRV-848</div></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">13</span></div>
+          <!-- today -->
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#58A6FF14;border:2px solid #58A6FF44"><span style="font-size:12px;color:#58A6FF;font-weight:700">14 ★</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">15</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">16</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">17</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">18</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">19</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:6px;background:#0D1117"><span style="font-size:12px;color:#8B949E">20</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VEHÍCULOS -->
+    <div x-show="page === 'lg_vehiculos'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <h1 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;color:#F0F6FC">Gestión de Vehículos</h1>
+        <button class="btn-primary" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9)"><span class="material-symbols-outlined" style="font-size:16px">add</span>Registrar Vehículo</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="card stat-emerald" style="padding:16px;display:flex;align-items:center;gap:14px">
+          <div style="width:40px;height:40px;border-radius:10px;background:#1DB87A22;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="color:#1DB87A;font-size:20px">local_shipping</span></div>
+          <div><p style="font-size:11px;color:#8B949E">Disponibles</p><p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;color:#1DB87A">2</p></div>
+        </div>
+        <div class="card stat-amber" style="padding:16px;display:flex;align-items:center;gap:14px">
+          <div style="width:40px;height:40px;border-radius:10px;background:#F59E0B22;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="color:#F59E0B;font-size:20px">sync</span></div>
+          <div><p style="font-size:11px;color:#8B949E">En Servicio</p><p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;color:#F59E0B">6</p></div>
+        </div>
+        <div class="card stat-info" style="padding:16px;display:flex;align-items:center;gap:14px">
+          <div style="width:40px;height:40px;border-radius:10px;background:#F8514922;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="color:#F85149;font-size:20px">build</span></div>
+          <div><p style="font-size:11px;color:#8B949E">En Mantenimiento</p><p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;color:#F85149">1</p></div>
+        </div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <div style="padding:16px 20px;border-bottom:1px solid #21262D;display:flex;gap:12px">
+          <div style="flex:1;position:relative"><span class="material-symbols-outlined" style="position:absolute;left:12px;top:9px;font-size:16px;color:#484F58">search</span><input class="input" style="padding-left:36px" placeholder="Buscar vehículo..."/></div>
+          <select class="input select" style="width:180px"><option>Todos los estados</option><option>Disponible</option><option>En servicio</option><option>Mantenimiento</option></select>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <thead style="background:#0D1117">
+            <tr>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Vehículo</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Placa</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Capacidad</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Conductor</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Estado</th>
+              <th style="padding:12px 16px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row" style="cursor:pointer">
+              <td style="padding:14px 16px"><p style="font-size:13px;font-weight:600;color:#F0F6FC">Ford F-350</p><p style="font-size:11px;color:#8B949E">Camión Mediano</p></td>
+              <td style="padding:14px 16px"><span class="badge badge-slate">ABC-123</span></td>
+              <td style="padding:14px 16px;font-size:13px;color:#C9D1D9">2.5 ton · 15 m³</td>
+              <td style="padding:14px 16px"><div style="display:flex;align-items:center;gap:8px"><div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#F59E0B,#D97706);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">CM</div><span style="font-size:13px;color:#C9D1D9">Carlos Mendoza</span></div></td>
+              <td style="padding:14px 16px"><span class="badge badge-orange">En Servicio</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:5px 12px;font-size:12px">Ver</button></td>
+            </tr>
+            <tr class="table-row" style="cursor:pointer">
+              <td style="padding:14px 16px"><p style="font-size:13px;font-weight:600;color:#F0F6FC">Kenworth T680</p><p style="font-size:11px;color:#8B949E">Camión Grande</p></td>
+              <td style="padding:14px 16px"><span class="badge badge-slate">XYZ-456</span></td>
+              <td style="padding:14px 16px;font-size:13px;color:#C9D1D9">5 ton · 30 m³</td>
+              <td style="padding:14px 16px"><span style="font-size:13px;color:#484F58">— Sin asignar</span></td>
+              <td style="padding:14px 16px"><span class="badge badge-green">Disponible</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-primary" style="padding:5px 12px;font-size:12px">Asignar</button></td>
+            </tr>
+            <tr style="cursor:pointer">
+              <td style="padding:14px 16px"><p style="font-size:13px;font-weight:600;color:#F0F6FC">Chevrolet NHR</p><p style="font-size:11px;color:#8B949E">Furgón Pequeño</p></td>
+              <td style="padding:14px 16px"><span class="badge badge-slate">DEF-789</span></td>
+              <td style="padding:14px 16px;font-size:13px;color:#C9D1D9">1 ton · 8 m³</td>
+              <td style="padding:14px 16px"><span style="font-size:13px;color:#484F58">— En taller</span></td>
+              <td style="padding:14px 16px"><span class="badge badge-red">Mantenimiento</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:5px 12px;font-size:12px">Ver</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ DASH: ADMIN GENERAL ═══ -->
+<div x-show="page === 'dash_admin' || page === 'ag_usuarios' || page === 'ag_reportes'" x-cloak class="flex h-screen overflow-hidden">
+  <!-- Sidebar Admin General — tonos más oscuros/corporativos -->
+  <aside style="width:220px;background:#0D1117;border-right:1px solid #21262D;display:flex;flex-direction:column;flex-shrink:0">
+    <div style="padding:20px 16px 16px;border-bottom:1px solid #21262D">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#1DB87A,#8B5CF6);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <span class="material-symbols-outlined" style="color:#fff;font-size:16px">shield_person</span>
+        </div>
+        <div>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:11px;color:#F0F6FC;letter-spacing:.04em">LOGISTICARGO</p>
+          <p style="font-size:10px;color:#1DB87A;font-weight:500">Admin General</p>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px 10px;flex:1;overflow-y:auto">
+      <p style="font-size:10px;color:#484F58;padding:6px 8px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:4px">General</p>
+      <a class="nav-item" :class="page==='dash_admin' && 'active'" @click.prevent="page='dash_admin'">
+        <span class="material-symbols-outlined ms">dashboard</span>Dashboard
+      </a>
+      <a class="nav-item" :class="page==='ag_reportes' && 'active'" @click.prevent="page='ag_reportes'">
+        <span class="material-symbols-outlined ms">bar_chart</span>Reportes
+      </a>
+      <a class="nav-item"><span class="material-symbols-outlined ms">payments</span>Finanzas</a>
+      <p style="font-size:10px;color:#484F58;padding:6px 8px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin:10px 0 4px">Administración</p>
+      <a class="nav-item" :class="page==='ag_usuarios' && 'active'" @click.prevent="page='ag_usuarios'">
+        <span class="material-symbols-outlined ms">manage_accounts</span>Usuarios
+      </a>
+      <a class="nav-item"><span class="material-symbols-outlined ms">list_alt</span>Todos los Servicios</a>
+      <a class="nav-item"><span class="material-symbols-outlined ms">local_shipping</span>Flota Completa</a>
+      <a class="nav-item"><span class="material-symbols-outlined ms">settings</span>Configuración</a>
+    </div>
+    <div style="padding:12px 10px;border-top:1px solid #21262D">
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer" onmouseover="this.style.background='#161B22'" onmouseout="this.style.background='transparent'">
+        <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#1DB87A,#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0">LR</div>
+        <div style="min-width:0">
+          <p style="font-size:12px;font-weight:600;color:#C9D1D9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" x-text="userName"></p>
+          <p style="font-size:10px;color:#1DB87A">Admin General</p>
+        </div>
+        <a @click.prevent="page='login'" style="margin-left:auto"><span class="material-symbols-outlined" style="font-size:16px;color:#484F58">logout</span></a>
+      </div>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <div class="topbar flex items-center justify-between px-6">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="material-symbols-outlined" style="font-size:16px;color:#484F58">home</span>
+        <span style="font-size:12px;color:#484F58">/</span>
+        <span style="font-size:12px;color:#8B949E" x-text="page==='dash_admin'?'Dashboard General':page==='ag_usuarios'?'Gestión de Usuarios':'Reportes'"></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="background:#21262D;border-radius:8px;display:flex;align-items:center;gap:8px;padding:6px 12px">
+          <span class="material-symbols-outlined" style="font-size:15px;color:#484F58">search</span>
+          <input style="background:transparent;border:none;outline:none;font-size:13px;color:#C9D1D9;width:160px" placeholder="Buscar en el sistema..."/>
+        </div>
+        <div style="position:relative;cursor:pointer">
+          <span class="material-symbols-outlined" style="font-size:20px;color:#8B949E">notifications</span>
+          <span style="position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#F85149;border:2px solid #161B22"></span>
+        </div>
+        <div class="badge" style="background:linear-gradient(135deg,#1DB87A22,#8B5CF622);color:#F0F6FC;border-color:#1DB87A44">
+          <span class="material-symbols-outlined" style="font-size:12px">shield_person</span>Admin General
+        </div>
+      </div>
+    </div>
+
+    <!-- DASH ADMIN GENERAL -->
+    <div x-show="page === 'dash_admin'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px">
+        <div>
+          <p style="font-size:12px;color:#8B949E;margin-bottom:2px">Vista ejecutiva,</p>
+          <h1 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;color:#F0F6FC" x-text="userName"></h1>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn-secondary"><span class="material-symbols-outlined" style="font-size:16px">calendar_today</span>Oct 2024</button>
+          <button class="btn-primary" style="background:linear-gradient(135deg,#1DB87A,#8B5CF6)">
+            <span class="material-symbols-outlined" style="font-size:16px">download</span>Exportar Informe
+          </button>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card" style="padding:18px;background:linear-gradient(135deg,#1DB87A0D,#0D1117);border-color:#1DB87A33">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <p style="font-size:11px;color:#8B949E">Ingresos del Mes</p>
+            <span class="material-symbols-outlined" style="font-size:18px;color:#1DB87A">payments</span>
+          </div>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;color:#1DB87A">$125.3M</p>
+          <p style="font-size:11px;color:#1DB87A77;margin-top:4px">+15% vs mes anterior</p>
+        </div>
+        <div class="card" style="padding:18px;background:linear-gradient(135deg,#8B5CF60D,#0D1117);border-color:#8B5CF633">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <p style="font-size:11px;color:#8B949E">Servicios Totales</p>
+            <span class="material-symbols-outlined" style="font-size:18px;color:#8B5CF6">receipt_long</span>
+          </div>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;color:#8B5CF6">2.567</p>
+          <p style="font-size:11px;color:#8B5CF677;margin-top:4px">+18% este mes</p>
+        </div>
+        <div class="card" style="padding:18px;background:linear-gradient(135deg,#F59E0B0D,#0D1117);border-color:#F59E0B33">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <p style="font-size:11px;color:#8B949E">Clientes Activos</p>
+            <span class="material-symbols-outlined" style="font-size:18px;color:#F59E0B">group</span>
+          </div>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;color:#F59E0B">348</p>
+          <p style="font-size:11px;color:#F59E0B77;margin-top:4px">+5% este mes</p>
+        </div>
+        <div class="card" style="padding:18px;background:linear-gradient(135deg,#58A6FF0D,#0D1117);border-color:#58A6FF33">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <p style="font-size:11px;color:#8B949E">Empleados Operativos</p>
+            <span class="material-symbols-outlined" style="font-size:18px;color:#58A6FF">engineering</span>
+          </div>
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;color:#58A6FF">42</p>
+          <p style="font-size:11px;color:#58A6FF77;margin-top:4px">2 nuevos este mes</p>
+        </div>
+      </div>
+
+      <!-- Chart + recent -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card" style="padding:22px;grid-column:span 2">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+            <h3 style="font-size:14px;font-weight:600;color:#F0F6FC">Rendimiento Mensual</h3>
+            <div style="display:flex;gap:14px">
+              <div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:10px;border-radius:2px;background:#1DB87A"></div><span style="font-size:11px;color:#8B949E">Ingresos</span></div>
+              <div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:10px;border-radius:2px;background:#8B5CF6"></div><span style="font-size:11px;color:#8B949E">Servicios</span></div>
+            </div>
+          </div>
+          <!-- CSS bar chart -->
+          <div style="display:flex;align-items:flex-end;gap:8px;height:140px;padding:0 4px">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="display:flex;gap:3px;align-items:flex-end;height:120px">
+                <div class="bar" style="width:14px;height:60%"></div>
+                <div class="bar bar-p" style="width:14px;height:45%"></div>
+              </div>
+              <span style="font-size:10px;color:#484F58">May</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="display:flex;gap:3px;align-items:flex-end;height:120px">
+                <div class="bar" style="width:14px;height:70%"></div>
+                <div class="bar bar-p" style="width:14px;height:55%"></div>
+              </div>
+              <span style="font-size:10px;color:#484F58">Jun</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="display:flex;gap:3px;align-items:flex-end;height:120px">
+                <div class="bar" style="width:14px;height:55%"></div>
+                <div class="bar bar-p" style="width:14px;height:40%"></div>
+              </div>
+              <span style="font-size:10px;color:#484F58">Jul</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="display:flex;gap:3px;align-items:flex-end;height:120px">
+                <div class="bar" style="width:14px;height:80%"></div>
+                <div class="bar bar-p" style="width:14px;height:65%"></div>
+              </div>
+              <span style="font-size:10px;color:#484F58">Ago</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="display:flex;gap:3px;align-items:flex-end;height:120px">
+                <div class="bar" style="width:14px;height:72%"></div>
+                <div class="bar bar-p" style="width:14px;height:60%"></div>
+              </div>
+              <span style="font-size:10px;color:#484F58">Sep</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="display:flex;gap:3px;align-items:flex-end;height:120px">
+                <div class="bar" style="width:14px;height:95%;box-shadow:0 0 10px #1DB87A66"></div>
+                <div class="bar bar-p" style="width:14px;height:85%;box-shadow:0 0 10px #8B5CF666"></div>
+              </div>
+              <span style="font-size:10px;color:#58A6FF;font-weight:600">Oct</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accesos rápidos -->
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:14px;font-weight:600;color:#F0F6FC;margin-bottom:16px">Accesos Rápidos</h3>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button class="btn-secondary" style="justify-content:flex-start;width:100%" @click="page='ag_usuarios'">
+              <span class="material-symbols-outlined" style="font-size:17px;color:#1DB87A">manage_accounts</span>Gestión de Usuarios
+            </button>
+            <button class="btn-secondary" style="justify-content:flex-start;width:100%" @click="page='ag_reportes'">
+              <span class="material-symbols-outlined" style="font-size:17px;color:#8B5CF6">bar_chart</span>Ver Reportes
+            </button>
+            <button class="btn-secondary" style="justify-content:flex-start;width:100%">
+              <span class="material-symbols-outlined" style="font-size:17px;color:#F59E0B">payments</span>Finanzas
+            </button>
+            <button class="btn-secondary" style="justify-content:flex-start;width:100%">
+              <span class="material-symbols-outlined" style="font-size:17px;color:#58A6FF">settings</span>Configuración
+            </button>
+          </div>
+
+          <!-- alerts -->
+          <div style="margin-top:16px;border-top:1px solid #21262D;padding-top:16px">
+            <p style="font-size:11px;font-weight:600;color:#F0F6FC;margin-bottom:10px">Alertas del Sistema</p>
+            <div style="background:#F59E0B0D;border:1px solid #F59E0B33;border-radius:6px;padding:10px;margin-bottom:8px;display:flex;gap:8px">
+              <span class="material-symbols-outlined" style="font-size:15px;color:#F59E0B;flex-shrink:0">warning</span>
+              <p style="font-size:11px;color:#F59E0B;line-height:1.5">4 servicios sin validar</p>
+            </div>
+            <div style="background:#F8514911;border:1px solid #F8514933;border-radius:6px;padding:10px;display:flex;gap:8px">
+              <span class="material-symbols-outlined" style="font-size:15px;color:#F85149;flex-shrink:0">error</span>
+              <p style="font-size:11px;color:#F85149;line-height:1.5">1 vehículo en mantenimiento no programado</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- USUARIOS -->
+    <div x-show="page === 'ag_usuarios'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <h1 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;color:#F0F6FC">Gestión de Usuarios</h1>
+        <button class="btn-primary" style="background:linear-gradient(135deg,#1DB87A,#8B5CF6)">
+          <span class="material-symbols-outlined" style="font-size:16px">person_add</span>Nuevo Usuario
+        </button>
+      </div>
+      <!-- Filter bar -->
+      <div class="card" style="padding:14px 18px;display:flex;gap:12px;align-items:center;margin-bottom:16px">
+        <div style="flex:1;position:relative"><span class="material-symbols-outlined" style="position:absolute;left:12px;top:9px;font-size:16px;color:#484F58">search</span><input class="input" style="padding-left:36px" placeholder="Buscar por nombre, email o rol..."/></div>
+        <select class="input select" style="width:180px"><option>Todos los roles</option><option>Cliente</option><option>Admin Logístico</option><option>Empleado Operativo</option><option>Admin General</option></select>
+        <select class="input select" style="width:140px"><option>Todos los estados</option><option>Activo</option><option>Inactivo</option></select>
+      </div>
+      <!-- Table -->
+      <div class="card" style="overflow:hidden">
+        <table style="width:100%;border-collapse:collapse">
+          <thead style="background:#0D1117">
+            <tr>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Usuario</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Email</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Rol</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Estado</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#484F58;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Último acceso</th>
+              <th style="padding:12px 16px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td style="padding:14px 16px"><div style="display:flex;align-items:center;gap:10px"><div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#1DB87A,#0F8A58);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff">JG</div><div><p style="font-size:13px;font-weight:600;color:#F0F6FC">Juan García</p><p style="font-size:11px;color:#8B949E">Mudanzas García & Asoc.</p></div></div></td>
+              <td style="padding:14px 16px;font-size:13px;color:#C9D1D9">juan.garcia@mudanzas.com</td>
+              <td style="padding:14px 16px"><span class="badge badge-green">Cliente</span></td>
+              <td style="padding:14px 16px"><span class="badge badge-green">Activo</span></td>
+              <td style="padding:14px 16px;font-size:12px;color:#8B949E">Hoy 09:15 AM</td>
+              <td style="padding:14px 16px;text-align:right"><div style="display:flex;gap:6px;justify-content:flex-end">
+                <button class="btn-secondary" style="padding:5px 10px;font-size:12px"><span class="material-symbols-outlined" style="font-size:14px">edit</span></button>
+                <button class="btn-danger" style="padding:5px 10px;font-size:12px"><span class="material-symbols-outlined" style="font-size:14px">delete</span></button>
+              </div></td>
+            </tr>
+            <tr class="table-row">
+              <td style="padding:14px 16px"><div style="display:flex;align-items:center;gap:10px"><div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff">AM</div><div><p style="font-size:13px;font-weight:600;color:#F0F6FC">Ana Martínez</p><p style="font-size:11px;color:#8B949E">LOGISTICARGO</p></div></div></td>
+              <td style="padding:14px 16px;font-size:13px;color:#C9D1D9">ana.martinez@logisticargo.com</td>
+              <td style="padding:14px 16px"><span class="badge badge-purple">Admin Logístico</span></td>
+              <td style="padding:14px 16px"><span class="badge badge-green">Activo</span></td>
+              <td style="padding:14px 16px;font-size:12px;color:#8B949E">Hoy 08:40 AM</td>
+              <td style="padding:14px 16px;text-align:right"><div style="display:flex;gap:6px;justify-content:flex-end">
+                <button class="btn-secondary" style="padding:5px 10px;font-size:12px"><span class="material-symbols-outlined" style="font-size:14px">edit</span></button>
+                <button class="btn-danger" style="padding:5px 10px;font-size:12px"><span class="material-symbols-outlined" style="font-size:14px">delete</span></button>
+              </div></td>
+            </tr>
+            <tr>
+              <td style="padding:14px 16px"><div style="display:flex;align-items:center;gap:10px"><div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#F59E0B,#D97706);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff">CM</div><div><p style="font-size:13px;font-weight:600;color:#F0F6FC">Carlos Mendoza</p><p style="font-size:11px;color:#8B949E">Conductor — Bogotá</p></div></div></td>
+              <td style="padding:14px 16px;font-size:13px;color:#C9D1D9">c.mendoza@logisticargo.com</td>
+              <td style="padding:14px 16px"><span class="badge badge-orange">Empleado Operativo</span></td>
+              <td style="padding:14px 16px"><span class="badge badge-green">Activo</span></td>
+              <td style="padding:14px 16px;font-size:12px;color:#8B949E">Hoy 07:00 AM</td>
+              <td style="padding:14px 16px;text-align:right"><div style="display:flex;gap:6px;justify-content:flex-end">
+                <button class="btn-secondary" style="padding:5px 10px;font-size:12px"><span class="material-symbols-outlined" style="font-size:14px">edit</span></button>
+                <button class="btn-danger" style="padding:5px 10px;font-size:12px"><span class="material-symbols-outlined" style="font-size:14px">delete</span></button>
+              </div></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="padding:14px 20px;border-top:1px solid #21262D;display:flex;justify-content:space-between;align-items:center;background:#0D1117">
+          <p style="font-size:12px;color:#8B949E">Mostrando 1–10 de 50 usuarios</p>
+          <div style="display:flex;gap:6px">
+            <button class="btn-secondary" style="padding:5px 12px;font-size:12px">← Ant.</button>
+            <button class="btn-primary" style="padding:5px 12px;font-size:12px">1</button>
+            <button class="btn-secondary" style="padding:5px 12px;font-size:12px">2</button>
+            <button class="btn-secondary" style="padding:5px 12px;font-size:12px">Sig. →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPORTES -->
+    <div x-show="page === 'ag_reportes'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <h1 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;color:#F0F6FC">Reportes Administrativos</h1>
+        <div style="display:flex;gap:10px">
+          <button class="btn-secondary"><span class="material-symbols-outlined" style="font-size:16px">table_view</span>Excel</button>
+          <button class="btn-secondary"><span class="material-symbols-outlined" style="font-size:16px">picture_as_pdf</span>PDF</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:14px;font-weight:600;color:#F0F6FC;margin-bottom:6px">Servicios por Estado</h3>
+          <p style="font-size:11px;color:#8B949E;margin-bottom:18px">Distribución del mes actual</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:#C9D1D9">Completados</span><span style="font-size:12px;font-weight:600;color:#1DB87A">68%</span></div>
+              <div style="height:6px;background:#21262D;border-radius:3px"><div style="height:100%;width:68%;background:linear-gradient(90deg,#1DB87A,#0F8A58);border-radius:3px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:#C9D1D9">En Proceso</span><span style="font-size:12px;font-weight:600;color:#8B5CF6">18%</span></div>
+              <div style="height:6px;background:#21262D;border-radius:3px"><div style="height:100%;width:18%;background:linear-gradient(90deg,#8B5CF6,#6D28D9);border-radius:3px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:#C9D1D9">Pendientes</span><span style="font-size:12px;font-weight:600;color:#F59E0B">10%</span></div>
+              <div style="height:6px;background:#21262D;border-radius:3px"><div style="height:100%;width:10%;background:linear-gradient(90deg,#F59E0B,#D97706);border-radius:3px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:#C9D1D9">Cancelados</span><span style="font-size:12px;font-weight:600;color:#F85149">4%</span></div>
+              <div style="height:6px;background:#21262D;border-radius:3px"><div style="height:100%;width:4%;background:linear-gradient(90deg,#F85149,#C0392B);border-radius:3px"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:14px;font-weight:600;color:#F0F6FC;margin-bottom:6px">Ingresos por Semana</h3>
+          <p style="font-size:11px;color:#8B949E;margin-bottom:18px">Octubre 2024</p>
+          <div style="display:flex;align-items:flex-end;gap:12px;height:100px">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div class="bar" style="width:100%;height:55%"></div><span style="font-size:10px;color:#484F58">Sem 1</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div class="bar" style="width:100%;height:72%"></div><span style="font-size:10px;color:#484F58">Sem 2</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div class="bar" style="width:100%;height:60%"></div><span style="font-size:10px;color:#484F58">Sem 3</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div class="bar" style="width:100%;height:90%;box-shadow:0 0 10px #1DB87A66"></div><span style="font-size:10px;color:#1DB87A;font-weight:600">Sem 4</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
