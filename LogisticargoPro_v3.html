@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mudanzas Carga Segura — Sistema de Gestión</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://static.balsamiq.com/prototype/v1/js/tailwindcss-3.4.17.js"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        'cream':      '#F7F2E9',
+        'cream-d':    '#EFE6D6',
+        'paper':      '#FFFCF6',
+        'wood':       '#3B2A1E',
+        'wood-l':     '#5C4632',
+        'taupe':      '#8A7A66',
+        'taupe-l':    '#B7A98F',
+        'line':       '#E2D6BF',
+        'terracotta': '#C1622D',
+        'terracotta-d':'#9C4D22',
+        'sage':       '#6B7F5E',
+        'sage-d':     '#4F5F45',
+        'ocre':       '#C99A3C',
+        'ocre-d':     '#A87B25',
+        'rust':       '#A8412C',
+      },
+      fontFamily: {
+        display: ['Fraunces', 'serif'],
+        sans:    ['Inter', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<script defer src="https://static.balsamiq.com/prototype/v1/js/alpinejs-collapse-3.14.9.min.js"></script>
+<script defer src="https://static.balsamiq.com/prototype/v1/js/alpinejs-3.14.9.min.js"></script>
+<style>
+  [x-cloak] { display: none !important; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body { font-family:'Inter',sans-serif; background:#F7F2E9; color:#3B2A1E; }
+
+  /* ───────── Texture: paper grain via subtle noise-free dot pattern ───────── */
+  .grain { position:absolute; inset:0; opacity:.5; pointer-events:none;
+    background-image: radial-gradient(circle at 1px 1px, #3B2A1E0A 1px, transparent 0);
+    background-size: 14px 14px; }
+
+  /* ───────── Tape strip signature element ───────── */
+  .tape { position:relative; }
+  .tape::before {
+    content:''; position:absolute; top:-9px; left:50%; transform:translateX(-50%) rotate(-2deg);
+    width:64px; height:18px; background:#EFE6D6CC; border:1px solid #E2D6BF;
+    box-shadow: 0 1px 2px rgba(59,42,30,.08);
+  }
+
+  /* ───────── Sidebar ───────── */
+  .sidebar { background:#FFFCF6; border-right:1px solid #E2D6BF; }
+  .nav-item { display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:10px; font-size:13.5px; font-weight:500; color:#8A7A66; cursor:pointer; transition:all .15s; }
+  .nav-item:hover { background:#F7F2E9; color:#3B2A1E; }
+  .nav-item.active { background:#C1622D; color:#FFFCF6; }
+  .nav-item.active .ms { color:#FFFCF6; }
+  .nav-item .ms { font-size:18px; color:#B7A98F; }
+
+  /* ───────── Cards ───────── */
+  .card { background:#FFFCF6; border:1px solid #E2D6BF; border-radius:14px; }
+  .card-hover:hover { border-color:#C1622D55; transform:translateY(-1px); transition:all .2s; }
+
+  .stat-terracotta { border-left:3px solid #C1622D; }
+  .stat-sage  { border-left:3px solid #6B7F5E; }
+  .stat-ocre   { border-left:3px solid #C99A3C; }
+  .stat-wood    { border-left:3px solid #5C4632; }
+
+  /* ───────── Badges ───────── */
+  .badge { display:inline-flex; align-items:center; gap:4px; padding:3px 11px; border-radius:20px; font-size:11px; font-weight:600; }
+  .badge-sage   { background:#6B7F5E1A; color:#4F5F45; border:1px solid #6B7F5E44; }
+  .badge-ocre   { background:#C99A3C1A; color:#A87B25; border:1px solid #C99A3C44; }
+  .badge-rust   { background:#A8412C1A; color:#A8412C; border:1px solid #A8412C44; }
+  .badge-terra  { background:#C1622D1A; color:#9C4D22; border:1px solid #C1622D44; }
+  .badge-taupe  { background:#EFE6D6; color:#8A7A66; border:1px solid #E2D6BF; }
+
+  /* ───────── Buttons ───────── */
+  .btn-primary { background:#C1622D; color:#FFFCF6; padding:10px 20px; border-radius:10px; font-size:13px; font-weight:600; cursor:pointer; border:none; display:inline-flex; align-items:center; gap:6px; transition:all .15s; }
+  .btn-primary:hover { background:#9C4D22; }
+  .btn-secondary { background:#FFFCF6; color:#3B2A1E; padding:10px 20px; border-radius:10px; font-size:13px; font-weight:600; cursor:pointer; border:1px solid #E2D6BF; display:inline-flex; align-items:center; gap:6px; transition:all .15s; }
+  .btn-secondary:hover { background:#F7F2E9; }
+  .btn-outline { background:transparent; color:#C1622D; padding:10px 20px; border-radius:10px; font-size:13px; font-weight:600; cursor:pointer; border:1.5px solid #C1622D77; display:inline-flex; align-items:center; gap:6px; transition:all .15s; }
+  .btn-outline:hover { background:#C1622D14; }
+  .btn-danger { background:#A8412C14; color:#A8412C; padding:10px 20px; border-radius:10px; font-size:13px; font-weight:600; cursor:pointer; border:1px solid #A8412C44; display:inline-flex; align-items:center; gap:6px; }
+  .btn-danger:hover { background:#A8412C26; }
+
+  /* ───────── Inputs ───────── */
+  .input { background:#FFFCF6; border:1px solid #E2D6BF; border-radius:10px; padding:10px 14px; font-size:13.5px; color:#3B2A1E; width:100%; outline:none; font-family:'Inter',sans-serif; }
+  .input::placeholder { color:#B7A98F; }
+  .input:focus { border-color:#C1622D88; box-shadow:0 0 0 3px #C1622D14; }
+  .select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%238A7A66' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 10px center; background-size:16px; padding-right:36px; }
+  .label { display:block; font-size:11.5px; font-weight:600; color:#8A7A66; margin-bottom:6px; text-transform:uppercase; letter-spacing:.04em; }
+
+  /* ───────── Tables ───────── */
+  .table-header { background:#F7F2E9; border-bottom:1px solid #E2D6BF; }
+  .table-row:hover { background:#F7F2E966; }
+  .table-row { border-bottom:1px solid #EFE6D6; }
+
+  /* ───────── Topbar ───────── */
+  .topbar { background:#FFFCF6; border-bottom:1px solid #E2D6BF; height:62px; }
+
+  /* ───────── Login role card ───────── */
+  .role-card { border:1.5px solid #E2D6BF; border-radius:14px; padding:18px 14px; cursor:pointer; transition:all .2s; text-align:center; background:#FFFCF6; }
+  .role-card:hover { border-color:#C1622D77; background:#C1622D08; }
+  .role-card.selected { border-color:#C1622D; background:#C1622D12; box-shadow:0 2px 14px #C1622D22; }
+
+  /* ───────── Route / shipment timeline (signature element: shipping label stub) ───────── */
+  .stub { position:relative; background:#FFFCF6; border:1.5px dashed #E2D6BF; border-radius:10px; }
+  .dot-done   { width:13px; height:13px; border-radius:50%; background:#6B7F5E; flex-shrink:0; }
+  .dot-active { width:13px; height:13px; border-radius:50%; background:#C1622D; flex-shrink:0; box-shadow:0 0 0 4px #C1622D22; }
+  .dot-pending{ width:13px; height:13px; border-radius:50%; background:#E2D6BF; flex-shrink:0; }
+
+  /* ───────── Welcome / loading screen ───────── */
+  @keyframes fadeIn  { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes scaleIn { from{opacity:0;transform:scale(.85)} to{opacity:1;transform:scale(1)} }
+  @keyframes grow    { from{width:0} to{width:100%} }
+  .anim-1 { animation:scaleIn .5s .15s both; }
+  .anim-2 { animation:fadeIn .4s .55s both; }
+  .anim-3 { animation:fadeIn .4s .85s both; }
+  .anim-4 { animation:fadeIn .4s 1.15s both; }
+  .anim-bar { animation:grow 1.6s 1.4s both; }
+
+  ::-webkit-scrollbar { width:6px; height:6px; }
+  ::-webkit-scrollbar-track { background:#F7F2E9; }
+  ::-webkit-scrollbar-thumb { background:#D9CAA8; border-radius:8px; }
+
+  .bar { background:linear-gradient(to top,#C1622D,#C1622D99); border-radius:4px 4px 0 0; transition:height .3s; }
+  .bar-s { background:linear-gradient(to top,#6B7F5E,#6B7F5E99); border-radius:4px 4px 0 0; }
+
+  /* Driver mode: big tappable interface */
+  .field-btn { padding:18px; border-radius:16px; font-weight:700; font-size:15px; display:flex; align-items:center; gap:12px; cursor:pointer; transition:all .15s; }
+</style>
+</head>
+<body class="antialiased min-h-screen">
+<div x-data="{
+    page: 'login',
+    role: '',
+    userName: '',
+    sidebarSection: {},
+    cancelModal: false,
+    contactModal: false,
+    toast: '',
+
+    doLogin() {
+      if (!this.role) return;
+      const names = { cliente:'señorit@', conductor:'señorit@', admin:'señorit@' };
+      this.userName = names[this.role];
+      this.page = 'welcome';
+      setTimeout(() => {
+        this.page = this.role === 'cliente' ? 'dash_cliente'
+                  : this.role === 'conductor' ? 'dash_conductor'
+                  : 'dash_admin';
+      }, 2600);
+    },
+    showToast(msg) {
+      this.toast = msg;
+      setTimeout(() => this.toast = '', 2600);
+    }
+  }" class="min-h-screen">
+
+<!-- ════════════════ TOAST GLOBAL ════════════════ -->
+<div x-show="toast" x-cloak x-transition style="position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9999;background:#3B2A1E;color:#FFFCF6;padding:12px 22px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:0 8px 24px rgba(59,42,30,.25);display:flex;align-items:center;gap:8px">
+  <span class="material-symbols-outlined" style="font-size:17px;color:#C99A3C">check_circle</span>
+  <span x-text="toast"></span>
+</div>
+
+<!-- ════════════════ LOGIN ════════════════ -->
+<div x-show="page === 'login'" class="min-h-screen flex">
+
+  <!-- Left panel -->
+  <div class="hidden md:flex w-[42%] relative flex-col justify-between p-12 overflow-hidden" style="background:#3B2A1E">
+    <div class="grain" style="opacity:.06"></div>
+    <div style="position:absolute;top:-70px;right:-70px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,#C1622D22,transparent 70%);pointer-events:none"></div>
+    <div style="position:absolute;bottom:-90px;left:-50px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,#C99A3C1A,transparent 70%);pointer-events:none"></div>
+
+    <div class="relative z-10">
+      <div class="flex items-center gap-3 mb-2">
+        <div style="width:40px;height:40px;border-radius:10px;background:#C1622D;display:flex;align-items:center;justify-content:center">
+          <span class="material-symbols-outlined" style="color:#FFFCF6;font-size:21px">inventory_2</span>
+        </div>
+        <span style="font-family:'Fraunces',serif;font-weight:700;font-size:16px;color:#FFFCF6;letter-spacing:.01em">Logisty cargo</span>
+      </div>
+      <p style="font-size:11px;color:#B7A98F;letter-spacing:.08em;text-transform:uppercase">Mudanzas con seguimiento real</p>
+    </div>
+
+    <div class="relative z-10">
+      <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:34px;line-height:1.2;color:#FFFCF6;margin-bottom:16px">
+        Cada mudanza,<br/>
+        <span style="color:#C99A3C">acompañada de principio a fin.</span>
+      </h1>
+      <p style="font-size:14px;color:#D9CAA8;line-height:1.7;max-width:320px">
+        Solicita, cotiza y sigue tu mudanza. El equipo en ruta y la oficina trabajan sobre la misma información, en el momento en que ocurre.
+      </p>
+    </div>
+
+    <div class="relative z-10 grid grid-cols-3 gap-4">
+      <div style="border:1px solid #5C4632;border-radius:10px;padding:14px;background:#3B2A1E88">
+        <p style="font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:#C99A3C">xxx</p>
+        <p style="font-size:11px;color:#B7A98F">Mudanzas completadas</p>
+      </div>
+      <div style="border:1px solid #5C4632;border-radius:10px;padding:14px;background:#3B2A1E88">
+        <p style="font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:#C99A3C">xxx</p>
+        <p style="font-size:11px;color:#B7A98F">Calificación promedio</p>
+      </div>
+      <div style="border:1px solid #5C4632;border-radius:10px;padding:14px;background:#3B2A1E88">
+        <p style="font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:#C99A3C">xxx</p>
+        <p style="font-size:11px;color:#B7A98F">Camiones en flota</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right panel -->
+  <div class="flex-1 flex items-center justify-center p-8" style="background:#F7F2E9">
+    <div style="width:100%;max-width:420px">
+      <div class="md:hidden flex items-center gap-3 mb-8">
+        <div style="width:38px;height:38px;border-radius:9px;background:#C1622D;display:flex;align-items:center;justify-content:center">
+          <span class="material-symbols-outlined" style="color:#FFFCF6;font-size:19px">inventory_2</span>
+        </div>
+        <span style="font-family:'Fraunces',serif;font-weight:700;font-size:15px;color:#3B2A1E">Logisty cargo</span>
+      </div>
+
+      <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:27px;color:#3B2A1E;margin-bottom:4px">Bienvenido de vuelta</h2>
+      <p style="font-size:13px;color:#8A7A66;margin-bottom:26px">Selecciona tu rol e ingresa tus credenciales</p>
+
+      <p class="label" style="margin-bottom:10px">Tu rol en el sistema</p>
+      <div class="grid grid-cols-3 gap-3 mb-6">
+        <div class="role-card" :class="role==='cliente' && 'selected'" @click="role='cliente'">
+          <span class="material-symbols-outlined" style="font-size:23px" :style="role==='cliente' ? 'color:#C1622D' : 'color:#B7A98F'">home</span>
+          <p style="font-size:11.5px;font-weight:600;margin-top:7px" :style="role==='cliente' ? 'color:#C1622D' : 'color:#3B2A1E'">Cliente</p>
+        </div>
+        <div class="role-card" :class="role==='conductor' && 'selected'" @click="role='conductor'">
+          <span class="material-symbols-outlined" style="font-size:23px" :style="role==='conductor' ? 'color:#C1622D' : 'color:#B7A98F'">local_shipping</span>
+          <p style="font-size:11.5px;font-weight:600;margin-top:7px" :style="role==='conductor' ? 'color:#C1622D' : 'color:#3B2A1E'">Conductor</p>
+        </div>
+        <div class="role-card" :class="role==='admin' && 'selected'" @click="role='admin'">
+          <span class="material-symbols-outlined" style="font-size:23px" :style="role==='admin' ? 'color:#C1622D' : 'color:#B7A98F'">domain</span>
+          <p style="font-size:11.5px;font-weight:600;margin-top:7px" :style="role==='admin' ? 'color:#C1622D' : 'color:#3B2A1E'">Oficina</p>
+        </div>
+      </div>
+
+      <div style="margin-bottom:16px">
+        <label class="label">Correo electrónico</label>
+        <input class="input" type="email" placeholder="usuario@cargasegura.com"/>
+      </div>
+      <div style="margin-bottom:6px">
+        <label class="label">Contraseña</label>
+        <input class="input" type="password" placeholder="••••••••"/>
+      </div>
+      <div style="text-align:right;margin-bottom:24px">
+        <a @click.prevent="page='recover'" style="font-size:12px;color:#C1622D;cursor:pointer;font-weight:500">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button class="btn-primary" style="width:100%;justify-content:center;padding:13px" @click="doLogin()">
+        <span class="material-symbols-outlined" style="font-size:18px">login</span>
+        Iniciar sesión
+      </button>
+
+      <p style="text-align:center;margin-top:20px;font-size:13px;color:#8A7A66">
+        ¿No tienes cuenta? <a @click.prevent="page='register'" style="color:#C1622D;cursor:pointer;font-weight:600">Regístrate aquí</a>
+      </p>
+
+      <div x-show="!role" style="margin-top:20px;background:#C99A3C14;border:1px solid #C99A3C44;border-radius:10px;padding:11px 14px;display:flex;align-items:center;gap:8px">
+        <span class="material-symbols-outlined" style="color:#A87B25;font-size:18px">info</span>
+        <p style="font-size:12px;color:#A87B25">Selecciona un rol para continuar</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ WELCOME / LOADING (centrado real) ════════════════ -->
+<div x-show="page === 'welcome'" x-cloak class="fixed inset-0 flex items-center justify-center" style="background:#3B2A1E; z-index:100;">
+  <div class="grain" style="opacity:.05"></div>
+  <div style="position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,#C1622D14,transparent 60%);top:-140px;right:-140px;pointer-events:none"></div>
+  <div style="position:absolute;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,#C99A3C12,transparent 60%);bottom:-100px;left:-100px;pointer-events:none"></div>
+
+  <div class="relative z-10 flex flex-col items-center" style="width:100%;max-width:340px;padding:0 24px">
+    <div class="anim-1" style="width:68px;height:68px;border-radius:18px;background:#C1622D;display:flex;align-items:center;justify-content:center;margin-bottom:22px">
+      <span class="material-symbols-outlined" style="color:#FFFCF6;font-size:34px">inventory_2</span>
+    </div>
+    <div class="anim-2" style="font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:#FFFCF6;margin-bottom:8px;text-align:center">Carga Segura</div>
+    <div class="anim-3" style="font-size:14px;color:#D9CAA8;margin-bottom:6px;text-align:center">Hola, <span x-text="userName" style="color:#C99A3C;font-weight:600"></span> 👋</div>
+    <div class="anim-4" style="font-size:12.5px;color:#8A7A66;margin-bottom:32px;text-align:center" x-text="role==='cliente' ? 'Preparando tus mudanzas y cotizaciones' : role==='conductor' ? 'Cargando tu ruta de hoy' : 'Preparando el panel de operaciones'"></div>
+    <div style="width:220px;height:3px;background:#5C4632;border-radius:8px;overflow:hidden">
+      <div class="anim-bar" style="height:100%;background:#C99A3C"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ RECOVER ════════════════ -->
+<div x-show="page === 'recover'" x-cloak class="min-h-screen flex items-center justify-center p-6" style="background:#F7F2E9">
+  <div class="card" style="max-width:400px;width:100%;padding:36px;text-align:center">
+    <div style="width:54px;height:54px;border-radius:14px;background:#C99A3C1A;border:1px solid #C99A3C44;display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+      <span class="material-symbols-outlined" style="color:#A87B25;font-size:25px">lock_reset</span>
+    </div>
+    <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:21px;color:#3B2A1E;margin-bottom:6px">Recuperar contraseña</h2>
+    <p style="font-size:13px;color:#8A7A66;margin-bottom:24px">Ingresa tu correo y te enviamos un código de verificación.</p>
+    <div style="text-align:left;margin-bottom:20px">
+      <label class="label">Correo electrónico</label>
+      <input class="input" type="email" placeholder="usuario@cargasegura.com"/>
+    </div>
+    <button class="btn-primary" style="width:100%;justify-content:center" @click="showToast('Código enviado a tu correo')">Enviar código</button>
+    <a @click.prevent="page='login'" style="display:block;margin-top:16px;font-size:13px;color:#8A7A66;cursor:pointer">← Volver al inicio de sesión</a>
+  </div>
+</div>
+
+<!-- ════════════════ REGISTER ════════════════ -->
+<div x-show="page === 'register'" x-cloak class="min-h-screen flex items-center justify-center p-6" style="background:#F7F2E9">
+  <div class="card" style="max-width:520px;width:100%;padding:36px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px">
+      <div style="width:36px;height:36px;border-radius:9px;background:#C1622D;display:flex;align-items:center;justify-content:center">
+        <span class="material-symbols-outlined" style="color:#FFFCF6;font-size:18px">inventory_2</span>
+      </div>
+      <span style="font-family:'Fraunces',serif;font-weight:700;font-size:14px;color:#3B2A1E">Logisty cargo</span>
+    </div>
+    <p style="font-size:12px;color:#8A7A66;margin-bottom:22px">El registro abierto es solo para clientes. Las cuentas de conductor y de oficina las crea el administrador desde Usuarios.</p>
+    <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:#3B2A1E;margin-bottom:20px">Crear cuenta de cliente</h2>
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div><label class="label">Nombre</label><input class="input" placeholder="Juan"/></div>
+      <div><label class="label">Apellido</label><input class="input" placeholder="García"/></div>
+    </div>
+    <div style="margin-bottom:16px"><label class="label">Correo electrónico</label><input class="input" type="email" placeholder="juan@empresa.com"/></div>
+    <div style="margin-bottom:16px"><label class="label">Teléfono</label><input class="input" placeholder="+57 300 123 4567"/></div>
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <div><label class="label">Contraseña</label><input class="input" type="password" placeholder="••••••••"/></div>
+      <div><label class="label">Confirmar</label><input class="input" type="password" placeholder="••••••••"/></div>
+    </div>
+    <div style="display:flex;gap:12px">
+      <button class="btn-secondary" @click="page='login'" style="flex:1;justify-content:center">Cancelar</button>
+      <button class="btn-primary" @click="role='cliente';doLogin()" style="flex:1;justify-content:center">Crear cuenta</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     ROL: CLIENTE — Interfaz tipo "mis mudanzas" / álbum de cajas
+     Sentido: el cliente no opera flota ni valida nada; solo necesita
+     pedir, saber cuánto cuesta, y saber dónde va su mudanza.
+═══════════════════════════════════════════════════════════ -->
+<div x-show="['dash_cliente','cl_solicitud','cl_cotizacion','cl_seguimiento','cl_pagos','cl_soporte','cl_historial'].includes(page)" x-cloak class="flex h-screen overflow-hidden" style="background:#F7F2E9">
+
+  <aside class="sidebar w-60 flex flex-col flex-shrink-0">
+    <div style="padding:20px 16px 16px;border-bottom:1px solid #E2D6BF">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:34px;height:34px;border-radius:9px;background:#C1622D;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <span class="material-symbols-outlined" style="color:#FFFCF6;font-size:17px">inventory_2</span>
+        </div>
+        <div>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:12px;color:#3B2A1E">Logisty cargo</p>
+          <p style="font-size:10px;color:#8A7A66">Portal del cliente</p>
+        </div>
+      </div>
+    </div>
+    <div style="padding:14px 10px;flex:1;overflow-y:auto">
+      <p style="font-size:10px;color:#B7A98F;padding:6px 8px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:4px">Mi mudanza</p>
+      <a class="nav-item" :class="page==='dash_cliente' && 'active'" @click.prevent="page='dash_cliente'">
+        <span class="material-symbols-outlined ms">home</span>Inicio
+      </a>
+      <a class="nav-item" :class="page==='cl_solicitud' && 'active'" @click.prevent="page='cl_solicitud'">
+        <span class="material-symbols-outlined ms">add_box</span>Solicitar mudanza
+      </a>
+      <a class="nav-item" :class="page==='cl_seguimiento' && 'active'" @click.prevent="page='cl_seguimiento'">
+        <span class="material-symbols-outlined ms">local_shipping</span>Seguimiento activo
+      </a>
+      <a class="nav-item" :class="page==='cl_historial' && 'active'" @click.prevent="page='cl_historial'">
+        <span class="material-symbols-outlined ms">history</span>Historial
+      </a>
+      <p style="font-size:10px;color:#B7A98F;padding:6px 8px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin:14px 0 4px">Cuenta</p>
+      <a class="nav-item" :class="page==='cl_pagos' && 'active'" @click.prevent="page='cl_pagos'">
+        <span class="material-symbols-outlined ms">receipt_long</span>Pagos y facturas
+      </a>
+      <a class="nav-item" :class="page==='cl_soporte' && 'active'" @click.prevent="page='cl_soporte'">
+        <span class="material-symbols-outlined ms">headset_mic</span>Soporte
+      </a>
+    </div>
+    <div style="padding:12px 10px;border-top:1px solid #E2D6BF">
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;cursor:pointer" onmouseover="this.style.background='#F7F2E9'" onmouseout="this.style.background='transparent'">
+        <div style="width:32px;height:32px;border-radius:50%;background:#C1622D;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#FFFCF6;flex-shrink:0">AG</div>
+        <div style="min-width:0">
+          <p style="font-size:12px;font-weight:600;color:#3B2A1E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" x-text="userName"></p>
+          <p style="font-size:10px;color:#8A7A66">Cliente</p>
+        </div>
+        <a @click.prevent="page='login';role=''" style="margin-left:auto" title="Cerrar sesión"><span class="material-symbols-outlined" style="font-size:16px;color:#B7A98F">logout</span></a>
+      </div>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <div class="topbar flex items-center justify-between px-6">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="material-symbols-outlined" style="font-size:16px;color:#B7A98F">home</span>
+        <span style="font-size:12px;color:#B7A98F">/</span>
+        <span style="font-size:12px;color:#8A7A66;font-weight:500" x-text="{dash_cliente:'Inicio',cl_solicitud:'Solicitar mudanza',cl_cotizacion:'Cotización',cl_seguimiento:'Seguimiento activo',cl_pagos:'Pagos y facturas',cl_soporte:'Soporte',cl_historial:'Historial'}[page]"></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="position:relative;cursor:pointer" @click="showToast('No tienes notificaciones nuevas')" title="Notificaciones">
+          <span class="material-symbols-outlined" style="font-size:20px;color:#8A7A66">notifications</span>
+          <span style="position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#A8412C;border:2px solid #FFFCF6"></span>
+        </div>
+        <div class="badge badge-terra">
+          <span class="material-symbols-outlined" style="font-size:12px">home</span>Cliente
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── INICIO ───── -->
+    <div x-show="page === 'dash_cliente'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;flex-wrap:wrap;gap:12px">
+        <div>
+          <p style="font-size:12px;color:#8A7A66;margin-bottom:2px">Bienvenida de vuelta,</p>
+          <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:24px;color:#3B2A1E" x-text="userName"></h1>
+        </div>
+        <button class="btn-primary" @click="page='cl_solicitud'">
+          <span class="material-symbols-outlined" style="font-size:16px">add</span>Nueva mudanza
+        </button>
+      </div>
+
+      <!-- Mudanza activa destacada (no genérico: es la razón principal de entrar) -->
+      <div class="card tape" style="padding:22px;margin-bottom:22px;border-color:#C1622D55;background:linear-gradient(135deg,#C1622D08,#FFFCF6)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+          <div>
+            <span class="badge badge-terra" style="margin-bottom:8px">En camino</span>
+            <h2 style="font-family:'Fraunces',serif;font-weight:600;font-size:18px;color:#3B2A1E">SRV-2026-00847 · Bogotá → Medellín</h2>
+            <p style="font-size:12.5px;color:#8A7A66;margin-top:2px">Tu camión sale hoy a las 8:30 AM · Carlos Mendoza es tu conductor</p>
+          </div>
+          <button class="btn-outline" @click="page='cl_seguimiento'">Ver seguimiento completo →</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card stat-terracotta" style="padding:18px">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Mudanzas activas</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:28px;color:#C1622D">2</p>
+          <p style="font-size:11px;color:#9C4D22;margin-top:4px">1 en camino, 1 confirmada</p>
+        </div>
+        <div class="card stat-sage" style="padding:18px">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Completadas</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:28px;color:#6B7F5E">12</p>
+          <p style="font-size:11px;color:#4F5F45;margin-top:4px">Histórico de cuenta</p>
+        </div>
+        <div class="card stat-ocre" style="padding:18px">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Próximo servicio</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:#A87B25">30 oct</p>
+          <p style="font-size:11px;color:#A87B25;margin-top:4px">Bogotá → Cali</p>
+        </div>
+        <div class="card stat-wood" style="padding:18px;cursor:pointer" @click="page='cl_pagos'">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Saldo pendiente</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:#5C4632">$1.250.000</p>
+          <p style="font-size:11px;color:#9C4D22;margin-top:4px">2 facturas · pagar ahora →</p>
+        </div>
+      </div>
+
+      <!-- Services list -->
+      <div class="card" style="padding:22px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+          <h2 style="font-size:15px;font-weight:600;color:#3B2A1E">Mis servicios recientes</h2>
+          <button class="btn-secondary" style="padding:6px 14px;font-size:12px" @click="page='cl_historial'">Ver todos</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1.2fr 1fr auto;gap:12px;padding:8px 12px;background:#F7F2E9;border-radius:8px;margin-bottom:8px">
+          <p style="font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Servicio</p>
+          <p style="font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Ruta</p>
+          <p style="font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Fecha</p>
+          <p style="font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Estado</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1.2fr 1fr auto;gap:12px;padding:12px;border-radius:10px;margin-bottom:4px;cursor:pointer" class="card-hover table-row" @click="page='cl_seguimiento'">
+          <div>
+            <p style="font-size:13px;font-weight:600;color:#3B2A1E">SRV-2026-00847</p>
+            <p style="font-size:11px;color:#8A7A66">Residencial</p>
+          </div>
+          <div>
+            <p style="font-size:12px;color:#5C4632">Bogotá → Medellín</p>
+            <p style="font-size:11px;color:#8A7A66">250 km</p>
+          </div>
+          <p style="font-size:12px;color:#5C4632;align-self:center">25 oct 2026</p>
+          <span class="badge badge-terra" style="align-self:center">En camino</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1.2fr 1fr auto;gap:12px;padding:12px;border-radius:10px;margin-bottom:4px;cursor:pointer" class="card-hover table-row">
+          <div>
+            <p style="font-size:13px;font-weight:600;color:#3B2A1E">SRV-2026-00848</p>
+            <p style="font-size:11px;color:#8A7A66">Oficina</p>
+          </div>
+          <div>
+            <p style="font-size:12px;color:#5C4632">Bogotá → Cali</p>
+            <p style="font-size:11px;color:#8A7A66">460 km</p>
+          </div>
+          <p style="font-size:12px;color:#5C4632;align-self:center">30 oct 2026</p>
+          <span class="badge badge-ocre" style="align-self:center">Confirmada</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1.2fr 1fr auto;gap:12px;padding:12px;border-radius:10px;cursor:pointer" class="card-hover">
+          <div>
+            <p style="font-size:13px;font-weight:600;color:#3B2A1E">SRV-2026-00846</p>
+            <p style="font-size:11px;color:#8A7A66">Residencial</p>
+          </div>
+          <div>
+            <p style="font-size:12px;color:#5C4632">Bogotá → Bogotá</p>
+            <p style="font-size:11px;color:#8A7A66">Local</p>
+          </div>
+          <p style="font-size:12px;color:#5C4632;align-self:center">15 sep 2026</p>
+          <span class="badge badge-taupe" style="align-self:center">Completada</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── SOLICITAR MUDANZA ───── -->
+    <div x-show="page === 'cl_solicitud'" class="flex-1 overflow-y-auto p-6">
+      <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:21px;color:#3B2A1E;margin-bottom:6px">Solicitar mudanza</h1>
+      <p style="font-size:13px;color:#8A7A66;margin-bottom:24px">Cuéntanos de dónde a dónde, y te damos un precio antes de confirmar nada.</p>
+
+      <div style="display:flex;align-items:center;gap:0;margin-bottom:28px">
+        <div style="display:flex;align-items:center;gap:6px"><div style="width:26px;height:26px;border-radius:50%;background:#6B7F5E;color:#FFFCF6;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">1</div><span style="font-size:12px;color:#4F5F45;font-weight:600">Origen y destino</span></div>
+        <div style="flex:1;height:1px;background:#E2D6BF;margin:0 8px"></div>
+        <div style="display:flex;align-items:center;gap:6px"><div style="width:26px;height:26px;border-radius:50%;background:#C1622D;color:#FFFCF6;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">2</div><span style="font-size:12px;color:#9C4D22;font-weight:600">Detalles de carga</span></div>
+        <div style="flex:1;height:1px;background:#E2D6BF;margin:0 8px"></div>
+        <div style="display:flex;align-items:center;gap:6px"><div style="width:26px;height:26px;border-radius:50%;background:#EFE6D6;color:#B7A98F;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">3</div><span style="font-size:12px;color:#B7A98F">Cotización</span></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card" style="padding:24px">
+          <h3 style="font-size:14px;font-weight:600;color:#3B2A1E;margin-bottom:18px;display:flex;align-items:center;gap:8px"><span class="material-symbols-outlined" style="color:#6B7F5E;font-size:18px">trip_origin</span>Origen</h3>
+          <div style="margin-bottom:14px"><label class="label">Dirección de origen</label><input class="input" placeholder="Calle 85 #15-32, Bogotá"/></div>
+          <div style="margin-bottom:14px"><label class="label">Ciudad</label><input class="input" placeholder="Bogotá"/></div>
+          <div><label class="label">Tipo de propiedad</label>
+            <select class="input select"><option>Apartamento</option><option>Casa</option><option>Oficina</option><option>Bodega</option></select>
+          </div>
+        </div>
+        <div class="card" style="padding:24px">
+          <h3 style="font-size:14px;font-weight:600;color:#3B2A1E;margin-bottom:18px;display:flex;align-items:center;gap:8px"><span class="material-symbols-outlined" style="color:#C1622D;font-size:18px">location_on</span>Destino</h3>
+          <div style="margin-bottom:14px"><label class="label">Dirección de destino</label><input class="input" placeholder="Carrera 7 #12-34, Medellín"/></div>
+          <div style="margin-bottom:14px"><label class="label">Ciudad</label><input class="input" placeholder="Medellín"/></div>
+          <div><label class="label">Tipo de propiedad</label>
+            <select class="input select"><option>Apartamento</option><option>Casa</option><option>Oficina</option><option>Bodega</option></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:24px;margin-top:20px">
+        <h3 style="font-size:14px;font-weight:600;color:#3B2A1E;margin-bottom:16px;display:flex;align-items:center;gap:8px"><span class="material-symbols-outlined" style="color:#A87B25;font-size:18px">inventory_2</span>Volumen aproximado de carga</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="role-card" style="padding:14px"><p style="font-size:20px;margin-bottom:4px">🛋️</p><p style="font-size:12px;font-weight:600;color:#3B2A1E">Estudio</p><p style="font-size:10.5px;color:#8A7A66">~8 m³</p></div>
+          <div class="role-card selected" style="padding:14px"><p style="font-size:20px;margin-bottom:4px">🏠</p><p style="font-size:12px;font-weight:600;color:#C1622D">Apto 2-3 hab.</p><p style="font-size:10.5px;color:#8A7A66">~15 m³</p></div>
+          <div class="role-card" style="padding:14px"><p style="font-size:20px;margin-bottom:4px">🏡</p><p style="font-size:12px;font-weight:600;color:#3B2A1E">Casa completa</p><p style="font-size:10.5px;color:#8A7A66">~30 m³</p></div>
+          <div class="role-card" style="padding:14px"><p style="font-size:20px;margin-bottom:4px">🏢</p><p style="font-size:12px;font-weight:600;color:#3B2A1E">Oficina</p><p style="font-size:10.5px;color:#8A7A66">A medir</p></div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:20px">
+        <button class="btn-secondary" @click="page='dash_cliente'">Cancelar</button>
+        <button class="btn-primary" @click="page='cl_cotizacion'">Calcular cotización →</button>
+      </div>
+    </div>
+
+    <!-- ───── COTIZACIÓN ───── -->
+    <div x-show="page === 'cl_cotizacion'" class="flex-1 overflow-y-auto p-6">
+      <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:21px;color:#3B2A1E;margin-bottom:4px">Tu cotización está lista</h1>
+      <p style="font-size:13px;color:#8A7A66;margin-bottom:24px">Nada se cobra ni se agenda hasta que confirmes.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card" style="padding:24px;grid-column:span 2">
+          <h3 style="font-size:14px;font-weight:600;color:#3B2A1E;margin-bottom:16px">Desglose de costos</h3>
+          <div style="background:#F7F2E9;border-radius:10px;padding:16px;margin-bottom:16px">
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #E2D6BF"><span style="font-size:13px;color:#8A7A66">Costo base del servicio</span><span style="font-size:13px;color:#3B2A1E;font-weight:600">$1.200.000</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #E2D6BF"><span style="font-size:13px;color:#8A7A66">Volumen (15 m³)</span><span style="font-size:13px;color:#3B2A1E;font-weight:600">$300.000</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #E2D6BF"><span style="font-size:13px;color:#8A7A66">Distancia (250 km)</span><span style="font-size:13px;color:#3B2A1E;font-weight:600">$500.000</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #E2D6BF"><span style="font-size:13px;color:#8A7A66">Embalaje especializado</span><span style="font-size:13px;color:#3B2A1E;font-weight:600">$150.000</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0"><span style="font-size:13px;color:#8A7A66">Seguro de carga</span><span style="font-size:13px;color:#3B2A1E;font-weight:600">$xxxx</span></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;background:#C1622D12;border:1px solid #C1622D44;border-radius:10px;padding:16px;margin-bottom:20px">
+            <span style="font-size:14px;font-weight:600;color:#3B2A1E">Total estimado</span>
+            <span style="font-family:'Fraunces',serif;font-weight:700;font-size:25px;color:#C1622D">$xxxxx</span>
+          </div>
+          <div style="display:flex;gap:12px">
+            <button class="btn-secondary" @click="page='cl_solicitud'" style="flex:1;justify-content:center">Modificar</button>
+            <button class="btn-primary" @click="page='dash_cliente';showToast('Mudanza confirmada y agendada')" style="flex:1;justify-content:center">Confirmar y agendar</button>
+          </div>
+        </div>
+        <div class="card" style="padding:20px">
+          <h3 style="font-size:13px;font-weight:600;color:#3B2A1E;margin-bottom:14px">Resumen de ruta</h3>
+          <div style="display:flex;gap:10px;margin-bottom:12px"><span class="material-symbols-outlined" style="color:#6B7F5E;font-size:18px">trip_origin</span><div><p style="font-size:11px;color:#8A7A66">Origen</p><p style="font-size:12px;color:#3B2A1E">Calle 85 #15-32, Bogotá</p></div></div>
+          <div style="display:flex;gap:10px;margin-bottom:18px"><span class="material-symbols-outlined" style="color:#C1622D;font-size:18px">location_on</span><div><p style="font-size:11px;color:#8A7A66">Destino</p><p style="font-size:12px;color:#3B2A1E">Carrera 7 #12-34, Medellín</p></div></div>
+          <div style="display:flex;justify-content:space-between;padding:10px;background:#F7F2E9;border-radius:8px">
+            <div style="text-align:center"><p style="font-size:11px;color:#8A7A66">Distancia</p><p style="font-size:14px;font-weight:600;color:#C1622D">250 km</p></div>
+            <div style="text-align:center"><p style="font-size:11px;color:#8A7A66">Tiempo est.</p><p style="font-size:14px;font-weight:600;color:#6B7F5E">4-5 hrs</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── SEGUIMIENTO (cada botón con función real) ───── -->
+    <div x-show="page === 'cl_seguimiento'" class="flex-1 overflow-y-auto p-6">
+      <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:21px;color:#3B2A1E;margin-bottom:4px">Seguimiento — SRV-2026-00847</h1>
+      <p style="font-size:13px;color:#8A7A66;margin-bottom:24px">Mudanzas García & Asociados · Bogotá → Medellín</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:13px;font-weight:600;color:#3B2A1E;margin-bottom:18px">Estado del servicio</h3>
+          <div style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;gap:14px;align-items:flex-start;padding-bottom:20px">
+              <div style="display:flex;flex-direction:column;align-items:center"><div class="dot-done"></div><div style="width:1px;flex:1;background:#6B7F5E55;margin:4px 0"></div></div>
+              <div><p style="font-size:13px;font-weight:600;color:#4F5F45">Solicitud recibida</p><p style="font-size:11px;color:#8A7A66">20 oct · 10:30 AM</p></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding-bottom:20px">
+              <div style="display:flex;flex-direction:column;align-items:center"><div class="dot-done"></div><div style="width:1px;flex:1;background:#6B7F5E55;margin:4px 0"></div></div>
+              <div><p style="font-size:13px;font-weight:600;color:#4F5F45">Cotización aprobada</p><p style="font-size:11px;color:#8A7A66">20 oct · 02:00 PM</p></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding-bottom:20px">
+              <div style="display:flex;flex-direction:column;align-items:center"><div class="dot-done"></div><div style="width:1px;flex:1;background:#6B7F5E55;margin:4px 0"></div></div>
+              <div><p style="font-size:13px;font-weight:600;color:#4F5F45">Confirmado</p><p style="font-size:11px;color:#8A7A66">21 oct · 09:00 AM</p></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding-bottom:20px">
+              <div style="display:flex;flex-direction:column;align-items:center"><div class="dot-active"></div><div style="width:1px;flex:1;background:#E2D6BF;margin:4px 0"></div></div>
+              <div><p style="font-size:13px;font-weight:600;color:#C1622D">En ruta al origen</p><p style="font-size:11px;color:#8A7A66">25 oct · estimado 08:30 AM</p></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="display:flex;flex-direction:column;align-items:center"><div class="dot-pending"></div></div>
+              <div style="opacity:.45"><p style="font-size:13px;font-weight:600;color:#3B2A1E">En proceso de carga</p><p style="font-size:11px;color:#8A7A66">Pendiente</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:13px;font-weight:600;color:#3B2A1E;margin-bottom:16px">Equipo asignado</h3>
+          <div style="display:flex;align-items:center;gap:12px;padding:14px;background:#F7F2E9;border-radius:10px;margin-bottom:10px">
+            <div style="width:38px;height:38px;border-radius:50%;background:#C99A3C;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#FFFCF6;flex-shrink:0">CM</div>
+            <div><p style="font-size:13px;font-weight:600;color:#3B2A1E">Carlos Mendoza</p><p style="font-size:11px;color:#8A7A66">Conductor · +57 310 123 4567</p></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:14px;background:#F7F2E9;border-radius:10px;margin-bottom:16px">
+            <div style="width:38px;height:38px;border-radius:50%;background:#6B7F5E;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#FFFCF6;flex-shrink:0">LR</div>
+            <div><p style="font-size:13px;font-weight:600;color:#3B2A1E">Luis Ramos</p><p style="font-size:11px;color:#8A7A66">Auxiliar de carga</p></div>
+          </div>
+          <div style="padding:14px;background:#F7F2E9;border-radius:10px">
+            <p style="font-size:11px;color:#8A7A66;margin-bottom:4px">Vehículo asignado</p>
+            <p style="font-size:13px;font-weight:600;color:#3B2A1E">Ford F-350 — Camión mediano</p>
+            <p style="font-size:11px;color:#8A7A66">Placa: ABC-123</p>
+          </div>
+        </div>
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:13px;font-weight:600;color:#3B2A1E;margin-bottom:14px">Ubicación en tiempo real</h3>
+          <div style="background:#F7F2E9;border-radius:10px;height:160px;display:flex;align-items:center;justify-content:center;border:1px solid #E2D6BF;margin-bottom:12px;position:relative;overflow:hidden">
+            <div class="grain" style="opacity:.4"></div>
+            <div style="text-align:center;position:relative"><span class="material-symbols-outlined" style="font-size:36px;color:#C1622D">location_on</span><p style="font-size:11px;color:#8A7A66;margin-top:6px">A 12 km de tu dirección de origen</p></div>
+          </div>
+          <p style="font-size:11px;color:#8A7A66;text-align:center;font-style:italic">Actualizado hace 5 minutos</p>
+          <div style="display:flex;gap:10px;margin-top:14px">
+            <button class="btn-outline" style="flex:1;justify-content:center;font-size:12px" @click="contactModal=true">Contactar conductor</button>
+            <button class="btn-danger" style="flex:1;justify-content:center;font-size:12px" @click="cancelModal=true">Cancelar servicio</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── HISTORIAL ───── -->
+    <div x-show="page === 'cl_historial'" class="flex-1 overflow-y-auto p-6">
+      <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:21px;color:#3B2A1E;margin-bottom:6px">Historial de mudanzas</h1>
+      <p style="font-size:13px;color:#8A7A66;margin-bottom:22px">Todas tus mudanzas con esta cuenta, completadas o no.</p>
+      <div class="card" style="overflow:hidden">
+        <table style="width:100%;border-collapse:collapse">
+          <thead style="background:#F7F2E9">
+            <tr>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Servicio</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Ruta</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Fecha</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Estado</th>
+              <th style="padding:12px 16px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td style="padding:14px 16px;font-size:13px;font-weight:600;color:#3B2A1E">SRV-2026-00847</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">Bogotá → Medellín</td>
+              <td style="padding:14px 16px;font-size:12px;color:#8A7A66">25 oct 2026</td>
+              <td style="padding:14px 16px"><span class="badge badge-terra">En camino</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:5px 12px;font-size:12px" @click="page='cl_seguimiento'">Ver</button></td>
+            </tr>
+            <tr class="table-row">
+              <td style="padding:14px 16px;font-size:13px;font-weight:600;color:#3B2A1E">SRV-2026-00848</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">Bogotá → Cali</td>
+              <td style="padding:14px 16px;font-size:12px;color:#8A7A66">30 oct 2026</td>
+              <td style="padding:14px 16px"><span class="badge badge-ocre">Confirmada</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:5px 12px;font-size:12px">Ver</button></td>
+            </tr>
+            <tr class="table-row">
+              <td style="padding:14px 16px;font-size:13px;font-weight:600;color:#3B2A1E">SRV-2026-00846</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">Bogotá (local)</td>
+              <td style="padding:14px 16px;font-size:12px;color:#8A7A66">15 sep 2026</td>
+              <td style="padding:14px 16px"><span class="badge badge-taupe">Completada</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:5px 12px;font-size:12px">Ver factura</button></td>
+            </tr>
+            <tr>
+              <td style="padding:14px 16px;font-size:13px;font-weight:600;color:#3B2A1E">SRV-2026-00801</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">Bogotá → Bogotá</td>
+              <td style="padding:14px 16px;font-size:12px;color:#8A7A66">2 ago 2026</td>
+              <td style="padding:14px 16px"><span class="badge badge-rust">Cancelada</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:5px 12px;font-size:12px">Ver</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ───── PAGOS Y FACTURAS ───── -->
+    <div x-show="page === 'cl_pagos'" class="flex-1 overflow-y-auto p-6">
+      <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:21px;color:#3B2A1E;margin-bottom:6px">Pagos y facturas</h1>
+      <p style="font-size:13px;color:#8A7A66;margin-bottom:22px">Revisa lo que debes y el historial de pagos de tu cuenta.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="card stat-rust" style="padding:18px;border-left:3px solid #A8412C">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Saldo pendiente</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:24px;color:#A8412C">$xxxxx</p>
+          <p style="font-size:11px;color:#8A7A66;margin-top:4px">2 facturas por pagar</p>
+        </div>
+        <div class="card stat-sage" style="padding:18px">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Pagado este año</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:24px;color:#6B7F5E">$xxxxx</p>
+          <p style="font-size:11px;color:#8A7A66;margin-top:4px">12 servicios facturados</p>
+        </div>
+        <div class="card stat-terracotta" style="padding:18px">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Método de pago</p>
+          <p style="font-size:15px;font-weight:600;color:#3B2A1E;margin-top:6px">Visa •••• 4821</p>
+          <a style="font-size:11px;color:#C1622D;cursor:pointer;font-weight:600" @click="showToast('Abriendo gestión de métodos de pago')">Cambiar →</a>
+        </div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <div style="padding:16px 20px;border-bottom:1px solid #E2D6BF"><h3 style="font-size:14px;font-weight:600;color:#3B2A1E">Facturas</h3></div>
+        <table style="width:100%;border-collapse:collapse">
+          <thead style="background:#F7F2E9">
+            <tr>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Factura</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Servicio</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Monto</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Estado</th>
+              <th style="padding:12px 16px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td style="padding:14px 16px;font-size:13px;font-weight:600;color:#3B2A1E">FAC-3301</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">SRV-2026-00847</td>
+              <td style="padding:14px 16px;font-size:13px;color:#3B2A1E;font-weight:600">$890.000</td>
+              <td style="padding:14px 16px"><span class="badge badge-rust">Vencida hace 2 días</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-primary" style="padding:6px 14px;font-size:12px" @click="showToast('Redirigiendo a la pasarela de pago')">Pagar</button></td>
+            </tr>
+            <tr class="table-row">
+              <td style="padding:14px 16px;font-size:13px;font-weight:600;color:#3B2A1E">FAC-3298</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">SRV-2026-00848</td>
+              <td style="padding:14px 16px;font-size:13px;color:#3B2A1E;font-weight:600">$xxxxx</td>
+              <td style="padding:14px 16px"><span class="badge badge-ocre">Vence en 8 días</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-primary" style="padding:6px 14px;font-size:12px" @click="showToast('Redirigiendo a la pasarela de pago')">Pagar</button></td>
+            </tr>
+            <tr>
+              <td style="padding:14px 16px;font-size:13px;font-weight:600;color:#3B2A1E">FAC-3270</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">SRV-2026-00846</td>
+              <td style="padding:14px 16px;font-size:13px;color:#3B2A1E;font-weight:600">$xxxxx</td>
+              <td style="padding:14px 16px"><span class="badge badge-sage">Pagada</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:6px 14px;font-size:12px" @click="showToast('Descargando PDF de factura')">Descargar PDF</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ───── SOPORTE ───── -->
+    <div x-show="page === 'cl_soporte'" class="flex-1 overflow-y-auto p-6">
+      <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:21px;color:#3B2A1E;margin-bottom:6px">Soporte</h1>
+      <p style="font-size:13px;color:#8A7A66;margin-bottom:22px">¿Tienes un problema con un servicio o una duda de facturación? Empieza aquí.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card" style="padding:24px">
+          <h3 style="font-size:14px;font-weight:600;color:#3B2A1E;margin-bottom:6px">Abrir un caso de soporte</h3>
+          <p style="font-size:12px;color:#8A7A66;margin-bottom:16px">Un asesor te responde en menos de 4 horas hábiles.</p>
+          <div style="margin-bottom:14px"><label class="label">Servicio relacionado</label>
+            <select class="input select"><option>SRV-2026-00847 — Bogotá → Medellín</option><option>SRV-2026-00848 — Bogotá → Cali</option><option>No está relacionado a un servicio</option></select>
+          </div>
+          <div style="margin-bottom:14px"><label class="label">Motivo</label>
+            <select class="input select"><option>Retraso en el servicio</option><option>Daño en algún objeto</option><option>Cobro incorrecto</option><option>Otro</option></select>
+          </div>
+          <div style="margin-bottom:18px"><label class="label">Describe tu caso</label>
+            <textarea class="input" rows="4" placeholder="Cuéntanos qué pasó..."></textarea>
+          </div>
+          <button class="btn-primary" style="width:100%;justify-content:center" @click="showToast('Caso de soporte creado: #SUP-2241')">Enviar caso</button>
+        </div>
+        <div class="card" style="padding:24px">
+          <h3 style="font-size:14px;font-weight:600;color:#3B2A1E;margin-bottom:16px">Tus casos anteriores</h3>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="background:#F7F2E9;border-radius:10px;padding:14px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px"><p style="font-size:13px;font-weight:600;color:#3B2A1E">#SUP-2198</p><span class="badge badge-sage">Resuelto</span></div>
+              <p style="font-size:12px;color:#8A7A66">Cobro incorrecto en SRV-2026-00801</p>
+            </div>
+            <div style="background:#F7F2E9;border-radius:10px;padding:14px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px"><p style="font-size:13px;font-weight:600;color:#3B2A1E">#SUP-2150</p><span class="badge badge-sage">Resuelto</span></div>
+              <p style="font-size:12px;color:#8A7A66">Pregunta sobre embalaje de espejos</p>
+            </div>
+          </div>
+          <div style="margin-top:18px;border-top:1px solid #E2D6BF;padding-top:16px">
+            <p style="font-size:12px;color:#8A7A66;margin-bottom:8px">¿Necesitas hablar ahora?</p>
+            <button class="btn-outline" style="width:100%;justify-content:center" @click="showToast('Conectando con un asesor disponible')">
+              <span class="material-symbols-outlined" style="font-size:16px">call</span>Llamar a soporte
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ───── MODAL: Contactar conductor ───── -->
+<div x-show="contactModal" x-cloak style="position:fixed;inset:0;background:#3B2A1E66;z-index:200;display:flex;align-items:center;justify-content:center" @click.self="contactModal=false">
+  <div class="card" style="width:100%;max-width:380px;padding:28px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+      <div style="width:46px;height:46px;border-radius:50%;background:#C99A3C;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#FFFCF6">CM</div>
+      <div><p style="font-size:14px;font-weight:600;color:#3B2A1E">Carlos Mendoza</p><p style="font-size:12px;color:#8A7A66">Conductor asignado</p></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button class="btn-primary" style="width:100%;justify-content:center" @click="contactModal=false;showToast('Llamando a Carlos Mendoza...')"><span class="material-symbols-outlined" style="font-size:16px">call</span>Llamar · +57 310 123 4567</button>
+      <button class="btn-secondary" style="width:100%;justify-content:center" @click="contactModal=false;showToast('Abriendo chat con el conductor')"><span class="material-symbols-outlined" style="font-size:16px">chat</span>Enviar mensaje</button>
+    </div>
+    <a style="display:block;text-align:center;margin-top:16px;font-size:12px;color:#8A7A66;cursor:pointer" @click="contactModal=false">Cerrar</a>
+  </div>
+</div>
+
+<!-- ───── MODAL: Cancelar servicio ───── -->
+<div x-show="cancelModal" x-cloak style="position:fixed;inset:0;background:#3B2A1E66;z-index:200;display:flex;align-items:center;justify-content:center" @click.self="cancelModal=false">
+  <div class="card" style="width:100%;max-width:400px;padding:28px">
+    <div style="width:46px;height:46px;border-radius:14px;background:#A8412C1A;display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+      <span class="material-symbols-outlined" style="color:#A8412C;font-size:23px">warning</span>
+    </div>
+    <h3 style="font-size:16px;font-weight:600;color:#3B2A1E;margin-bottom:8px">¿Cancelar este servicio?</h3>
+    <p style="font-size:13px;color:#8A7A66;margin-bottom:20px">El camión ya salió hacia tu dirección de origen. Cancelar ahora puede tener un cargo del 20% del valor del servicio según los términos.</p>
+    <div style="display:flex;gap:12px">
+      <button class="btn-secondary" style="flex:1;justify-content:center" @click="cancelModal=false">Volver</button>
+      <button class="btn-danger" style="flex:1;justify-content:center" @click="cancelModal=false;page='dash_cliente';showToast('Servicio cancelado')">Sí, cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     ROL: CONDUCTOR — Interfaz "modo de campo"
+     Sentido: se usa desde el camión, con el celular en la mano o
+     montado en el tablero. Sin sidebar de escritorio, sin tablas
+     densas: una sola tarea grande a la vez, botones táctiles.
+═══════════════════════════════════════════════════════════ -->
+<div x-show="['dash_conductor','co_parada','co_checklist','co_incidente','co_historial','co_vehiculo'].includes(page)" x-data="{ activeStop: 1 }" x-cloak class="min-h-screen flex flex-col" style="background:#3B2A1E">
+
+  <!-- Barra superior fija, simple: identidad + estado de turno -->
+  <div style="background:#2E2014;border-bottom:1px solid #5C4632;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="width:38px;height:38px;border-radius:50%;background:#C99A3C;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#FFFCF6">CM</div>
+      <div>
+        <p style="font-size:13px;font-weight:700;color:#FFFCF6" x-text="userName"></p>
+        <p style="font-size:11px;color:#C99A3C">● En turno · Ford F-350 ABC-123</p>
+      </div>
+    </div>
+    <a @click.prevent="page='login';role=''" style="display:flex;align-items:center;gap:6px;color:#B7A98F;font-size:12px;cursor:pointer">
+      <span class="material-symbols-outlined" style="font-size:18px">logout</span>
+    </a>
+  </div>
+
+  <!-- Tabs de navegación simples, grandes, tipo app móvil -->
+  <div style="display:flex;background:#2E2014;border-bottom:1px solid #5C4632;flex-shrink:0;overflow-x:auto">
+    <a @click.prevent="page='dash_conductor'" style="flex:1;text-align:center;padding:12px 8px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap" :style="page==='dash_conductor' ? 'color:#C99A3C;border-bottom:2px solid #C99A3C' : 'color:#8A7A66;border-bottom:2px solid transparent'">Mi ruta</a>
+    <a @click.prevent="page='co_vehiculo'" style="flex:1;text-align:center;padding:12px 8px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap" :style="page==='co_vehiculo' ? 'color:#C99A3C;border-bottom:2px solid #C99A3C' : 'color:#8A7A66;border-bottom:2px solid transparent'">Mi vehículo</a>
+    <a @click.prevent="page='co_historial'" style="flex:1;text-align:center;padding:12px 8px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap" :style="page==='co_historial' ? 'color:#C99A3C;border-bottom:2px solid #C99A3C' : 'color:#8A7A66;border-bottom:2px solid transparent'">Historial</a>
+  </div>
+
+  <!-- ───── MI RUTA (vista principal) ───── -->
+  <div x-show="page==='dash_conductor'" class="flex-1 overflow-y-auto" style="padding:18px;max-width:560px;margin:0 auto;width:100%">
+    <div style="margin-bottom:18px">
+      <p style="font-size:12px;color:#B7A98F">Hoy, 25 de octubre</p>
+      <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:21px;color:#FFFCF6">Tienes 3 paradas hoy</h1>
+    </div>
+
+    <!-- Parada activa: la única decisión que importa ahora -->
+    <div style="background:#C1622D;border-radius:18px;padding:20px;margin-bottom:16px;position:relative;overflow:hidden">
+      <div class="grain" style="opacity:.08"></div>
+      <p style="font-size:11px;color:#FFE8D6;text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:6px;position:relative">Parada actual · 1 de 3</p>
+      <h2 style="font-family:'Fraunces',serif;font-weight:700;font-size:19px;color:#FFFCF6;margin-bottom:4px;position:relative">Recoger en origen</h2>
+      <p style="font-size:13px;color:#FFE8D6;margin-bottom:14px;position:relative">Calle 85 #15-32, Bogotá · SRV-2026-00847</p>
+      <div style="display:flex;gap:10px;position:relative">
+        <button class="field-btn" style="flex:1;background:#FFFCF6;color:#9C4D22;justify-content:center" @click="page='co_parada'">
+          <span class="material-symbols-outlined">map</span>Ver detalles
+        </button>
+        <button class="field-btn" style="background:#3B2A1E55;color:#FFFCF6;padding:18px" @click="contactModal=true" title="Llamar al cliente">
+          <span class="material-symbols-outlined">call</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Próximas paradas, en cola, sin distraer -->
+    <p style="font-size:11px;color:#B7A98F;text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:10px">Siguientes paradas</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+      <div style="background:#2E2014;border:1px solid #5C4632;border-radius:14px;padding:16px;display:flex;align-items:center;gap:12px;opacity:.85">
+        <div style="width:30px;height:30px;border-radius:50%;background:#5C4632;color:#B7A98F;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">2</div>
+        <div style="flex:1">
+          <p style="font-size:13px;font-weight:600;color:#FFFCF6">Entregar en destino</p>
+          <p style="font-size:11.5px;color:#8A7A66">Carrera 7 #12-34, Medellín · SRV-2026-00847</p>
+        </div>
+      </div>
+      <div style="background:#2E2014;border:1px solid #5C4632;border-radius:14px;padding:16px;display:flex;align-items:center;gap:12px;opacity:.65">
+        <div style="width:30px;height:30px;border-radius:50%;background:#5C4632;color:#B7A98F;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">3</div>
+        <div style="flex:1">
+          <p style="font-size:13px;font-weight:600;color:#FFFCF6">Recoger en origen</p>
+          <p style="font-size:11.5px;color:#8A7A66">Av. Suba #112, Bogotá · SRV-2026-00852</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acciones de campo: cada una con función real propia -->
+    <p style="font-size:11px;color:#B7A98F;text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:10px">Acciones rápidas</p>
+    <div class="grid grid-cols-2 gap-3">
+      <button class="field-btn" style="background:#2E2014;border:1px solid #5C4632;color:#FFFCF6" @click="page='co_checklist'">
+        <span class="material-symbols-outlined" style="color:#6B7F5E">checklist</span>Checklist de carga
+      </button>
+      <button class="field-btn" style="background:#2E2014;border:1px solid #5C4632;color:#FFFCF6" @click="page='co_incidente'">
+        <span class="material-symbols-outlined" style="color:#C99A3C">report</span>Reportar novedad
+      </button>
+    </div>
+  </div>
+
+  <!-- ───── DETALLE DE PARADA ───── -->
+  <div x-show="page==='co_parada'" class="flex-1 overflow-y-auto" style="padding:18px;max-width:560px;margin:0 auto;width:100%">
+    <a @click.prevent="page='dash_conductor'" style="display:flex;align-items:center;gap:6px;color:#B7A98F;font-size:12px;margin-bottom:16px;cursor:pointer"><span class="material-symbols-outlined" style="font-size:16px">arrow_back</span>Volver a mi ruta</a>
+    <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:#FFFCF6;margin-bottom:4px">Recoger en origen</h1>
+    <p style="font-size:13px;color:#8A7A66;margin-bottom:18px">SRV-2026-00847 · Residencial</p>
+
+    <div style="background:#2E2014;border:1px solid #5C4632;border-radius:14px;padding:18px;margin-bottom:14px">
+      <p style="font-size:11px;color:#B7A98F;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:6px">Dirección</p>
+      <p style="font-size:15px;color:#FFFCF6;font-weight:600;margin-bottom:4px">Calle 85 #15-32, Bogotá</p>
+      <p style="font-size:12px;color:#8A7A66">Apartamento 502, Torre B · Portería: pedir a "Carlos, mudanza"</p>
+    </div>
+
+    <div style="background:#2E2014;border:1px solid #5C4632;border-radius:14px;padding:18px;margin-bottom:14px">
+      <p style="font-size:11px;color:#B7A98F;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:6px">Cliente</p>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div><p style="font-size:14px;color:#FFFCF6;font-weight:600">Ana García</p><p style="font-size:12px;color:#8A7A66">+57 311 555 0192</p></div>
+        <button class="btn-secondary" style="padding:8px 14px;background:transparent;border-color:#5C4632;color:#FFFCF6" @click="contactModal=true"><span class="material-symbols-outlined" style="font-size:16px">call</span></button>
+      </div>
+    </div>
+
+    <div style="background:#2E2014;border:1px solid #5C4632;border-radius:14px;padding:18px;margin-bottom:20px">
+      <p style="font-size:11px;color:#B7A98F;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:6px">Carga esperada</p>
+      <p style="font-size:13px;color:#FFFCF6">Apartamento 2-3 habitaciones · ~15 m³ · incluye embalaje especializado para vajilla y espejos</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <button class="field-btn" style="background:#6B7F5E;color:#FFFCF6;justify-content:center" @click="page='co_checklist'">
+        <span class="material-symbols-outlined">checklist</span>Iniciar checklist de carga
+      </button>
+      <button class="btn-secondary" style="width:100%;justify-content:center;background:transparent;border-color:#5C4632;color:#B7A98F" @click="showToast('Abriendo navegación GPS hacia el destino')">
+        <span class="material-symbols-outlined" style="font-size:16px">navigation</span>Abrir navegación GPS
+      </button>
+    </div>
+  </div>
+
+  <!-- ───── CHECKLIST DE CARGA ───── -->
+  <div x-show="page==='co_checklist'" x-data="{ items: [
+        {label:'Confirmar inventario con el cliente', done:true},
+        {label:'Fotografiar estado de muebles grandes', done:true},
+        {label:'Embalar artículos frágiles', done:false},
+        {label:'Cargar al camión en orden de descarga', done:false},
+        {label:'Cliente firma conformidad de recogida', done:false}
+      ] }" class="flex-1 overflow-y-auto" style="padding:18px;max-width:560px;margin:0 auto;width:100%">
+    <a @click.prevent="page='co_parada'" style="display:flex;align-items:center;gap:6px;color:#B7A98F;font-size:12px;margin-bottom:16px;cursor:pointer"><span class="material-symbols-outlined" style="font-size:16px">arrow_back</span>Volver</a>
+    <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:#FFFCF6;margin-bottom:4px">Checklist de carga</h1>
+    <p style="font-size:13px;color:#8A7A66;margin-bottom:18px">Marca cada paso a medida que lo completas. El cliente puede ver tu progreso en su seguimiento.</p>
+
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+      <template x-for="(item, i) in items" :key="i">
+        <div @click="item.done = !item.done" style="background:#2E2014;border:1px solid #5C4632;border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer">
+          <div :style="item.done ? 'background:#6B7F5E;border-color:#6B7F5E' : 'background:transparent;border-color:#8A7A66'" style="width:26px;height:26px;border-radius:8px;border:2px solid;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <span x-show="item.done" class="material-symbols-outlined" style="font-size:16px;color:#FFFCF6">check</span>
+          </div>
+          <p :style="item.done ? 'color:#8A7A66;text-decoration:line-through' : 'color:#FFFCF6'" style="font-size:14px;font-weight:500" x-text="item.label"></p>
+        </div>
+      </template>
+    </div>
+
+    <button class="field-btn" style="width:100%;background:#C1622D;color:#FFFCF6;justify-content:center" @click="page='dash_conductor';showToast('Checklist completado y enviado a la oficina')">
+      <span class="material-symbols-outlined">task_alt</span>Marcar parada como completada
+    </button>
+  </div>
+
+  <!-- ───── REPORTAR NOVEDAD ───── -->
+  <div x-show="page==='co_incidente'" class="flex-1 overflow-y-auto" style="padding:18px;max-width:560px;margin:0 auto;width:100%">
+    <a @click.prevent="page='dash_conductor'" style="display:flex;align-items:center;gap:6px;color:#B7A98F;font-size:12px;margin-bottom:16px;cursor:pointer"><span class="material-symbols-outlined" style="font-size:16px">arrow_back</span>Volver a mi ruta</a>
+    <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:#FFFCF6;margin-bottom:4px">Reportar novedad</h1>
+    <p style="font-size:13px;color:#8A7A66;margin-bottom:18px">Esto llega de inmediato al panel del administrador en oficina.</p>
+
+    <div style="margin-bottom:14px">
+      <label class="label" style="color:#B7A98F">Tipo de novedad</label>
+      <select class="input select" style="background:#2E2014;border-color:#5C4632;color:#FFFCF6">
+        <option>Retraso en la ruta (tráfico, clima)</option>
+        <option>Daño a un objeto durante la carga</option>
+        <option>Problema mecánico del vehículo</option>
+        <option>Cliente no se encuentra en la dirección</option>
+        <option>Otro</option>
+      </select>
+    </div>
+    <div style="margin-bottom:14px">
+      <label class="label" style="color:#B7A98F">Parada relacionada</label>
+      <select class="input select" style="background:#2E2014;border-color:#5C4632;color:#FFFCF6">
+        <option>Parada 1 — Recoger en origen (SRV-2026-00847)</option>
+        <option>Parada 2 — Entregar en destino (SRV-2026-00847)</option>
+        <option>No aplica a una parada específica</option>
+      </select>
+    </div>
+    <div style="margin-bottom:18px">
+      <label class="label" style="color:#B7A98F">Describe lo que pasó</label>
+      <textarea class="input" rows="4" style="background:#2E2014;border-color:#5C4632;color:#FFFCF6" placeholder="Ej: Tráfico pesado en la autopista, llegaré 25 min tarde"></textarea>
+    </div>
+    <button class="field-btn" style="width:100%;background:#C99A3C;color:#3B2A1E;justify-content:center" @click="page='dash_conductor';showToast('Novedad reportada a oficina')">
+      <span class="material-symbols-outlined">send</span>Enviar reporte a oficina
+    </button>
+  </div>
+
+  <!-- ───── MI VEHÍCULO ───── -->
+  <div x-show="page==='co_vehiculo'" class="flex-1 overflow-y-auto" style="padding:18px;max-width:560px;margin:0 auto;width:100%">
+    <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:#FFFCF6;margin-bottom:4px">Mi vehículo</h1>
+    <p style="font-size:13px;color:#8A7A66;margin-bottom:18px">Ford F-350 · Camión mediano · Placa ABC-123</p>
+
+    <div style="background:#2E2014;border:1px solid #5C4632;border-radius:14px;padding:18px;margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:10px"><span style="font-size:12px;color:#8A7A66">Capacidad</span><span style="font-size:13px;color:#FFFCF6;font-weight:600">2.5 ton · 15 m³</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:10px"><span style="font-size:12px;color:#8A7A66">Última revisión técnica</span><span style="font-size:13px;color:#FFFCF6;font-weight:600">10 sep 2026</span></div>
+      <div style="display:flex;justify-content:space-between"><span style="font-size:12px;color:#8A7A66">Próximo mantenimiento</span><span style="font-size:13px;color:#C99A3C;font-weight:600">En 1.200 km</span></div>
+    </div>
+
+    <button class="field-btn" style="width:100%;background:#2E2014;border:1px solid #5C4632;color:#FFFCF6;justify-content:center;margin-bottom:10px" @click="showToast('Inspección previa al turno registrada')">
+      <span class="material-symbols-outlined" style="color:#6B7F5E">fact_check</span>Registrar inspección previa al turno
+    </button>
+    <button class="field-btn" style="width:100%;background:#2E2014;border:1px solid #5C4632;color:#FFFCF6;justify-content:center" @click="page='co_incidente'">
+      <span class="material-symbols-outlined" style="color:#A8412C">build</span>Reportar problema mecánico
+    </button>
+  </div>
+
+  <!-- ───── HISTORIAL DE PARADAS DEL CONDUCTOR ───── -->
+  <div x-show="page==='co_historial'" class="flex-1 overflow-y-auto" style="padding:18px;max-width:560px;margin:0 auto;width:100%">
+    <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:#FFFCF6;margin-bottom:4px">Historial de paradas</h1>
+    <p style="font-size:13px;color:#8A7A66;margin-bottom:18px">Tus últimos servicios completados.</p>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="background:#2E2014;border:1px solid #5C4632;border-radius:14px;padding:16px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><p style="font-size:13px;font-weight:600;color:#FFFCF6">SRV-2026-00846</p><span class="badge badge-sage">Completado</span></div>
+        <p style="font-size:12px;color:#8A7A66">Bogotá (local) · 15 sep 2026 · 2 paradas</p>
+      </div>
+      <div style="background:#2E2014;border:1px solid #5C4632;border-radius:14px;padding:16px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><p style="font-size:13px;font-weight:600;color:#FFFCF6">SRV-2026-00839</p><span class="badge badge-sage">Completado</span></div>
+        <p style="font-size:12px;color:#8A7A66">Bogotá → Chía · 8 sep 2026 · 2 paradas</p>
+      </div>
+      <div style="background:#2E2014;border:1px solid #5C4632;border-radius:14px;padding:16px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><p style="font-size:13px;font-weight:600;color:#FFFCF6">SRV-2026-00820</p><span class="badge badge-rust">Con novedad</span></div>
+        <p style="font-size:12px;color:#8A7A66">Bogotá → Zipaquirá · 28 ago 2026 · retraso reportado</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     ROL: ADMIN (OFICINA) — Panel de control operativo + ejecutivo
+     Sentido: aquí se valida, asigna, audita y se mira el negocio.
+     Es denso a propósito: es para alguien sentado en un escritorio
+     con varias pantallas, no para el camión ni para el cliente.
+═══════════════════════════════════════════════════════════ -->
+<div x-show="['dash_admin','ad_agenda','ad_vehiculos','ad_usuarios','ad_reportes','ad_finanzas','ad_servicios','ad_config'].includes(page)" x-cloak class="flex h-screen overflow-hidden" style="background:#F7F2E9">
+
+  <aside style="width:226px;background:#3B2A1E;border-right:1px solid #5C4632;display:flex;flex-direction:column;flex-shrink:0">
+    <div style="padding:20px 16px 16px;border-bottom:1px solid #5C4632">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:32px;height:32px;border-radius:8px;background:#C1622D;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <span class="material-symbols-outlined" style="color:#FFFCF6;font-size:16px">domain</span>
+        </div>
+        <div>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:11px;color:#FFFCF6">Carga Segura</p>
+          <p style="font-size:10px;color:#C99A3C;font-weight:500">Panel de oficina</p>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px 10px;flex:1;overflow-y:auto">
+      <p style="font-size:10px;color:#8A7A66;padding:6px 8px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:4px">Operación del día</p>
+      <a class="nav-item" :class="page==='dash_admin' && 'active'" @click.prevent="page='dash_admin'" style="color:#D9CAA8"><span class="material-symbols-outlined ms" style="color:#8A7A66">dashboard</span>Dashboard</a>
+      <a class="nav-item" :class="page==='ad_servicios' && 'active'" @click.prevent="page='ad_servicios'" style="color:#D9CAA8"><span class="material-symbols-outlined ms" style="color:#8A7A66">list_alt</span>Servicios</a>
+      <a class="nav-item" :class="page==='ad_agenda' && 'active'" @click.prevent="page='ad_agenda'" style="color:#D9CAA8"><span class="material-symbols-outlined ms" style="color:#8A7A66">calendar_month</span>Agenda</a>
+      <a class="nav-item" :class="page==='ad_vehiculos' && 'active'" @click.prevent="page='ad_vehiculos'" style="color:#D9CAA8"><span class="material-symbols-outlined ms" style="color:#8A7A66">local_shipping</span>Vehículos</a>
+      <p style="font-size:10px;color:#8A7A66;padding:6px 8px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin:14px 0 4px">Administración</p>
+      <a class="nav-item" :class="page==='ad_usuarios' && 'active'" @click.prevent="page='ad_usuarios'" style="color:#D9CAA8"><span class="material-symbols-outlined ms" style="color:#8A7A66">manage_accounts</span>Usuarios</a>
+      <a class="nav-item" :class="page==='ad_finanzas' && 'active'" @click.prevent="page='ad_finanzas'" style="color:#D9CAA8"><span class="material-symbols-outlined ms" style="color:#8A7A66">payments</span>Finanzas</a>
+      <a class="nav-item" :class="page==='ad_reportes' && 'active'" @click.prevent="page='ad_reportes'" style="color:#D9CAA8"><span class="material-symbols-outlined ms" style="color:#8A7A66">bar_chart</span>Reportes</a>
+      <a class="nav-item" :class="page==='ad_config' && 'active'" @click.prevent="page='ad_config'" style="color:#D9CAA8"><span class="material-symbols-outlined ms" style="color:#8A7A66">settings</span>Configuración</a>
+    </div>
+    <div style="padding:12px 10px;border-top:1px solid #5C4632">
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;cursor:pointer" onmouseover="this.style.background='#2E2014'" onmouseout="this.style.background='transparent'">
+        <div style="width:32px;height:32px;border-radius:50%;background:#C99A3C;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#3B2A1E;flex-shrink:0">LR</div>
+        <div style="min-width:0">
+          <p style="font-size:12px;font-weight:600;color:#FFFCF6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" x-text="userName"></p>
+          <p style="font-size:10px;color:#C99A3C">Administradora</p>
+        </div>
+        <a @click.prevent="page='login';role=''" style="margin-left:auto"><span class="material-symbols-outlined" style="font-size:16px;color:#8A7A66">logout</span></a>
+      </div>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <div class="topbar flex items-center justify-between px-6">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="material-symbols-outlined" style="font-size:16px;color:#B7A98F">home</span>
+        <span style="font-size:12px;color:#B7A98F">/</span>
+        <span style="font-size:12px;color:#8A7A66;font-weight:500" x-text="{dash_admin:'Dashboard',ad_servicios:'Servicios',ad_agenda:'Agenda',ad_vehiculos:'Vehículos',ad_usuarios:'Usuarios',ad_finanzas:'Finanzas',ad_reportes:'Reportes',ad_config:'Configuración'}[page]"></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="position:relative;background:#F7F2E9;border-radius:10px;display:flex;align-items:center;gap:8px;padding:7px 12px">
+          <span class="material-symbols-outlined" style="font-size:15px;color:#B7A98F">search</span>
+          <input style="background:transparent;border:none;outline:none;font-size:13px;color:#3B2A1E;width:170px" placeholder="Buscar servicio o cliente..."/>
+        </div>
+        <div style="position:relative;cursor:pointer" @click="showToast('3 alertas pendientes de revisión')">
+          <span class="material-symbols-outlined" style="font-size:20px;color:#8A7A66">notifications</span>
+          <span style="position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#A8412C;border:2px solid #FFFCF6"></span>
+        </div>
+        <div class="badge badge-terra"><span class="material-symbols-outlined" style="font-size:12px">domain</span>Oficina</div>
+      </div>
+    </div>
+
+    <!-- ───── DASHBOARD ───── -->
+    <div x-show="page === 'dash_admin'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;flex-wrap:wrap;gap:12px">
+        <div>
+          <p style="font-size:12px;color:#8A7A66;margin-bottom:2px">Vista del día,</p>
+          <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:24px;color:#3B2A1E" x-text="userName"></h1>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn-secondary" @click="showToast('Exportando informe del día en PDF')"><span class="material-symbols-outlined" style="font-size:16px">download</span>Exportar día</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card stat-terracotta" style="padding:18px">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Servicios hoy</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:28px;color:#C1622D">8</p>
+          <p style="font-size:11px;color:#9C4D22;margin-top:4px">3 en curso</p>
+        </div>
+        <div class="card stat-sage" style="padding:18px">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Vehículos activos</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:28px;color:#6B7F5E">6</p>
+          <p style="font-size:11px;color:#4F5F45;margin-top:4px">2 disponibles ahora</p>
+        </div>
+        <div class="card stat-ocre" style="padding:18px;cursor:pointer" @click="page='ad_servicios'">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Pendientes de validar</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:28px;color:#A87B25">4</p>
+          <p style="font-size:11px;color:#A87B25;margin-top:4px">Requieren acción →</p>
+        </div>
+        <div class="card stat-wood" style="padding:18px">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Conductores en ruta</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:28px;color:#5C4632">12</p>
+          <p style="font-size:11px;color:#8A7A66;margin-top:4px">De 16 disponibles</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card" style="padding:22px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:16px">
+            <h3 style="font-size:14px;font-weight:600;color:#3B2A1E">Pendientes de validar</h3>
+            <span class="badge badge-ocre">4 nuevos</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="background:#F7F2E9;border-radius:10px;padding:14px;border:1px solid #E2D6BF">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+                <div><p style="font-size:13px;font-weight:600;color:#3B2A1E">SRV-2026-00850</p><p style="font-size:11px;color:#8A7A66">Bogotá → Medellín · Residencial</p></div>
+                <span class="badge badge-ocre">Pendiente</span>
+              </div>
+              <div style="display:flex;gap:8px">
+                <button class="btn-primary" style="padding:6px 14px;font-size:12px" @click="showToast('SRV-2026-00850 validado y agendado')">Validar</button>
+                <button class="btn-danger" style="padding:6px 14px;font-size:12px" @click="showToast('SRV-2026-00850 rechazado, se notificó al cliente')">Rechazar</button>
+              </div>
+            </div>
+            <div style="background:#F7F2E9;border-radius:10px;padding:14px;border:1px solid #E2D6BF">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+                <div><p style="font-size:13px;font-weight:600;color:#3B2A1E">SRV-2026-00851</p><p style="font-size:11px;color:#8A7A66">Bogotá → Cali · Oficina</p></div>
+                <span class="badge badge-ocre">Pendiente</span>
+              </div>
+              <div style="display:flex;gap:8px">
+                <button class="btn-primary" style="padding:6px 14px;font-size:12px" @click="showToast('SRV-2026-00851 validado y agendado')">Validar</button>
+                <button class="btn-danger" style="padding:6px 14px;font-size:12px" @click="showToast('SRV-2026-00851 rechazado, se notificó al cliente')">Rechazar</button>
+              </div>
+            </div>
+          </div>
+          <button class="btn-secondary" style="width:100%;justify-content:center;margin-top:12px" @click="page='ad_servicios'">Ver todos los pendientes</button>
+        </div>
+
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:14px;font-weight:600;color:#3B2A1E;margin-bottom:16px">Asignación rápida</h3>
+          <div style="margin-bottom:14px"><label class="label">Servicio a asignar</label>
+            <select class="input select"><option>SRV-2026-00850 — Bogotá→Medellín</option><option>SRV-2026-00851 — Bogotá→Cali</option></select>
+          </div>
+          <div style="margin-bottom:14px"><label class="label">Vehículo disponible</label>
+            <select class="input select"><option>Camión mediano · Ford F-350 · ABC-123</option><option>Camión grande · Kenworth T680 · XYZ-456</option></select>
+          </div>
+          <div style="margin-bottom:18px"><label class="label">Conductor asignado</label>
+            <select class="input select"><option>Carlos Mendoza</option><option>Pedro Ruiz</option></select>
+          </div>
+          <button class="btn-primary" style="width:100%;justify-content:center" @click="showToast('Servicio asignado y notificado al conductor')">
+            <span class="material-symbols-outlined" style="font-size:16px">assignment_ind</span>Asignar ahora
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── SERVICIOS (todos, con filtros) ───── -->
+    <div x-show="page === 'ad_servicios'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:#3B2A1E">Todos los servicios</h1>
+        <button class="btn-primary" @click="showToast('Abriendo formulario de servicio manual')"><span class="material-symbols-outlined" style="font-size:16px">add</span>Crear servicio</button>
+      </div>
+      <div class="card" style="padding:14px 18px;display:flex;gap:12px;align-items:center;margin-bottom:16px">
+        <div style="flex:1;position:relative"><span class="material-symbols-outlined" style="position:absolute;left:12px;top:9px;font-size:16px;color:#B7A98F">search</span><input class="input" style="padding-left:36px" placeholder="Buscar por código o ruta..."/></div>
+        <select class="input select" style="width:170px"><option>Todos los estados</option><option>Pendiente</option><option>Confirmado</option><option>En curso</option><option>Completado</option></select>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <table style="width:100%;border-collapse:collapse">
+          <thead style="background:#F7F2E9">
+            <tr>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Servicio</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Cliente</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Ruta</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Estado</th>
+              <th style="padding:12px 16px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td style="padding:14px 16px;font-size:13px;font-weight:600;color:#3B2A1E">SRV-2026-00850</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">Ana García</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">Bogotá → Medellín</td>
+              <td style="padding:14px 16px"><span class="badge badge-ocre">Pendiente</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:5px 12px;font-size:12px" @click="showToast('Abriendo detalle del servicio')">Ver</button></td>
+            </tr>
+            <tr class="table-row">
+              <td style="padding:14px 16px;font-size:13px;font-weight:600;color:#3B2A1E">SRV-2026-00847</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">Ana García</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">Bogotá → Medellín</td>
+              <td style="padding:14px 16px"><span class="badge badge-terra">En curso</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:5px 12px;font-size:12px" @click="showToast('Abriendo detalle del servicio')">Ver</button></td>
+            </tr>
+            <tr>
+              <td style="padding:14px 16px;font-size:13px;font-weight:600;color:#3B2A1E">SRV-2026-00846</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">Ana García</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">Bogotá (local)</td>
+              <td style="padding:14px 16px"><span class="badge badge-taupe">Completado</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:5px 12px;font-size:12px" @click="showToast('Abriendo detalle del servicio')">Ver</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ───── AGENDA ───── -->
+    <div x-show="page === 'ad_agenda'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:#3B2A1E">Agenda de servicios</h1>
+        <div style="display:flex;gap:10px">
+          <button class="btn-secondary" style="padding:7px 14px;font-size:12px" @click="showToast('Vista mensual')">Mes</button>
+          <button class="btn-secondary" style="padding:7px 14px;font-size:12px;background:#C1622D1A;color:#C1622D;border-color:#C1622D44" @click="showToast('Vista semanal')">Semana</button>
+          <button class="btn-secondary" style="padding:7px 14px;font-size:12px" @click="page='ad_servicios'">Lista</button>
+        </div>
+      </div>
+      <div class="card" style="padding:20px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+          <button class="btn-secondary" style="padding:6px 12px" @click="showToast('Mes anterior')">←</button>
+          <h3 style="font-size:15px;font-weight:600;color:#3B2A1E">Octubre 2026</h3>
+          <button class="btn-secondary" style="padding:6px 12px" @click="showToast('Mes siguiente')">→</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px">
+          <div style="text-align:center;font-size:11px;color:#8A7A66;padding:6px;font-weight:700">LUN</div>
+          <div style="text-align:center;font-size:11px;color:#8A7A66;padding:6px;font-weight:700">MAR</div>
+          <div style="text-align:center;font-size:11px;color:#8A7A66;padding:6px;font-weight:700">MIÉ</div>
+          <div style="text-align:center;font-size:11px;color:#8A7A66;padding:6px;font-weight:700">JUE</div>
+          <div style="text-align:center;font-size:11px;color:#8A7A66;padding:6px;font-weight:700">VIE</div>
+          <div style="text-align:center;font-size:11px;color:#8A7A66;padding:6px;font-weight:700">SÁB</div>
+          <div style="text-align:center;font-size:11px;color:#8A7A66;padding:6px;font-weight:700">DOM</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">1</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">2</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">3</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">4</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">5</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">6</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">7</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">8</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#C1622D14;border:1px solid #C1622D33;cursor:pointer" @click="showToast('SRV-850 — 9 oct')"><span style="font-size:12px;color:#C1622D;font-weight:700">9</span><div style="margin-top:4px;background:#C1622D;border-radius:6px;padding:3px 5px;font-size:10px;color:#FFFCF6">SRV-850</div></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">10</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">11</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#6B7F5E14;border:1px solid #6B7F5E33;cursor:pointer" @click="showToast('2 servicios el 12 oct')"><span style="font-size:12px;color:#4F5F45;font-weight:700">12</span><div style="margin-top:4px;background:#6B7F5E;border-radius:6px;padding:3px 5px;font-size:10px;color:#FFFCF6">SRV-847</div><div style="margin-top:3px;background:#6B7F5E;border-radius:6px;padding:3px 5px;font-size:10px;color:#FFFCF6">SRV-848</div></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">13</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#C99A3C14;border:2px solid #C99A3C55"><span style="font-size:12px;color:#A87B25;font-weight:700">14 ★ hoy</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">15</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">16</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">17</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">18</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">19</span></div>
+          <div style="min-height:80px;padding:6px;border-radius:8px;background:#F7F2E9"><span style="font-size:12px;color:#8A7A66">20</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── VEHÍCULOS ───── -->
+    <div x-show="page === 'ad_vehiculos'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:#3B2A1E">Gestión de vehículos</h1>
+        <button class="btn-primary" @click="showToast('Abriendo formulario de nuevo vehículo')"><span class="material-symbols-outlined" style="font-size:16px">add</span>Registrar vehículo</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="card stat-sage" style="padding:16px;display:flex;align-items:center;gap:14px">
+          <div style="width:40px;height:40px;border-radius:10px;background:#6B7F5E1A;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="color:#6B7F5E;font-size:20px">local_shipping</span></div>
+          <div><p style="font-size:11px;color:#8A7A66">Disponibles</p><p style="font-family:'Fraunces',serif;font-weight:700;font-size:20px;color:#6B7F5E">2</p></div>
+        </div>
+        <div class="card stat-ocre" style="padding:16px;display:flex;align-items:center;gap:14px">
+          <div style="width:40px;height:40px;border-radius:10px;background:#C99A3C1A;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="color:#A87B25;font-size:20px">sync</span></div>
+          <div><p style="font-size:11px;color:#8A7A66">En servicio</p><p style="font-family:'Fraunces',serif;font-weight:700;font-size:20px;color:#A87B25">6</p></div>
+        </div>
+        <div class="card" style="padding:16px;display:flex;align-items:center;gap:14px;border-left:3px solid #A8412C">
+          <div style="width:40px;height:40px;border-radius:10px;background:#A8412C1A;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="color:#A8412C;font-size:20px">build</span></div>
+          <div><p style="font-size:11px;color:#8A7A66">En mantenimiento</p><p style="font-family:'Fraunces',serif;font-weight:700;font-size:20px;color:#A8412C">1</p></div>
+        </div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <div style="padding:16px 20px;border-bottom:1px solid #E2D6BF;display:flex;gap:12px">
+          <div style="flex:1;position:relative"><span class="material-symbols-outlined" style="position:absolute;left:12px;top:9px;font-size:16px;color:#B7A98F">search</span><input class="input" style="padding-left:36px" placeholder="Buscar vehículo..."/></div>
+          <select class="input select" style="width:180px"><option>Todos los estados</option><option>Disponible</option><option>En servicio</option><option>Mantenimiento</option></select>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <thead style="background:#F7F2E9">
+            <tr>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Vehículo</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Placa</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Capacidad</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Conductor</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Estado</th>
+              <th style="padding:12px 16px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td style="padding:14px 16px"><p style="font-size:13px;font-weight:600;color:#3B2A1E">Ford F-350</p><p style="font-size:11px;color:#8A7A66">Camión mediano</p></td>
+              <td style="padding:14px 16px"><span class="badge badge-taupe">ABC-123</span></td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">2.5 ton · 15 m³</td>
+              <td style="padding:14px 16px"><div style="display:flex;align-items:center;gap:8px"><div style="width:26px;height:26px;border-radius:50%;background:#C99A3C;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#FFFCF6">CM</div><span style="font-size:13px;color:#5C4632">Carlos Mendoza</span></div></td>
+              <td style="padding:14px 16px"><span class="badge badge-ocre">En servicio</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:5px 12px;font-size:12px" @click="showToast('Abriendo ficha del vehículo')">Ver</button></td>
+            </tr>
+            <tr class="table-row">
+              <td style="padding:14px 16px"><p style="font-size:13px;font-weight:600;color:#3B2A1E">Kenworth T680</p><p style="font-size:11px;color:#8A7A66">Camión grande</p></td>
+              <td style="padding:14px 16px"><span class="badge badge-taupe">XYZ-456</span></td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">5 ton · 30 m³</td>
+              <td style="padding:14px 16px"><span style="font-size:13px;color:#B7A98F">— Sin asignar</span></td>
+              <td style="padding:14px 16px"><span class="badge badge-sage">Disponible</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-primary" style="padding:5px 12px;font-size:12px" @click="showToast('Selecciona un conductor para asignar')">Asignar</button></td>
+            </tr>
+            <tr>
+              <td style="padding:14px 16px"><p style="font-size:13px;font-weight:600;color:#3B2A1E">Chevrolet NHR</p><p style="font-size:11px;color:#8A7A66">Furgón pequeño</p></td>
+              <td style="padding:14px 16px"><span class="badge badge-taupe">DEF-789</span></td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">1 ton · 8 m³</td>
+              <td style="padding:14px 16px"><span style="font-size:13px;color:#B7A98F">— En taller</span></td>
+              <td style="padding:14px 16px"><span class="badge badge-rust">Mantenimiento</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:5px 12px;font-size:12px" @click="showToast('Abriendo ficha del vehículo')">Ver</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ───── USUARIOS ───── -->
+    <div x-show="page === 'ad_usuarios'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:#3B2A1E">Gestión de usuarios</h1>
+        <button class="btn-primary" @click="showToast('Abriendo formulario de nuevo usuario')"><span class="material-symbols-outlined" style="font-size:16px">person_add</span>Nuevo usuario</button>
+      </div>
+      <div class="card" style="padding:14px 18px;display:flex;gap:12px;align-items:center;margin-bottom:16px">
+        <div style="flex:1;position:relative"><span class="material-symbols-outlined" style="position:absolute;left:12px;top:9px;font-size:16px;color:#B7A98F">search</span><input class="input" style="padding-left:36px" placeholder="Buscar por nombre, email o rol..."/></div>
+        <select class="input select" style="width:170px"><option>Todos los roles</option><option>Cliente</option><option>Conductor</option><option>Oficina</option></select>
+        <select class="input select" style="width:140px"><option>Todos los estados</option><option>Activo</option><option>Inactivo</option></select>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <table style="width:100%;border-collapse:collapse">
+          <thead style="background:#F7F2E9">
+            <tr>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Usuario</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Email</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Rol</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Estado</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Último acceso</th>
+              <th style="padding:12px 16px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td style="padding:14px 16px"><div style="display:flex;align-items:center;gap:10px"><div style="width:34px;height:34px;border-radius:50%;background:#C1622D;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#FFFCF6">AG</div><div><p style="font-size:13px;font-weight:600;color:#3B2A1E">Ana García</p><p style="font-size:11px;color:#8A7A66">ana.garcia@mail.com</p></div></div></td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">ana.garcia@mail.com</td>
+              <td style="padding:14px 16px"><span class="badge badge-terra">Cliente</span></td>
+              <td style="padding:14px 16px"><span class="badge badge-sage">Activo</span></td>
+              <td style="padding:14px 16px;font-size:12px;color:#8A7A66">Hoy 09:15 AM</td>
+              <td style="padding:14px 16px;text-align:right"><div style="display:flex;gap:6px;justify-content:flex-end">
+                <button class="btn-secondary" style="padding:5px 10px;font-size:12px" @click="showToast('Abriendo edición de usuario')"><span class="material-symbols-outlined" style="font-size:14px">edit</span></button>
+                <button class="btn-danger" style="padding:5px 10px;font-size:12px" @click="showToast('Usuario desactivado')"><span class="material-symbols-outlined" style="font-size:14px">block</span></button>
+              </div></td>
+            </tr>
+            <tr class="table-row">
+              <td style="padding:14px 16px"><div style="display:flex;align-items:center;gap:10px"><div style="width:34px;height:34px;border-radius:50%;background:#C99A3C;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#FFFCF6">CM</div><div><p style="font-size:13px;font-weight:600;color:#3B2A1E">Carlos Mendoza</p><p style="font-size:11px;color:#8A7A66">Conductor · Bogotá</p></div></div></td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">c.mendoza@cargasegura.com</td>
+              <td style="padding:14px 16px"><span class="badge badge-ocre">Conductor</span></td>
+              <td style="padding:14px 16px"><span class="badge badge-sage">Activo</span></td>
+              <td style="padding:14px 16px;font-size:12px;color:#8A7A66">Hoy 07:00 AM</td>
+              <td style="padding:14px 16px;text-align:right"><div style="display:flex;gap:6px;justify-content:flex-end">
+                <button class="btn-secondary" style="padding:5px 10px;font-size:12px" @click="showToast('Abriendo edición de usuario')"><span class="material-symbols-outlined" style="font-size:14px">edit</span></button>
+                <button class="btn-danger" style="padding:5px 10px;font-size:12px" @click="showToast('Usuario desactivado')"><span class="material-symbols-outlined" style="font-size:14px">block</span></button>
+              </div></td>
+            </tr>
+            <tr>
+              <td style="padding:14px 16px"><div style="display:flex;align-items:center;gap:10px"><div style="width:34px;height:34px;border-radius:50%;background:#6B7F5E;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#FFFCF6">LR</div><div><p style="font-size:13px;font-weight:600;color:#3B2A1E">Laura Ríos</p><p style="font-size:11px;color:#8A7A66">Carga Segura — Oficina</p></div></div></td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">laura.rios@cargasegura.com</td>
+              <td style="padding:14px 16px"><span class="badge badge-rust">Oficina</span></td>
+              <td style="padding:14px 16px"><span class="badge badge-sage">Activo</span></td>
+              <td style="padding:14px 16px;font-size:12px;color:#8A7A66">Hoy 08:40 AM</td>
+              <td style="padding:14px 16px;text-align:right"><div style="display:flex;gap:6px;justify-content:flex-end">
+                <button class="btn-secondary" style="padding:5px 10px;font-size:12px" @click="showToast('Abriendo edición de usuario')"><span class="material-symbols-outlined" style="font-size:14px">edit</span></button>
+                <button class="btn-danger" style="padding:5px 10px;font-size:12px" @click="showToast('Usuario desactivado')"><span class="material-symbols-outlined" style="font-size:14px">block</span></button>
+              </div></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="padding:14px 20px;border-top:1px solid #E2D6BF;display:flex;justify-content:space-between;align-items:center;background:#F7F2E9">
+          <p style="font-size:12px;color:#8A7A66">Mostrando 1–10 de 50 usuarios</p>
+          <div style="display:flex;gap:6px">
+            <button class="btn-secondary" style="padding:5px 12px;font-size:12px">← Ant.</button>
+            <button class="btn-primary" style="padding:5px 12px;font-size:12px">1</button>
+            <button class="btn-secondary" style="padding:5px 12px;font-size:12px">2</button>
+            <button class="btn-secondary" style="padding:5px 12px;font-size:12px">Sig. →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── FINANZAS ───── -->
+    <div x-show="page === 'ad_finanzas'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:#3B2A1E">Finanzas</h1>
+        <button class="btn-secondary" @click="showToast('Exportando estado de cuentas')"><span class="material-symbols-outlined" style="font-size:16px">download</span>Exportar</button>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card stat-sage" style="padding:18px">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Ingresos del mes</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:24px;color:#6B7F5E">$xxxx</p>
+          <p style="font-size:11px;color:#4F5F45;margin-top:4px">+15% vs mes anterior</p>
+        </div>
+        <div class="card" style="padding:18px;border-left:3px solid #A8412C">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Por cobrar</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:24px;color:#A8412C">$xxxx</p>
+          <p style="font-size:11px;color:#8A7A66;margin-top:4px">14 facturas vencidas</p>
+        </div>
+        <div class="card stat-ocre" style="padding:18px">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Costos de flota</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:24px;color:#A87B25">$xxxx</p>
+          <p style="font-size:11px;color:#A87B25;margin-top:4px">Combustible y mantenimiento</p>
+        </div>
+        <div class="card stat-terracotta" style="padding:18px">
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:6px">Margen operativo</p>
+          <p style="font-family:'Fraunces',serif;font-weight:700;font-size:24px;color:#C1622D">38%</p>
+          <p style="font-size:11px;color:#9C4D22;margin-top:4px">Sobre ingresos del mes</p>
+        </div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <div style="padding:16px 20px;border-bottom:1px solid #E2D6BF;display:flex;justify-content:space-between;align-items:center"><h3 style="font-size:14px;font-weight:600;color:#3B2A1E">Facturas pendientes de cobro</h3></div>
+        <table style="width:100%;border-collapse:collapse">
+          <thead style="background:#F7F2E9">
+            <tr>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Factura</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Cliente</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Monto</th>
+              <th style="padding:12px 16px;text-align:left;font-size:11px;color:#B7A98F;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Estado</th>
+              <th style="padding:12px 16px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td style="padding:14px 16px;font-size:13px;font-weight:600;color:#3B2A1E">FAC-3301</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">Ana García</td>
+              <td style="padding:14px 16px;font-size:13px;color:#3B2A1E;font-weight:600">$xxxx</td>
+              <td style="padding:14px 16px"><span class="badge badge-rust">Vencida</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:5px 12px;font-size:12px" @click="showToast('Recordatorio de pago enviado')">Enviar recordatorio</button></td>
+            </tr>
+            <tr>
+              <td style="padding:14px 16px;font-size:13px;font-weight:600;color:#3B2A1E">FAC-3298</td>
+              <td style="padding:14px 16px;font-size:13px;color:#5C4632">Ana García</td>
+              <td style="padding:14px 16px;font-size:13px;color:#3B2A1E;font-weight:600">$xxxxx</td>
+              <td style="padding:14px 16px"><span class="badge badge-ocre">Por vencer</span></td>
+              <td style="padding:14px 16px;text-align:right"><button class="btn-secondary" style="padding:5px 12px;font-size:12px" @click="showToast('Recordatorio de pago enviado')">Enviar recordatorio</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ───── REPORTES ───── -->
+    <div x-show="page === 'ad_reportes'" class="flex-1 overflow-y-auto p-6">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:#3B2A1E">Reportes</h1>
+        <div style="display:flex;gap:10px">
+          <button class="btn-secondary" @click="showToast('Generando reporte en Excel')"><span class="material-symbols-outlined" style="font-size:16px">table_view</span>Excel</button>
+          <button class="btn-secondary" @click="showToast('Generando reporte en PDF')"><span class="material-symbols-outlined" style="font-size:16px">picture_as_pdf</span>PDF</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:14px;font-weight:600;color:#3B2A1E;margin-bottom:6px">Servicios por estado</h3>
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:18px">Distribución del mes actual</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:#5C4632">Completados</span><span style="font-size:12px;font-weight:600;color:#6B7F5E">68%</span></div>
+              <div style="height:6px;background:#E2D6BF;border-radius:3px"><div style="height:100%;width:68%;background:#6B7F5E;border-radius:3px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:#5C4632">En proceso</span><span style="font-size:12px;font-weight:600;color:#C1622D">18%</span></div>
+              <div style="height:6px;background:#E2D6BF;border-radius:3px"><div style="height:100%;width:18%;background:#C1622D;border-radius:3px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:#5C4632">Pendientes</span><span style="font-size:12px;font-weight:600;color:#A87B25">10%</span></div>
+              <div style="height:6px;background:#E2D6BF;border-radius:3px"><div style="height:100%;width:10%;background:#C99A3C;border-radius:3px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:#5C4632">Cancelados</span><span style="font-size:12px;font-weight:600;color:#A8412C">4%</span></div>
+              <div style="height:6px;background:#E2D6BF;border-radius:3px"><div style="height:100%;width:4%;background:#A8412C;border-radius:3px"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:14px;font-weight:600;color:#3B2A1E;margin-bottom:6px">Ingresos por semana</h3>
+          <p style="font-size:11px;color:#8A7A66;margin-bottom:18px">Octubre 2026</p>
+          <div style="display:flex;align-items:flex-end;gap:12px;height:100px">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div class="bar" style="width:100%;height:55%"></div><span style="font-size:10px;color:#B7A98F">Sem 1</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div class="bar" style="width:100%;height:72%"></div><span style="font-size:10px;color:#B7A98F">Sem 2</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div class="bar" style="width:100%;height:60%"></div><span style="font-size:10px;color:#B7A98F">Sem 3</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div class="bar" style="width:100%;height:90%"></div><span style="font-size:10px;color:#C1622D;font-weight:600">Sem 4</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="padding:22px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+          <h3 style="font-size:14px;font-weight:600;color:#3B2A1E">Rendimiento mensual</h3>
+          <div style="display:flex;gap:14px">
+            <div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:10px;border-radius:2px;background:#C1622D"></div><span style="font-size:11px;color:#8A7A66">Ingresos</span></div>
+            <div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:10px;border-radius:2px;background:#6B7F5E"></div><span style="font-size:11px;color:#8A7A66">Servicios</span></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:8px;height:140px;padding:0 4px">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="display:flex;gap:3px;align-items:flex-end;height:120px"><div class="bar" style="width:14px;height:60%"></div><div class="bar bar-s" style="width:14px;height:45%"></div></div><span style="font-size:10px;color:#B7A98F">May</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="display:flex;gap:3px;align-items:flex-end;height:120px"><div class="bar" style="width:14px;height:70%"></div><div class="bar bar-s" style="width:14px;height:55%"></div></div><span style="font-size:10px;color:#B7A98F">Jun</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="display:flex;gap:3px;align-items:flex-end;height:120px"><div class="bar" style="width:14px;height:55%"></div><div class="bar bar-s" style="width:14px;height:40%"></div></div><span style="font-size:10px;color:#B7A98F">Jul</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="display:flex;gap:3px;align-items:flex-end;height:120px"><div class="bar" style="width:14px;height:80%"></div><div class="bar bar-s" style="width:14px;height:65%"></div></div><span style="font-size:10px;color:#B7A98F">Ago</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="display:flex;gap:3px;align-items:flex-end;height:120px"><div class="bar" style="width:14px;height:72%"></div><div class="bar bar-s" style="width:14px;height:60%"></div></div><span style="font-size:10px;color:#B7A98F">Sep</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="display:flex;gap:3px;align-items:flex-end;height:120px"><div class="bar" style="width:14px;height:95%"></div><div class="bar bar-s" style="width:14px;height:85%"></div></div><span style="font-size:10px;color:#C1622D;font-weight:600">Oct</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── CONFIGURACIÓN ───── -->
+    <div x-show="page === 'ad_config'" class="flex-1 overflow-y-auto p-6">
+      <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:#3B2A1E;margin-bottom:6px">Configuración</h1>
+      <p style="font-size:13px;color:#8A7A66;margin-bottom:22px">Ajustes generales del sistema y reglas de negocio.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:14px;font-weight:600;color:#3B2A1E;margin-bottom:16px">Tarifas de cotización</h3>
+          <div style="margin-bottom:14px"><label class="label">Costo base por servicio</label><input class="input" value="$1.200.000"/></div>
+          <div style="margin-bottom:14px"><label class="label">Costo por m³ adicional</label><input class="input" value="$20.000"/></div>
+          <div style="margin-bottom:18px"><label class="label">Costo por km</label><input class="input" value="$2.000"/></div>
+          <button class="btn-primary" @click="showToast('Tarifas actualizadas')">Guardar tarifas</button>
+        </div>
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:14px;font-weight:600;color:#3B2A1E;margin-bottom:16px">Política de cancelación</h3>
+          <div style="margin-bottom:14px"><label class="label">Cargo si se cancela con camión en ruta</label><input class="input" value="20%"/></div>
+          <div style="margin-bottom:18px"><label class="label">Horas mínimas de aviso sin cargo</label><input class="input" value="24 horas"/></div>
+          <button class="btn-primary" @click="showToast('Política de cancelación actualizada')">Guardar política</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+
+</body>
+</html>
