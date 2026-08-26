@@ -1,0 +1,12 @@
+<div x-show="$store.app.page==='recover'" x-cloak class="min-h-screen flex items-center justify-center p-6" style="background-image:linear-gradient(rgba(0,0,0,0.20),rgba(0,0,0,0.20)),url('imagenes/recuperar_contrase.png');background-size:cover;background-position:center;background-repeat:no-repeat">
+  <div class="card" style="max-width:400px;width:100%;padding:36px;text-align:center;background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.18)">
+    <div style="width:54px;height:54px;border-radius:14px;background:#C99A3C1A;display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+      <span class="material-symbols-outlined" style="color:#8A6820;font-size:25px">lock_reset</span>
+    </div>
+    <h2 style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#2C1A0E;margin-bottom:6px">Recuperar contraseña</h2>
+    <p style="font-size:13px;color:#9C8B78;margin-bottom:22px">Ingresa tu correo y te enviamos un código.</p>
+    <div style="text-align:left;margin-bottom:18px"><label class="lbl">Correo</label><input class="inp" type="email" placeholder="usuario@cargasegura.com"/></div>
+    <button class="btn btn-p" style="width:100%;justify-content:center" @click="$store.app.toast_('Código enviado a tu correo')">Enviar código</button>
+    <a @click.prevent="$store.app.page='login'" style="display:block;margin-top:16px;font-size:13px;color:#9C8B78;cursor:pointer">← Volver</a>
+  </div>
+</div>

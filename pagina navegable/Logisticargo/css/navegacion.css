@@ -1,0 +1,23 @@
+/* ==========================================================
+   NAVEGACIÓN
+   Estilos de la barra superior (topbar) que usa el panel
+   de Administrador y de Cliente, y del menú lateral
+   (sidebar) de referencia para Cliente/Conductor.
+   ========================================================== */
+
+/* ── Topbar Horizontal (Admin) ── */
+.topbar-h{background:#FFFFFF;border-bottom:1px solid #EDE5D8;height:66px;display:flex;align-items:center;padding:0 28px;gap:0;position:sticky;top:0;z-index:40}
+.tnav-link{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:500;color:#9C8B78;cursor:pointer;transition:all .15s;white-space:nowrap;text-decoration:none}
+.tnav-link:hover{color:#2C1A0E;background:#F8F4EE}
+.tnav-link.active{color:#C1622D;font-weight:700}
+.tnav-link.active .ms{color:#C1622D}
+.tnav-link .ms{font-size:17px;color:#C4B49E}
+.tnav-underline{position:absolute;bottom:-1px;left:0;right:0;height:2px;background:#C1622D;border-radius:2px}
+
+/* ── Sidebar (Cliente / Conductor) ── */
+.sidebar{background:#FFFFFF;border-right:1px solid #EDE5D8;width:218px;flex-shrink:0}
+.snav-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:13.5px;font-weight:500;color:#9C8B78;cursor:pointer;transition:all .15s}
+.snav-item:hover{background:#F8F4EE;color:#2C1A0E}
+.snav-item.active{background:#C1622D;color:#FFFFFF}
+.snav-item.active .ms{color:#FFFFFF}
+.snav-item .ms{font-size:18px;color:#C4B49E}

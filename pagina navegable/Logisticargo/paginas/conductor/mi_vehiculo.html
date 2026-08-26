@@ -1,0 +1,22 @@
+<!-- MI VEHÍCULO -->
+  <!-- ==========================================================
+       CONDUCTOR - MI VEHÍCULO
+       Información del vehículo asignado al conductor.
+
+       EDITAR ESTA SECCIÓN:
+       Estilos:    css/componentes.css, css/botones.css
+       JavaScript: javascript/aplicacion.js
+       ========================================================== -->
+  <div x-show="$store.app.page==='co_vehiculo'" class="flex-1 overflow-y-auto" style="padding:18px;max-width:560px;margin:0 auto;width:100%">
+    <h1 style="font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:#FFFFFF;margin-bottom:4px">Mi vehículo</h1>
+    <p style="font-size:12.5px;color:#9C8B78;margin-bottom:16px">Ford F-350 · ABC-123 · Camión mediano</p>
+    <div style="background:#1E1108;border:1px solid #5C3D20;border-radius:14px;padding:16px;margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:#9C8B78">Capacidad</span><span style="font-size:13px;color:#FFFFFF;font-weight:600">2.5 ton · 15 m³</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:#9C8B78">Última revisión</span><span style="font-size:13px;color:#FFFFFF;font-weight:600">10 sep 2026</span></div>
+      <div style="display:flex;justify-content:space-between"><span style="font-size:12px;color:#9C8B78">Próximo mantenimiento</span><span style="font-size:13px;color:#C99A3C;font-weight:600">En 1.200 km</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <button style="background:#1E1108;border:1px solid #5C3D20;color:#FFFFFF;padding:16px;border-radius:14px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;cursor:pointer" @click="$store.app.toast_('Inspección registrada')"><span class="material-symbols-outlined" style="color:#5E7A52">fact_check</span>Registrar inspección previa al turno</button>
+      <button style="background:#1E1108;border:1px solid #5C3D20;color:#FFFFFF;padding:16px;border-radius:14px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;cursor:pointer" @click="$store.app.page='co_incidente'"><span class="material-symbols-outlined" style="color:#A84230">build</span>Reportar problema mecánico</button>
+    </div>
+  </div>

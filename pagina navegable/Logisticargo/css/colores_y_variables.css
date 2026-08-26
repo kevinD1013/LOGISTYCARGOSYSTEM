@@ -1,0 +1,17 @@
+/* ==========================================================
+   COLORES Y VARIABLES
+   Aquí viven todos los colores base del sistema (paleta de
+   marca) definidos como variables CSS (--nombre: valor).
+   Si algún día quieres cambiar un color en todo el sitio,
+   este es el único lugar donde debes tocarlo.
+   ========================================================== */
+
+:root{
+  --cream:#F8F4EE; --paper:#FFFFFF; --line:#EDE5D8;
+  --wood:#2C1A0E; --wood-l:#5C3D20;
+  --taupe:#9C8B78; --taupe-l:#C4B49E;
+  --terra:#C1622D; --terra-d:#9C4D22; --terra-l:#E8875655;
+  --sage:#5E7A52; --sage-l:#5E7A521A;
+  --ocre:#C99A3C; --ocre-l:#C99A3C1A;
+  --rust:#A84230;
+}

@@ -1,0 +1,23 @@
+<div x-show="$store.app.page==='register'" x-cloak class="min-h-screen flex items-center justify-center p-6" style="background-image:linear-gradient(rgba(0,0,0,0.20),rgba(0,0,0,0.20)),url('imagenes/registro.png');background-size:cover;background-position:center;background-repeat:no-repeat">
+  <div class="card" style="max-width:500px;width:100%;padding:36px;background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.18)">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px">
+      <div style="width:34px;height:34px;border-radius:9px;background:#C1622D;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="color:#FFF;font-size:17px">inventory_2</span></div>
+      <p style="font-family:'Fraunces',serif;font-weight:700;font-size:14px;color:#2C1A0E">Logisty Cargo</p>
+    </div>
+    <h2 style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#2C1A0E;margin-bottom:18px">Crear cuenta de cliente</h2>
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div><label class="lbl">Nombre</label><input class="inp" placeholder="Juan"/></div>
+      <div><label class="lbl">Apellido</label><input class="inp" placeholder="García"/></div>
+    </div>
+    <div style="margin-bottom:14px"><label class="lbl">Correo</label><input class="inp" type="email" placeholder="juan@correo.com"/></div>
+    <div style="margin-bottom:14px"><label class="lbl">Teléfono</label><input class="inp" placeholder="+57 300 000 0000"/></div>
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <div><label class="lbl">Contraseña</label><input class="inp" type="password" placeholder="••••••••"/></div>
+      <div><label class="lbl">Confirmar</label><input class="inp" type="password" placeholder="••••••••"/></div>
+    </div>
+    <div style="display:flex;gap:12px">
+      <button class="btn btn-s" style="flex:1;justify-content:center" @click="$store.app.page='login'">Cancelar</button>
+      <button class="btn btn-p" style="flex:1;justify-content:center" @click="$store.app.role='cliente';$store.app.doLogin()">Crear cuenta</button>
+    </div>
+  </div>
+</div>

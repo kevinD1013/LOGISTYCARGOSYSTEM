@@ -1,0 +1,19 @@
+<!-- REPORTAR NOVEDAD -->
+  <!-- ==========================================================
+       CONDUCTOR - REPORTAR NOVEDAD
+       Formulario para reportar una incidencia durante el
+       servicio.
+
+       EDITAR ESTA SECCIÓN:
+       Estilos:    css/formularios.css, css/botones.css
+       JavaScript: javascript/aplicacion.js
+       ========================================================== -->
+  <div x-show="$store.app.page==='co_incidente'" class="flex-1 overflow-y-auto" style="padding:18px;max-width:560px;margin:0 auto;width:100%">
+    <a @click.prevent="$store.app.page='dash_conductor'" style="display:flex;align-items:center;gap:6px;color:#9C8B78;font-size:12px;margin-bottom:16px;cursor:pointer"><span class="material-symbols-outlined" style="font-size:16px">arrow_back</span>Volver</a>
+    <h1 style="font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:#FFFFFF;margin-bottom:4px">Reportar novedad</h1>
+    <p style="font-size:12.5px;color:#9C8B78;margin-bottom:18px">Llega de inmediato al panel de la oficina.</p>
+    <div style="margin-bottom:12px"><label class="lbl" style="color:#9C8B78">Tipo de novedad</label><select class="inp sel" style="background:#1E1108;border-color:#5C3D20;color:#FFFFFF"><option>Retraso (tráfico, clima)</option><option>Daño a un objeto</option><option>Problema mecánico</option><option>Cliente no se encuentra</option><option>Otro</option></select></div>
+    <div style="margin-bottom:12px"><label class="lbl" style="color:#9C8B78">Parada relacionada</label><select class="inp sel" style="background:#1E1108;border-color:#5C3D20;color:#FFFFFF"><option>Parada 1 — SRV-2026-00847</option><option>Parada 2 — SRV-2026-00847</option></select></div>
+    <div style="margin-bottom:18px"><label class="lbl" style="color:#9C8B78">Describe lo que pasó</label><textarea class="inp" rows="4" style="background:#1E1108;border-color:#5C3D20;color:#FFFFFF" placeholder="Ej: Tráfico pesado, llegaré 25 min tarde"></textarea></div>
+    <button style="background:#C99A3C;color:#2C1A0E;width:100%;padding:17px;border-radius:14px;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;border:none" @click="$store.app.page='dash_conductor';$store.app.toast_('Novedad reportada a la oficina')"><span class="material-symbols-outlined">send</span>Enviar reporte</button>
+  </div>

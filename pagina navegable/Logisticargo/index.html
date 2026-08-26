@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Logisty Cargo — Sistema de Gestión</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="javascript/aplicacion.js"></script>
+<script defer src="javascript/enrutador.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link rel="stylesheet" href="css/colores_y_variables.css"/>
+<link rel="stylesheet" href="css/estilos_generales.css"/>
+<link rel="stylesheet" href="css/navegacion.css"/>
+<link rel="stylesheet" href="css/componentes.css"/>
+<link rel="stylesheet" href="css/botones.css"/>
+<link rel="stylesheet" href="css/formularios.css"/>
+<link rel="stylesheet" href="css/tablas.css"/>
+</head>
+<body>
+<div x-data class="min-h-screen">
+
+<div x-show="$store.app.toast" x-cloak x-transition style="position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9999;background:#2C1A0E;color:#FFFFFF;padding:11px 22px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:0 8px 24px #0006;display:flex;align-items:center;gap:8px">
+  <span class="material-symbols-outlined" style="font-size:16px;color:#C99A3C">check_circle</span><span x-text="$store.app.toast"></span>
+</div>
+
+<div x-show="$store.app.page==='welcome'" x-cloak class="fixed inset-0 flex items-center justify-center" style="background:#2C1A0E;z-index:100">
+  <div class="flex flex-col items-center" style="max-width:300px;width:100%;padding:0 24px;text-align:center">
+    <div class="a1" style="width:68px;height:68px;border-radius:18px;background:#C1622D;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+     <img src="imagenes/LOGO.png" alt="Logo" style="width:70px;height:70px;border-radius:10px;">
+    </div>
+    <p class="a2" style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#FFFFFF;margin-bottom:6px">Logisty Cargo</p>
+    <p class="a3" style="font-size:14px;color:#C4B49E;margin-bottom:4px">Hola, <span x-text="$store.app.userName" style="color:#C99A3C;font-weight:700"></span> 👋</p>
+    <p class="a4" style="font-size:12px;color:#9C8B78;margin-bottom:28px" x-text="$store.app.role==='cliente'?'Preparando tu portal de mudanzas':$store.app.role==='conductor'?'Cargando tu ruta de hoy':'Preparando el panel de operaciones'"></p>
+    <div style="width:200px;height:3px;background:#5C3D20;border-radius:8px;overflow:hidden">
+      <div class="abar" style="height:100%;background:#C99A3C"></div>
+    </div>
+  </div>
+</div>
+<div x-show="['login','recover','register'].includes($store.app.page)" id="contenido-autenticacion" class="contents">
+</div>
+
+<!-- ZONA DEL ADMINISTRADOR -->
+<div x-show="['dash_admin','ad_servicios','ad_asignaciones','ad_vehiculos','ad_conductores','ad_clientes','ad_reportes','ad_config'].includes($store.app.page)" x-cloak class="flex flex-col min-h-screen" style="background:#F8F4EE">
+
+
+
+  <!-- Topbar -->
+  <div class="topbar-h">
+    <div style="display:flex;align-items:center;gap:10px;margin-right:32px;flex-shrink:0">
+      <div style="width:36px;height:36px;border-radius:9px;background:#C1622D;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <img src="imagenes/LOGO.png" alt="Logo" style="width:100%;height:100%;border-radius:9px;">
+      </div>
+      <div>
+        <p style="font-family:'Fraunces',serif;font-weight:700;font-size:13.5px;color:#2C1A0E;line-height:1.1">Logisty Cargo</p>
+        <p style="font-size:10px;color:#9C8B78">Logistics that move you</p>
+      </div>
+    </div>
+    <!-- Nav links -->
+    <nav style="display:flex;align-items:center;gap:2px;flex:1">
+      <a class="tnav-link" :class="$store.app.page==='dash_admin'&&'active'" @click.prevent="$store.app.page='dash_admin'" style="position:relative">
+        <span class="material-symbols-outlined ms">home</span>Dashboard
+        <span x-show="$store.app.page==='dash_admin'" class="tnav-underline"></span>
+      </a>
+      <a class="tnav-link" :class="$store.app.page==='ad_servicios'&&'active'" @click.prevent="$store.app.page='ad_servicios'" style="position:relative">
+        <span class="material-symbols-outlined ms">receipt_long</span>Servicios
+        <span x-show="$store.app.page==='ad_servicios'" class="tnav-underline"></span>
+      </a>
+      <a class="tnav-link" :class="$store.app.page==='ad_asignaciones'&&'active'" @click.prevent="$store.app.page='ad_asignaciones'" style="position:relative">
+        <span class="material-symbols-outlined ms">assignment_ind</span>Asignaciones
+        <span x-show="$store.app.page==='ad_asignaciones'" class="tnav-underline"></span>
+      </a>
+      <a class="tnav-link" :class="$store.app.page==='ad_vehiculos'&&'active'" @click.prevent="$store.app.page='ad_vehiculos'" style="position:relative">
+        <span class="material-symbols-outlined ms">local_shipping</span>Vehículos
+        <span x-show="$store.app.page==='ad_vehiculos'" class="tnav-underline"></span>
+      </a>
+      <a class="tnav-link" :class="$store.app.page==='ad_conductores'&&'active'" @click.prevent="$store.app.page='ad_conductores'" style="position:relative">
+        <span class="material-symbols-outlined ms">badge</span>Conductores
+        <span x-show="$store.app.page==='ad_conductores'" class="tnav-underline"></span>
+      </a>
+      <a class="tnav-link" :class="$store.app.page==='ad_clientes'&&'active'" @click.prevent="$store.app.page='ad_clientes'" style="position:relative">
+        <span class="material-symbols-outlined ms">group</span>Clientes
+        <span x-show="$store.app.page==='ad_clientes'" class="tnav-underline"></span>
+      </a>
+      <a class="tnav-link" :class="$store.app.page==='ad_reportes'&&'active'" @click.prevent="$store.app.page='ad_reportes'" style="position:relative">
+        <span class="material-symbols-outlined ms">bar_chart</span>Reportes
+        <span x-show="$store.app.page==='ad_reportes'" class="tnav-underline"></span>
+      </a>
+      <a class="tnav-link" :class="$store.app.page==='ad_config'&&'active'" @click.prevent="$store.app.page='ad_config'" style="position:relative">
+        <span class="material-symbols-outlined ms">settings</span>Configuración
+        <span x-show="$store.app.page==='ad_config'" class="tnav-underline"></span>
+      </a>
+    </nav>
+    <!-- Derecha -->
+    <div style="display:flex;align-items:center;gap:14px;flex-shrink:0">
+      <div style="position:relative;cursor:pointer" @click="$store.app.toast_('Tienes 3 notificaciones pendientes')">
+        <span class="material-symbols-outlined" style="font-size:22px;color:#9C8B78">notifications</span>
+        <span style="position:absolute;top:-2px;right:-2px;width:16px;height:16px;border-radius:50%;background:#C1622D;border:2px solid #FFF;font-size:9px;font-weight:700;color:#FFF;display:flex;align-items:center;justify-content:center">3</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:9px;cursor:pointer" @click="$store.app.page='login';$store.app.role=''">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C1622D,#C99A3C);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#FFF">LR</div>
+        <div>
+          <p style="font-size:13px;font-weight:600;color:#2C1A0E" x-text="$store.app.userName"></p>
+          <p style="font-size:10.5px;color:#9C8B78">Administrador</p>
+        </div>
+        <span class="material-symbols-outlined" style="font-size:16px;color:#C4B49E">expand_more</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="contenido-administrador" class="contents"></div>
+</div>
+
+<!-- ZONA DEL CLIENTE -->
+<div x-show="['dash_cliente','cl_solicitud','cl_cotizacion','cl_seguimiento','cl_historial','cl_pagos','cl_soporte'].includes($store.app.page)" x-cloak class="flex flex-col min-h-screen" style="background:#F8F4EE">
+
+
+
+  <!-- ── Topbar cliente (horizontal, igual estética admin) ── -->
+  <div class="topbar-h" style="padding:0 28px;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+      <div style="width:36px;height:36px;border-radius:9px;background:#C1622D;display:flex;align-items:center;justify-content:center">
+        <img src="imagenes/LOGO.png" alt="Logo" style="width:100%;height:100%;border-radius:9px;">
+      </div>
+      <div>
+        <p style="font-family:'Fraunces',serif;font-weight:700;font-size:13.5px;color:#2C1A0E;line-height:1.1">Logisty Cargo</p>
+        <p style="font-size:10px;color:#9C8B78">Logistics that move you</p>
+      </div>
+    </div>
+
+    <nav style="display:flex;align-items:center;gap:2px;flex:1;justify-content:center">
+      <a class="tnav-link" :class="$store.app.page==='dash_cliente'&&'active'" @click.prevent="$store.app.page='dash_cliente'" style="position:relative">
+        <span class="material-symbols-outlined ms">home</span>Inicio
+        <span x-show="$store.app.page==='dash_cliente'" class="tnav-underline"></span>
+      </a>
+      <a class="tnav-link" :class="$store.app.page==='cl_solicitud'&&'active'" @click.prevent="$store.app.page='cl_solicitud'" style="position:relative">
+        <span class="material-symbols-outlined ms">add_box</span>Solicitar mudanza
+        <span x-show="$store.app.page==='cl_solicitud'||$store.app.page==='cl_cotizacion'" class="tnav-underline"></span>
+      </a>
+      <a class="tnav-link" :class="$store.app.page==='cl_seguimiento'&&'active'" @click.prevent="$store.app.page='cl_seguimiento'" style="position:relative">
+        <span class="material-symbols-outlined ms">local_shipping</span>Seguimiento
+        <span x-show="$store.app.page==='cl_seguimiento'" class="tnav-underline"></span>
+      </a>
+      <a class="tnav-link" :class="$store.app.page==='cl_historial'&&'active'" @click.prevent="$store.app.page='cl_historial'" style="position:relative">
+        <span class="material-symbols-outlined ms">history</span>Historial
+        <span x-show="$store.app.page==='cl_historial'" class="tnav-underline"></span>
+      </a>
+      <a class="tnav-link" :class="$store.app.page==='cl_pagos'&&'active'" @click.prevent="$store.app.page='cl_pagos'" style="position:relative">
+        <span class="material-symbols-outlined ms">receipt_long</span>Pagos
+        <span x-show="$store.app.page==='cl_pagos'" class="tnav-underline"></span>
+      </a>
+      <a class="tnav-link" :class="$store.app.page==='cl_soporte'&&'active'" @click.prevent="$store.app.page='cl_soporte'" style="position:relative">
+        <span class="material-symbols-outlined ms">headset_mic</span>Soporte
+        <span x-show="$store.app.page==='cl_soporte'" class="tnav-underline"></span>
+      </a>
+    </nav>
+
+    <div style="display:flex;align-items:center;gap:14px;flex-shrink:0">
+      <div style="position:relative;cursor:pointer" @click="$store.app.toast_('Sin notificaciones nuevas')">
+        <span class="material-symbols-outlined" style="font-size:22px;color:#9C8B78">notifications</span>
+        <span style="position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#A84230;border:2px solid #FFF"></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:9px;cursor:pointer" @click="$store.app.page='login';$store.app.role=''">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C1622D,#C99A3C);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#FFF" x-text="$store.app.userName.split(' ').map(n=>n[0]).join('').slice(0,2)"></div>
+        <div>
+          <p style="font-size:13px;font-weight:600;color:#2C1A0E" x-text="$store.app.userName"></p>
+          <p style="font-size:10.5px;color:#9C8B78">Cliente</p>
+        </div>
+        <span class="material-symbols-outlined" style="font-size:16px;color:#C4B49E">expand_more</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="contenido-cliente" class="contents"></div>
+</div>
+
+<!-- ZONA DEL CONDUCTOR -->
+<div x-show="['dash_conductor','co_parada','co_checklist','co_incidente','co_vehiculo','co_historial'].includes($store.app.page)" x-cloak class="min-h-screen flex flex-col" style="background:#2C1A0E">
+
+  <!-- Barra conductor -->
+  <div style="background:#1E1108;border-bottom:1px solid #5C3D20;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="width:36px;height:36px;border-radius:50%;background:#C99A3C;color:#2C1A0E;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">CM</div>
+      <div><p style="font-size:13px;font-weight:700;color:#FFFFFF" x-text="$store.app.userName"></p><p style="font-size:11px;color:#C99A3C">● En turno · Ford F-350 ABC-123</p></div>
+    </div>
+    <a @click.prevent="$store.app.page='login';$store.app.role=''" style="color:#9C8B78;cursor:pointer"><span class="material-symbols-outlined" style="font-size:20px">logout</span></a>
+  </div>
+  <!-- Tabs -->
+  <div style="display:flex;background:#1E1108;border-bottom:1px solid #5C3D20;overflow-x:auto;flex-shrink:0">
+    <a @click.prevent="$store.app.page='dash_conductor'" style="flex:1;text-align:center;padding:12px 8px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .15s" :style="$store.app.page==='dash_conductor'?'color:#C99A3C;border-bottom:2px solid #C99A3C':'color:#9C8B78;border-bottom:2px solid transparent'">Mi ruta</a>
+    <a @click.prevent="$store.app.page='co_vehiculo'" style="flex:1;text-align:center;padding:12px 8px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .15s" :style="$store.app.page==='co_vehiculo'?'color:#C99A3C;border-bottom:2px solid #C99A3C':'color:#9C8B78;border-bottom:2px solid transparent'">Mi vehículo</a>
+    <a @click.prevent="$store.app.page='co_historial'" style="flex:1;text-align:center;padding:12px 8px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .15s" :style="$store.app.page==='co_historial'?'color:#C99A3C;border-bottom:2px solid #C99A3C':'color:#9C8B78;border-bottom:2px solid transparent'">Historial</a>
+  </div>
+
+  <div id="contenido-conductor" class="contents"></div>
+</div>
+
+<div x-show="$store.app.contactModal" x-cloak class="modal-bg" @click.self="$store.app.contactModal=false">
+  <div class="card" style="max-width:360px;width:100%;padding:26px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+      <div style="width:44px;height:44px;border-radius:50%;background:#C99A3C;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0">CM</div>
+      <div><p style="font-size:14px;font-weight:700;color:#2C1A0E">Carlos Mendoza</p><p style="font-size:12px;color:#9C8B78">Conductor asignado</p></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+      <button class="btn btn-p" style="width:100%;justify-content:center" @click="$store.app.contactModal=false;$store.app.toast_('Llamando a Carlos Mendoza...')"><span class="material-symbols-outlined" style="font-size:16px">call</span>Llamar · +57 310 XXX XXXX</button>
+      <button class="btn btn-s" style="width:100%;justify-content:center" @click="$store.app.contactModal=false;$store.app.toast_('Abriendo chat con el conductor')"><span class="material-symbols-outlined" style="font-size:16px">chat</span>Enviar mensaje</button>
+    </div>
+    <a style="display:block;text-align:center;font-size:12.5px;color:#9C8B78;cursor:pointer" @click="$store.app.contactModal=false">Cerrar</a>
+  </div>
+</div>
+
+<div x-show="$store.app.cancelModal" x-cloak class="modal-bg" @click.self="$store.app.cancelModal=false">
+  <div class="card" style="max-width:380px;width:100%;padding:26px">
+    <div style="width:46px;height:46px;border-radius:14px;background:#A842301A;display:flex;align-items:center;justify-content:center;margin-bottom:14px"><span class="material-symbols-outlined" style="color:#A84230;font-size:24px">warning</span></div>
+    <h3 style="font-size:16px;font-weight:700;color:#2C1A0E;margin-bottom:8px">¿Cancelar este servicio?</h3>
+    <p style="font-size:13px;color:#9C8B78;margin-bottom:20px">El camión ya salió. Cancelar ahora puede generar un cargo del 20% del valor del servicio.</p>
+    <div style="display:flex;gap:12px">
+      <button class="btn btn-s" style="flex:1;justify-content:center" @click="$store.app.cancelModal=false">Volver</button>
+      <button class="btn btn-d" style="flex:1;justify-content:center;background:#A84230;color:#FFF;border:none" @click="$store.app.cancelModal=false;$store.app.page='dash_cliente';$store.app.toast_('Servicio cancelado')">Sí, cancelar</button>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
