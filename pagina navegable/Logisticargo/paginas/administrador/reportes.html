@@ -1,0 +1,35 @@
+<!-- ══ REPORTES ══ -->
+  <!-- ==========================================================
+       ADMINISTRADOR - REPORTES
+       Estadísticas y gráficos de la operación.
+
+       EDITAR ESTA SECCIÓN:
+       Estilos:    css/componentes.css
+       JavaScript: javascript/aplicacion.js
+       ========================================================== -->
+  <div x-show="$store.app.page==='ad_reportes'" class="flex-1 overflow-y-auto p-6">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <div><h1 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#2C1A0E">Reportes</h1><p style="font-size:13px;color:#9C8B78">Análisis de la operación por período.</p></div>
+      <div style="display:flex;gap:10px"><button class="btn btn-s" @click="$store.app.toast_('Exportando Excel')"><span class="material-symbols-outlined" style="font-size:15px">table_view</span>Excel</button><button class="btn btn-p" @click="$store.app.toast_('Exportando PDF')"><span class="material-symbols-outlined" style="font-size:15px">picture_as_pdf</span>PDF</button></div>
+    </div>
+    <div class="grid grid-cols-2 gap-5 mb-5">
+      <div class="card" style="padding:22px">
+        <h3 style="font-size:13px;font-weight:700;color:#2C1A0E;margin-bottom:16px">Servicios por estado · Este mes</h3>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12.5px;color:#5C3D20">Completados</span><span style="font-size:12.5px;font-weight:700;color:#5E7A52">56%</span></div><div style="height:6px;background:#EDE5D8;border-radius:3px"><div style="height:100%;width:56%;background:#5E7A52;border-radius:3px"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12.5px;color:#5C3D20">En curso</span><span style="font-size:12.5px;font-weight:700;color:#1D6FA4">25%</span></div><div style="height:6px;background:#EDE5D8;border-radius:3px"><div style="height:100%;width:25%;background:#1D6FA4;border-radius:3px"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12.5px;color:#5C3D20">Pendientes</span><span style="font-size:12.5px;font-weight:700;color:#C99A3C">12%</span></div><div style="height:6px;background:#EDE5D8;border-radius:3px"><div style="height:100%;width:12%;background:#C99A3C;border-radius:3px"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12.5px;color:#5C3D20">Cancelados</span><span style="font-size:12.5px;font-weight:700;color:#A84230">6%</span></div><div style="height:6px;background:#EDE5D8;border-radius:3px"><div style="height:100%;width:6%;background:#A84230;border-radius:3px"></div></div></div>
+        </div>
+      </div>
+      <div class="card" style="padding:22px">
+        <h3 style="font-size:13px;font-weight:700;color:#2C1A0E;margin-bottom:16px">Ingresos por semana · Mayo 2026</h3>
+        <div style="display:flex;align-items:flex-end;gap:10px;height:100px">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;background:linear-gradient(to top,#C1622D,#C1622D88);border-radius:4px 4px 0 0;height:55%"></div><span style="font-size:10px;color:#C4B49E">Sem 1</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;background:linear-gradient(to top,#C1622D,#C1622D88);border-radius:4px 4px 0 0;height:72%"></div><span style="font-size:10px;color:#C4B49E">Sem 2</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;background:linear-gradient(to top,#C1622D,#C1622D88);border-radius:4px 4px 0 0;height:60%"></div><span style="font-size:10px;color:#C4B49E">Sem 3</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;background:linear-gradient(to top,#C1622D,#C1622D88);border-radius:4px 4px 0 0;height:92%"></div><span style="font-size:10px;color:#C1622D;font-weight:700">Sem 4</span></div>
+        </div>
+      </div>
+    </div>
+  </div>

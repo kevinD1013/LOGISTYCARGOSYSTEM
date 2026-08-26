@@ -1,0 +1,62 @@
+<!-- ==========================================================
+       CLIENTE - SOPORTE
+       Contacto y soporte para el cliente.
+
+       EDITAR ESTA SECCIÓN:
+       Estilos:    css/formularios.css, css/botones.css, css/componentes.css
+       JavaScript: javascript/aplicacion.js
+       ========================================================== -->
+  <!-- ══════════ SOPORTE ══════════ -->
+  <div x-show="$store.app.page==='cl_soporte'" class="flex-1 overflow-y-auto">
+    <div style="background:linear-gradient(135deg,#F0E8D8,#EDE5D8);border-bottom:1px solid #EDE5D8;padding:26px 40px">
+      <h1 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#2C1A0E;margin-bottom:4px">Soporte</h1>
+      <p style="font-size:13px;color:#9C8B78">Un asesor te responde en menos de 4 horas hábiles.</p>
+    </div>
+    <div style="padding:28px 40px">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card" style="padding:24px">
+          <h3 style="font-size:14px;font-weight:700;color:#2C1A0E;margin-bottom:16px">Abrir un caso de soporte</h3>
+          <div style="margin-bottom:13px"><label class="lbl">Servicio relacionado</label>
+            <select class="inp sel"><option>SRV-2026-00847 — Bogotá → Medellín</option><option>SRV-2026-00848 — Bogotá → Cali</option><option>No aplica a un servicio específico</option></select>
+          </div>
+          <div style="margin-bottom:13px"><label class="lbl">Motivo</label>
+            <select class="inp sel"><option>Retraso en el servicio</option><option>Daño en algún objeto</option><option>Cobro incorrecto</option><option>Pregunta general</option><option>Otro</option></select>
+          </div>
+          <div style="margin-bottom:16px"><label class="lbl">Describe tu caso</label>
+            <textarea class="inp" rows="4" placeholder="Cuéntanos qué pasó con el mayor detalle posible..."></textarea>
+          </div>
+          <button class="btn btn-p" style="width:100%;justify-content:center" @click="$store.app.toast_('Caso #SUP-XXXX creado. Te contactamos en menos de 4 horas.')">
+            <span class="material-symbols-outlined" style="font-size:16px">send</span>Enviar caso
+          </button>
+        </div>
+        <div>
+          <div class="card" style="padding:22px;margin-bottom:14px">
+            <h3 style="font-size:13.5px;font-weight:700;color:#2C1A0E;margin-bottom:14px">Canales de contacto directo</h3>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <button class="btn btn-s" style="width:100%;justify-content:flex-start;gap:12px;padding:14px" @click="$store.app.toast_('Conectando con asesor disponible...')">
+                <div style="width:36px;height:36px;border-radius:9px;background:#5E7A521A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="color:#5E7A52;font-size:19px">call</span></div>
+                <div style="text-align:left"><p style="font-size:13px;font-weight:600;color:#2C1A0E">Llamar a soporte</p><p style="font-size:11px;color:#9C8B78">Lun–Vie 8AM–6PM</p></div>
+              </button>
+              <button class="btn btn-s" style="width:100%;justify-content:flex-start;gap:12px;padding:14px" @click="$store.app.toast_('Abriendo chat en tiempo real')">
+                <div style="width:36px;height:36px;border-radius:9px;background:#C1622D1A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="color:#C1622D;font-size:19px">chat</span></div>
+                <div style="text-align:left"><p style="font-size:13px;font-weight:600;color:#2C1A0E">Chat en línea</p><p style="font-size:11px;color:#9C8B78">Respuesta inmediata</p></div>
+              </button>
+            </div>
+          </div>
+          <div class="card" style="padding:20px">
+            <h3 style="font-size:13px;font-weight:700;color:#2C1A0E;margin-bottom:12px">Tus casos anteriores</h3>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="background:#F8F4EE;border-radius:10px;padding:12px;display:flex;justify-content:space-between;align-items:center">
+                <div><p style="font-size:12.5px;font-weight:600;color:#2C1A0E">#SUP-XXXX</p><p style="font-size:11px;color:#9C8B78">Cobro incorrecto</p></div>
+                <span class="badge b-sage">Resuelto</span>
+              </div>
+              <div style="background:#F8F4EE;border-radius:10px;padding:12px;display:flex;justify-content:space-between;align-items:center">
+                <div><p style="font-size:12.5px;font-weight:600;color:#2C1A0E">#SUP-XXXX</p><p style="font-size:11px;color:#9C8B78">Embalaje de espejos</p></div>
+                <span class="badge b-sage">Resuelto</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

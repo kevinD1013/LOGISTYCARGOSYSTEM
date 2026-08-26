@@ -1,0 +1,13 @@
+/* ==========================================================
+   FORMULARIOS
+   Estilos de los campos de entrada (inp), selects (sel) y
+   etiquetas de campo (lbl) usados en todos los formularios
+   del prototipo.
+   ========================================================== */
+
+/* ── Input / Select ── */
+.inp{background:#FFFFFF;border:1px solid #EDE5D8;border-radius:9px;padding:9px 13px;font-size:13.5px;color:#2C1A0E;width:100%;outline:none;font-family:'Inter',sans-serif}
+.inp::placeholder{color:#C4B49E}
+.inp:focus{border-color:#C1622D88;box-shadow:0 0 0 3px #C1622D14}
+.sel{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%239C8B78' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:16px;padding-right:36px}
+.lbl{display:block;font-size:11px;font-weight:700;color:#9C8B78;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}

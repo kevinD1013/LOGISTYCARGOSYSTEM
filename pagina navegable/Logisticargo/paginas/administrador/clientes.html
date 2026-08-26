@@ -1,0 +1,25 @@
+<!-- ══ CLIENTES ══ -->
+  <!-- ==========================================================
+       ADMINISTRADOR - CLIENTES
+       Listado de clientes registrados en el sistema.
+
+       EDITAR ESTA SECCIÓN:
+       Estilos:    css/tablas.css, css/componentes.css
+       JavaScript: javascript/aplicacion.js
+       ========================================================== -->
+  <div x-show="$store.app.page==='ad_clientes'" class="flex-1 overflow-y-auto p-6">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <div><h1 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#2C1A0E">Clientes</h1><p style="font-size:13px;color:#9C8B78">Base de clientes registrados.</p></div>
+      <button class="btn btn-p" @click="$store.app.toast_('Creando nuevo cliente')"><span class="material-symbols-outlined" style="font-size:16px">person_add</span>Nuevo cliente</button>
+    </div>
+    <div class="card" style="overflow:hidden">
+      <table style="width:100%;border-collapse:collapse">
+        <thead style="background:#F8F4EE"><tr><th class="th">Cliente</th><th class="th">Correo</th><th class="th">Teléfono</th><th class="th">Servicios</th><th class="th">Estado</th><th class="th">Acciones</th></tr></thead>
+        <tbody>
+          <tr class="trow"><td class="td"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#C1622D;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">AG</div><span style="font-weight:600;color:#2C1A0E">Ana García</span></div></td><td class="td" style="font-size:12.5px;color:#5C3D20">ana.garcia@email.com</td><td class="td" style="font-size:12.5px;color:#5C3D20">+57 300 XXX XXXX</td><td class="td" style="font-size:12.5px;color:#5C3D20">3 servicios</td><td class="td"><span class="badge b-sage">Activo</span></td><td class="td"><div style="display:flex;gap:6px"><button class="btn btn-s" style="padding:5px 10px" @click="$store.app.toast_('Viendo perfil de Ana García')"><span class="material-symbols-outlined" style="font-size:14px">visibility</span></button><button class="btn btn-s" style="padding:5px 10px" @click="$store.app.toast_('Editando cliente')"><span class="material-symbols-outlined" style="font-size:14px">edit</span></button></div></td></tr>
+          <tr class="trow"><td class="td"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#5E7A52;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">ML</div><span style="font-weight:600;color:#2C1A0E">María López</span></div></td><td class="td" style="font-size:12.5px;color:#5C3D20">maria.lopez@email.com</td><td class="td" style="font-size:12.5px;color:#5C3D20">+57 320 XXX XXXX</td><td class="td" style="font-size:12.5px;color:#5C3D20">1 servicio</td><td class="td"><span class="badge b-sage">Activo</span></td><td class="td"><div style="display:flex;gap:6px"><button class="btn btn-s" style="padding:5px 10px" @click="$store.app.toast_('Viendo perfil de María López')"><span class="material-symbols-outlined" style="font-size:14px">visibility</span></button><button class="btn btn-s" style="padding:5px 10px" @click="$store.app.toast_('Editando cliente')"><span class="material-symbols-outlined" style="font-size:14px">edit</span></button></div></td></tr>
+          <tr><td class="td"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#9C8B78;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">SM</div><span style="font-weight:600;color:#2C1A0E">Sofía Martínez</span></div></td><td class="td" style="font-size:12.5px;color:#5C3D20">sofia.martinez@email.com</td><td class="td" style="font-size:12.5px;color:#5C3D20">+57 301 XXX XXXX</td><td class="td" style="font-size:12.5px;color:#5C3D20">1 servicio</td><td class="td"><span class="badge b-taupe">Inactivo</span></td><td class="td"><div style="display:flex;gap:6px"><button class="btn btn-s" style="padding:5px 10px" @click="$store.app.toast_('Viendo perfil de Sofía Martínez')"><span class="material-symbols-outlined" style="font-size:14px">visibility</span></button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

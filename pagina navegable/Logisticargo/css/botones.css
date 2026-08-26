@@ -1,0 +1,12 @@
+/* ==========================================================
+   BOTONES
+   Botón principal (btn-p), secundario (btn-s), de contorno
+   (btn-o) y de eliminar/peligro (btn-d), con sus estados hover.
+   ========================================================== */
+
+/* ── Botones ── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-p{background:#C1622D;color:#FFFFFF}.btn-p:hover{background:#9C4D22}
+.btn-s{background:#FFFFFF;color:#2C1A0E;border:1px solid #EDE5D8}.btn-s:hover{background:#F8F4EE}
+.btn-o{background:transparent;color:#C1622D;border:1.5px solid #C1622D77}.btn-o:hover{background:#C1622D14}
+.btn-d{background:#A842301A;color:#A84230;border:1px solid #A8423044}.btn-d:hover{background:#A8423026}

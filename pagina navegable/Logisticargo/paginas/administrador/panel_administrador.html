@@ -1,0 +1,273 @@
+<!-- ==========================================================
+     ADMINISTRADOR - PANEL PRINCIPAL
+     Resumen de la operación: KPIs, ingresos del mes y
+     actividad reciente.
+
+     EDITAR ESTA SECCIÓN:
+     Estilos:    css/componentes.css, css/botones.css
+     JavaScript: javascript/aplicacion.js
+     ========================================================== -->
+<!-- DASHBOARD ADMIN -->
+  <div x-show="$store.app.page==='dash_admin'" class="flex-1 overflow-y-auto p-6">
+    <!-- Hero saludo + banner -->
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;gap:20px;flex-wrap:wrap">
+      <div>
+        <h1 style="font-family:'Fraunces',serif;font-size:27px;font-weight:700;color:#2C1A0E;margin-bottom:4px">Hola, <span x-text="$store.app.userName.split(' ')[0]"></span> 👋</h1>
+        <p style="font-size:13.5px;color:#9C8B78">Aquí tienes un resumen de la operación de hoy.</p>
+        <div style="display:inline-flex;align-items:center;gap:8px;background:#FFF;border:1px solid #EDE5D8;border-radius:9px;padding:8px 14px;margin-top:12px">
+          <span class="material-symbols-outlined" style="font-size:16px;color:#9C8B78">calendar_today</span>
+          <span style="font-size:13px;font-weight:500;color:#2C1A0E">22 de mayo, 2026</span>
+          <span class="material-symbols-outlined" style="font-size:14px;color:#C4B49E">expand_more</span>
+        </div>
+      </div>
+      <!-- Banner de ingresos -->
+      <div style="position:relative;overflow:hidden;border-radius:16px;background:linear-gradient(135deg,#F8F4EE,#EDE5D8);border:1px solid #EDE5D8;padding:22px 28px;min-width:420px;flex:1;max-width:660px;display:flex;align-items:center;justify-content:space-between">
+        <div style="position:absolute;right:0;top:0;bottom:0;width:55%;background:linear-gradient(135deg,#F0E8D8,#D9CBAD);border-radius:0 16px 16px 0;overflow:hidden;display:flex;align-items:center;justify-content:flex-end">
+          <!-- Ilustración carretera SVG simple -->
+          <svg viewBox="0 0 300 140" style="width:100%;height:100%">
+            <rect width="300" height="140" fill="none"/>
+            <!-- Cielo -->
+            <rect width="300" height="80" fill="#D9CBB0"/>
+            <!-- Montañas -->
+            <polygon points="0,80 60,30 120,80" fill="#B8A888"/>
+            <polygon points="50,80 130,20 210,80" fill="#C4B490"/>
+            <polygon points="150,80 220,35 290,80" fill="#B0A07A"/>
+            <!-- Tierra -->
+            <rect y="80" width="300" height="60" fill="#C9B99A"/>
+            <!-- Carretera -->
+            <path d="M 0 115 Q 100 105 150 100 Q 200 95 300 85" stroke="#A89070" stroke-width="18" fill="none"/>
+            <path d="M 0 115 Q 100 105 150 100 Q 200 95 300 85" stroke="#EDE5D8" stroke-width="2" fill="none" stroke-dasharray="12,10"/>
+            <!-- Árbol izquierdo -->
+            <rect x="18" y="75" width="5" height="20" fill="#7A6040"/>
+            <polygon points="20,48 8,80 32,80" fill="#5E7040"/>
+            <!-- Árbol derecho -->
+            <rect x="62" y="70" width="4" height="18" fill="#7A6040"/>
+            <polygon points="64,46 53,74 75,74" fill="#6B7D45"/>
+            <!-- Camión -->
+            <rect x="200" y="74" width="58" height="28" rx="4" fill="#EDE5D8"/>
+            <rect x="220" y="72" width="38" height="30" rx="3" fill="#E0D4BE"/>
+            <rect x="252" y="68" width="10" height="22" rx="2" fill="#FFFCF6"/>
+            <circle cx="212" cy="102" r="5" fill="#2C1A0E"/>
+            <circle cx="248" cy="102" r="5" fill="#2C1A0E"/>
+          </svg>
+        </div>
+        <div style="position:relative;z-index:1">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <div style="width:40px;height:40px;border-radius:10px;background:#C1622D;display:flex;align-items:center;justify-content:center">
+              <span class="material-symbols-outlined" style="color:#FFF;font-size:20px">payments</span>
+            </div>
+            <p style="font-size:12px;color:#9C8B78;font-weight:500">Ingresos del mes</p>
+          </div>
+          <p style="font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:#2C1A0E;line-height:1">$XX,XXX,XXX</p>
+          <p style="font-size:12px;color:#5E7A52;font-weight:600;margin-top:6px;display:flex;align-items:center;gap:4px">
+            <span class="material-symbols-outlined" style="font-size:14px">trending_up</span>12.5% vs. mes anterior
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="kpi" style="display:flex;align-items:center;gap:14px">
+        <div class="kpi-icon" style="background:#C1622D1A"><span class="material-symbols-outlined" style="color:#C1622D;font-size:22px">assignment</span></div>
+        <div><p style="font-size:11px;color:#9C8B78">Servicios hoy</p><p style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#2C1A0E">8</p><p style="font-size:11px;color:#C1622D">3 en curso</p></div>
+      </div>
+      <div class="kpi" style="display:flex;align-items:center;gap:14px;cursor:pointer" @click="$store.app.page='ad_vehiculos'">
+        <div class="kpi-icon" style="background:#5E7A521A"><span class="material-symbols-outlined" style="color:#5E7A52;font-size:22px">local_shipping</span></div>
+        <div><p style="font-size:11px;color:#9C8B78">Vehículos activos</p><p style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#2C1A0E">6</p><p style="font-size:11px;color:#9C8B78">2 disponibles</p></div>
+      </div>
+      <div class="kpi" style="display:flex;align-items:center;gap:14px;cursor:pointer" @click="$store.app.page='ad_servicios'">
+        <div class="kpi-icon" style="background:#C99A3C1A"><span class="material-symbols-outlined" style="color:#C99A3C;font-size:22px">pending_actions</span></div>
+        <div><p style="font-size:11px;color:#9C8B78">Pendientes de validar</p><p style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#C99A3C">4</p><p style="font-size:11px;color:#C99A3C">Requieren atención</p></div>
+      </div>
+      <div class="kpi" style="display:flex;align-items:center;gap:14px;cursor:pointer" @click="$store.app.page='ad_conductores'">
+        <div class="kpi-icon" style="background:#5C3D201A"><span class="material-symbols-outlined" style="color:#5C3D20;font-size:22px">person_pin</span></div>
+        <div><p style="font-size:11px;color:#9C8B78">Conductores en ruta</p><p style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#2C1A0E">12</p><p style="font-size:11px;color:#9C8B78">De 16 disponibles</p></div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+      <!-- Donut + lista -->
+      <div class="card" style="padding:22px">
+        <h3 style="font-size:14px;font-weight:700;color:#2C1A0E;margin-bottom:16px">Estado de servicios</h3>
+        <div style="display:flex;align-items:center;gap:18px">
+          <div style="position:relative;flex-shrink:0">
+            <svg width="110" height="110" viewBox="0 0 110 110">
+              <circle cx="55" cy="55" r="40" fill="none" stroke="#F0E8D8" stroke-width="16"/>
+              <circle cx="55" cy="55" r="40" fill="none" stroke="#C1622D" stroke-width="16" stroke-dasharray="113 140" stroke-dashoffset="-35" class="donut-ring" style="transform-origin:55px 55px"/>
+              <circle cx="55" cy="55" r="40" fill="none" stroke="#5E7A52" stroke-width="16" stroke-dasharray="75 178" stroke-dashoffset="-148" class="donut-ring" style="transform-origin:55px 55px"/>
+              <circle cx="55" cy="55" r="40" fill="none" stroke="#C99A3C" stroke-width="16" stroke-dasharray="38 215" stroke-dashoffset="-223" class="donut-ring" style="transform-origin:55px 55px"/>
+              <text x="55" y="50" text-anchor="middle" style="font-family:'Inter',sans-serif;font-size:11px;fill:#9C8B78">Total</text>
+              <text x="55" y="66" text-anchor="middle" style="font-family:'Fraunces',serif;font-size:16px;font-weight:700;fill:#2C1A0E">32</text>
+            </svg>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;flex:1">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="display:flex;align-items:center;gap:6px"><span class="dot dot-r"></span><span style="font-size:12px;color:#5C3D20">Completados</span></div>
+              <span style="font-size:12px;font-weight:600;color:#2C1A0E">45% (14)</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="display:flex;align-items:center;gap:6px"><span class="dot dot-g"></span><span style="font-size:12px;color:#5C3D20">En curso</span></div>
+              <span style="font-size:12px;font-weight:600;color:#2C1A0E">30% (10)</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="display:flex;align-items:center;gap:6px"><span class="dot dot-o"></span><span style="font-size:12px;color:#5C3D20">Pendientes</span></div>
+              <span style="font-size:12px;font-weight:600;color:#2C1A0E">15% (5)</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#EDE5D8;display:inline-block"></span><span style="font-size:12px;color:#5C3D20">Cancelados</span></div>
+              <span style="font-size:12px;font-weight:600;color:#2C1A0E">10% (3)</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-o" style="margin-top:16px;font-size:12px;padding:7px 14px" @click="$store.app.page='ad_reportes'">
+          <span class="material-symbols-outlined" style="font-size:14px">bar_chart</span>Ver reportes
+        </button>
+      </div>
+
+      <!-- Servicios recientes -->
+      <div class="card" style="padding:22px;grid-column:span 2">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <h3 style="font-size:14px;font-weight:700;color:#2C1A0E">Servicios recientes</h3>
+          <button class="btn btn-o" style="font-size:12px;padding:6px 12px" @click="$store.app.page='ad_servicios'">Ver todos</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1px">
+          <div class="trow" style="display:grid;grid-template-columns:1.4fr 1.2fr 80px 90px;gap:8px;align-items:center;padding:12px 8px;cursor:pointer" @click="$store.app.page='ad_servicios'">
+            <div>
+              <p style="font-size:13px;font-weight:600;color:#2C1A0E">SRV-2026-00852</p>
+              <p style="font-size:11px;color:#9C8B78">Bogotá → Medellín · Residencial</p>
+            </div>
+            <p style="font-size:12px;color:#9C8B78">Hace 10 min</p>
+            <span class="badge b-sage">Validado</span>
+            <span></span>
+          </div>
+          <div class="trow" style="display:grid;grid-template-columns:1.4fr 1.2fr 80px 90px;gap:8px;align-items:center;padding:12px 8px;cursor:pointer">
+            <div>
+              <p style="font-size:13px;font-weight:600;color:#2C1A0E">SRV-2026-00851</p>
+              <p style="font-size:11px;color:#9C8B78">Bogotá → Cali · Oficina</p>
+            </div>
+            <p style="font-size:12px;color:#9C8B78">Hace 35 min</p>
+            <span class="badge b-ocre">Pendiente</span>
+            <button class="btn btn-p" style="font-size:11px;padding:4px 10px" @click="$store.app.toast_('SRV-2026-00851 validado')">Validar</button>
+          </div>
+          <div class="trow" style="display:grid;grid-template-columns:1.4fr 1.2fr 80px 90px;gap:8px;align-items:center;padding:12px 8px;cursor:pointer">
+            <div>
+              <p style="font-size:13px;font-weight:600;color:#2C1A0E">SRV-2026-00850</p>
+              <p style="font-size:11px;color:#9C8B78">Cali → Barranquilla · Comercial</p>
+            </div>
+            <p style="font-size:12px;color:#9C8B78">Hace 1 h</p>
+            <span class="badge b-blue">En curso</span>
+            <span></span>
+          </div>
+          <div class="trow" style="display:grid;grid-template-columns:1.4fr 1.2fr 80px 90px;gap:8px;align-items:center;padding:12px 8px;cursor:pointer">
+            <div>
+              <p style="font-size:13px;font-weight:600;color:#2C1A0E">SRV-2026-00849</p>
+              <p style="font-size:11px;color:#9C8B78">Medellín → Bogotá · Residencial</p>
+            </div>
+            <p style="font-size:12px;color:#9C8B78">Hace 2 h</p>
+            <span class="badge b-sage">Validado</span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mapa + actividad + calendario -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <!-- Mapa -->
+      <div class="card" style="padding:0;overflow:hidden;grid-column:span 2">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 22px 14px">
+          <h3 style="font-size:14px;font-weight:700;color:#2C1A0E">Mapa de operación en tiempo real</h3>
+          <select class="inp sel" style="width:180px;font-size:12px"><option>Todos los servicios</option><option>En ruta</option><option>Completados</option></select>
+        </div>
+        <div style="position:relative;height:220px;background:linear-gradient(135deg,#E8DFD0,#D9CCBA);overflow:hidden">
+          <svg viewBox="0 0 640 220" style="width:100%;height:100%">
+            <rect width="640" height="220" fill="#E8DFD0"/>
+            <!-- Fondo tipo mapa -->
+            <rect y="100" width="640" height="120" fill="#D9CCBA"/>
+            <ellipse cx="320" cy="180" rx="280" ry="40" fill="#C9B99A" opacity=".4"/>
+            <!-- Ruta terracotta -->
+            <path d="M 540 60 Q 420 90 320 110 Q 220 130 120 160" stroke="#C1622D" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <!-- Ciudades -->
+            <circle cx="540" cy="60" r="8" fill="#C1622D"/>
+            <text x="548" y="55" style="font-size:10px;fill:#2C1A0E;font-family:Inter;font-weight:600">Bogotá</text>
+            <circle cx="120" cy="160" r="8" fill="#C99A3C"/>
+            <text x="128" y="155" style="font-size:10px;fill:#2C1A0E;font-family:Inter;font-weight:600">Medellín</text>
+            <!-- Camión en ruta -->
+            <rect x="305" y="100" width="30" height="16" rx="3" fill="#2C1A0E"/>
+            <rect x="315" y="96" width="22" height="12" rx="2" fill="#3C2A1E"/>
+            <circle cx="310" cy="116" r="4" fill="#C4B49E"/>
+            <circle cx="330" cy="116" r="4" fill="#C4B49E"/>
+          </svg>
+          <!-- Tarjeta de servicio activo -->
+          <div style="position:absolute;bottom:14px;left:14px;background:#FFF;border:1px solid #EDE5D8;border-radius:10px;padding:12px 14px;min-width:200px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <p style="font-size:12px;font-weight:700;color:#2C1A0E">SRV-2026-00852</p>
+              <span class="badge b-blue" style="font-size:10px;padding:2px 8px">En ruta</span>
+            </div>
+            <p style="font-size:11px;color:#9C8B78;margin-bottom:6px">Bogotá → Medellín</p>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="width:24px;height:24px;border-radius:50%;background:#C99A3C;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#FFF">CM</div>
+              <div><p style="font-size:11px;font-weight:600;color:#2C1A0E">Carlos Mendoza</p><p style="font-size:10px;color:#9C8B78">Camión mediano · F-350</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actividad + calendario derecha -->
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <!-- Actividad reciente -->
+        <div class="card" style="padding:18px">
+          <h3 style="font-size:13px;font-weight:700;color:#2C1A0E;margin-bottom:14px">Actividad reciente</h3>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <div style="width:28px;height:28px;border-radius:50%;background:#5E7A521A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:14px;color:#5E7A52">check_circle</span></div>
+              <div><p style="font-size:12px;font-weight:600;color:#2C1A0E">SRV-2026-00852 validado</p><p style="font-size:10.5px;color:#9C8B78">Hace 10 min</p></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <div style="width:28px;height:28px;border-radius:50%;background:#C1622D1A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:14px;color:#C1622D">add_circle</span></div>
+              <div><p style="font-size:12px;font-weight:600;color:#2C1A0E">Nuevo servicio creado</p><p style="font-size:10.5px;color:#9C8B78">Bogotá → Medellín · Hace 35 min</p></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <div style="width:28px;height:28px;border-radius:50%;background:#5C3D201A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:14px;color:#5C3D20">person_check</span></div>
+              <div><p style="font-size:12px;font-weight:600;color:#2C1A0E">Asignación completada</p><p style="font-size:10.5px;color:#9C8B78">Carlos Mendoza · Hace 1 h</p></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <div style="width:28px;height:28px;border-radius:50%;background:#C99A3C1A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:14px;color:#C99A3C">payments</span></div>
+              <div><p style="font-size:12px;font-weight:600;color:#2C1A0E">Pago recibido</p><p style="font-size:10.5px;color:#9C8B78">Facturación #F-XXXX · Hace 2 h</p></div>
+            </div>
+          </div>
+          <button class="btn btn-p" style="width:100%;justify-content:center;margin-top:14px;font-size:12px;padding:9px" @click="$store.app.toast_('Cargando historial de actividad completo')">Ver toda la actividad</button>
+        </div>
+        <!-- Mini calendario -->
+        <div class="card" style="padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <h3 style="font-size:12px;font-weight:700;color:#2C1A0E">Calendario de asignaciones</h3>
+            <button class="btn btn-o" style="font-size:11px;padding:4px 10px" @click="$store.app.page='ad_asignaciones'">Ver calendario</button>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:8px">
+            <div style="text-align:center;font-size:10px;color:#C4B49E;font-weight:700">LUN</div>
+            <div style="text-align:center;font-size:10px;color:#C4B49E;font-weight:700">MAR</div>
+            <div style="text-align:center;font-size:10px;color:#C4B49E;font-weight:700">MIÉ</div>
+            <div style="text-align:center;font-size:10px;color:#C4B49E;font-weight:700">JUE</div>
+            <div style="text-align:center;font-size:10px;color:#C4B49E;font-weight:700">VIE</div>
+            <div style="text-align:center;font-size:11px;color:#9C8B78;padding:4px">20</div>
+            <div style="text-align:center;font-size:11px;color:#9C8B78;padding:4px">21</div>
+            <div style="text-align:center;font-size:11px;background:#C1622D;color:#FFF;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;margin:0 auto;font-weight:700">22</div>
+            <div style="text-align:center;font-size:11px;color:#9C8B78;padding:4px">23</div>
+            <div style="text-align:center;font-size:11px;color:#9C8B78;padding:4px">24</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="background:#C1622D14;border-left:3px solid #C1622D;border-radius:6px;padding:7px 10px">
+              <p style="font-size:11px;font-weight:600;color:#9C4D22">SRV-2026-00852 · Bogotá → Medellín</p>
+              <p style="font-size:10px;color:#9C8B78">8:00 AM</p>
+            </div>
+            <div style="background:#C99A3C14;border-left:3px solid #C99A3C;border-radius:6px;padding:7px 10px">
+              <p style="font-size:11px;font-weight:600;color:#8A6820">SRV-2026-00853 · Cali → Bogotá</p>
+              <p style="font-size:10px;color:#9C8B78">2:00 PM</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

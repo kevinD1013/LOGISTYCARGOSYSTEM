@@ -1,0 +1,16 @@
+/* ==========================================================
+   ESTILOS GENERALES
+   Reglas base que aplican a toda la página: reset de
+   márgenes/padding, fuente del body, comportamiento de
+   x-cloak (oculta elementos mientras Alpine.js carga) y
+   el estilo de la barra de scroll.
+   ========================================================== */
+
+[x-cloak]{display:none!important}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#F8F4EE;color:#2C1A0E}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:#F8F4EE}
+::-webkit-scrollbar-thumb{background:#D9CCBB;border-radius:8px}

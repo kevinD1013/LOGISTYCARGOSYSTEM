@@ -1,0 +1,31 @@
+<!-- DETALLE PARADA -->
+  <!-- ==========================================================
+       CONDUCTOR - PARADA ACTUAL
+       Detalle de la parada en curso.
+
+       EDITAR ESTA SECCIÓN:
+       Estilos:    css/componentes.css, css/botones.css
+       JavaScript: javascript/aplicacion.js
+       ========================================================== -->
+  <div x-show="$store.app.page==='co_parada'" class="flex-1 overflow-y-auto" style="padding:18px;max-width:560px;margin:0 auto;width:100%">
+    <a @click.prevent="$store.app.page='dash_conductor'" style="display:flex;align-items:center;gap:6px;color:#9C8B78;font-size:12px;margin-bottom:16px;cursor:pointer"><span class="material-symbols-outlined" style="font-size:16px">arrow_back</span>Volver</a>
+    <h1 style="font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:#FFFFFF;margin-bottom:4px">Recoger en origen</h1>
+    <p style="font-size:13px;color:#9C8B78;margin-bottom:16px">SRV-2026-00847 · Residencial</p>
+    <div style="background:#1E1108;border:1px solid #5C3D20;border-radius:14px;padding:16px;margin-bottom:12px">
+      <p style="font-size:10.5px;color:#9C8B78;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:5px">Dirección</p>
+      <p style="font-size:15px;color:#FFFFFF;font-weight:700;margin-bottom:3px">Calle 85 #15-32, Bogotá</p>
+      <p style="font-size:12px;color:#9C8B78">Apartamento 502, Torre B · Portería: pedir a "mudanza García"</p>
+    </div>
+    <div style="background:#1E1108;border:1px solid #5C3D20;border-radius:14px;padding:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
+      <div><p style="font-size:10.5px;color:#9C8B78;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:4px">Cliente</p><p style="font-size:14px;color:#FFFFFF;font-weight:600">Ana García</p><p style="font-size:12px;color:#9C8B78">+57 300 XXX XXXX</p></div>
+      <button style="background:transparent;border:1px solid #5C3D20;border-radius:10px;padding:10px;cursor:pointer;color:#FFFFFF;display:flex;align-items:center" @click="$store.app.contactModal=true"><span class="material-symbols-outlined">call</span></button>
+    </div>
+    <div style="background:#1E1108;border:1px solid #5C3D20;border-radius:14px;padding:16px;margin-bottom:18px">
+      <p style="font-size:10.5px;color:#9C8B78;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:4px">Carga esperada</p>
+      <p style="font-size:13px;color:#FFFFFF">Aparto 2-3 hab. · ~15 m³ · embalaje especializado para vajilla y espejos</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <button style="background:#5E7A52;color:#FFFFFF;padding:17px;border-radius:14px;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;border:none" @click="$store.app.page='co_checklist'"><span class="material-symbols-outlined">checklist</span>Iniciar checklist de carga</button>
+      <button style="background:transparent;border:1px solid #5C3D20;color:#9C8B78;padding:14px;border-radius:14px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer" @click="$store.app.toast_('Abriendo GPS hacia el destino')"><span class="material-symbols-outlined" style="font-size:17px">navigation</span>Abrir navegación GPS</button>
+    </div>
+  </div>

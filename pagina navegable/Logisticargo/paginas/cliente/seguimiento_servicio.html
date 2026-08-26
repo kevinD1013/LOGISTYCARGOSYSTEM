@@ -1,0 +1,146 @@
+<!-- ==========================================================
+       CLIENTE - SEGUIMIENTO DEL SERVICIO
+       Seguimiento en tiempo real del servicio en curso
+       (mapa, estado del conductor, etc.).
+
+       EDITAR ESTA SECCIÓN:
+       Estilos:    css/componentes.css, css/botones.css
+       JavaScript: javascript/aplicacion.js (contactModal, cancelModal)
+       ========================================================== -->
+  <!-- ══════════ SEGUIMIENTO ══════════ -->
+  <div x-show="$store.app.page==='cl_seguimiento'" class="flex-1 overflow-y-auto">
+    <div style="background:linear-gradient(135deg,#F0E8D8,#EDE5D8);border-bottom:1px solid #EDE5D8;padding:26px 40px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+        <div>
+          <h1 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#2C1A0E;margin-bottom:4px">Seguimiento en vivo</h1>
+          <p style="font-size:13px;color:#9C8B78">SRV-2026-00847 · Bogotá → Medellín · Residencial</p>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-s" style="font-size:12px" @click="$store.app.contactModal=true"><span class="material-symbols-outlined" style="font-size:15px">call</span>Contactar conductor</button>
+          <button class="btn btn-d" style="font-size:12px" @click="$store.app.cancelModal=true"><span class="material-symbols-outlined" style="font-size:15px">cancel</span>Cancelar servicio</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:28px 40px">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Timeline de estado -->
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:13px;font-weight:700;color:#2C1A0E;margin-bottom:18px">Estado del servicio</h3>
+          <div style="display:flex;flex-direction:column">
+            <div style="display:flex;gap:14px;padding-bottom:20px">
+              <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+                <div style="width:28px;height:28px;border-radius:50%;background:#5E7A52;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:15px;color:#FFF">check</span></div>
+                <div style="width:2px;flex:1;background:#5E7A5233;margin:4px 0"></div>
+              </div>
+              <div style="padding-top:4px"><p style="font-size:13px;font-weight:600;color:#3D5435">Solicitud recibida</p><p style="font-size:11px;color:#9C8B78">20 oct · 10:30 AM</p></div>
+            </div>
+            <div style="display:flex;gap:14px;padding-bottom:20px">
+              <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+                <div style="width:28px;height:28px;border-radius:50%;background:#5E7A52;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:15px;color:#FFF">check</span></div>
+                <div style="width:2px;flex:1;background:#5E7A5233;margin:4px 0"></div>
+              </div>
+              <div style="padding-top:4px"><p style="font-size:13px;font-weight:600;color:#3D5435">Cotización aprobada</p><p style="font-size:11px;color:#9C8B78">20 oct · 2:00 PM</p></div>
+            </div>
+            <div style="display:flex;gap:14px;padding-bottom:20px">
+              <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+                <div style="width:28px;height:28px;border-radius:50%;background:#5E7A52;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:15px;color:#FFF">check</span></div>
+                <div style="width:2px;flex:1;background:#5E7A5233;margin:4px 0"></div>
+              </div>
+              <div style="padding-top:4px"><p style="font-size:13px;font-weight:600;color:#3D5435">Conductor asignado</p><p style="font-size:11px;color:#9C8B78">21 oct · 9:00 AM</p></div>
+            </div>
+            <div style="display:flex;gap:14px;padding-bottom:20px">
+              <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+                <div style="width:28px;height:28px;border-radius:50%;background:#C1622D;box-shadow:0 0 0 5px #C1622D22;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:15px;color:#FFF">local_shipping</span></div>
+                <div style="width:2px;flex:1;background:#EDE5D8;margin:4px 0"></div>
+              </div>
+              <div style="padding-top:4px"><p style="font-size:13px;font-weight:600;color:#C1622D">En ruta al origen</p><p style="font-size:11px;color:#9C8B78">25 oct · 8:30 AM · A 12 km</p></div>
+            </div>
+            <div style="display:flex;gap:14px;padding-bottom:20px;opacity:.4">
+              <div style="width:28px;height:28px;border-radius:50%;background:#EDE5D8;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:15px;color:#C4B49E">inventory_2</span></div>
+              <div style="padding-top:4px"><p style="font-size:13px;font-weight:600;color:#2C1A0E">Cargando en origen</p><p style="font-size:11px;color:#9C8B78">Pendiente</p></div>
+            </div>
+            <div style="display:flex;gap:14px;opacity:.3">
+              <div style="width:28px;height:28px;border-radius:50%;background:#EDE5D8;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:15px;color:#C4B49E">home</span></div>
+              <div style="padding-top:4px"><p style="font-size:13px;font-weight:600;color:#2C1A0E">Entregado en destino</p><p style="font-size:11px;color:#9C8B78">Pendiente</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mapa visual SVG -->
+        <div class="card" style="overflow:hidden">
+          <div style="padding:16px 18px 12px;border-bottom:1px solid #EDE5D8;display:flex;justify-content:space-between;align-items:center">
+            <h3 style="font-size:13px;font-weight:700;color:#2C1A0E">Ubicación en tiempo real</h3>
+            <span style="font-size:10.5px;color:#C4B49E">Actualizado hace 3 min</span>
+          </div>
+          <div style="position:relative;height:220px;background:linear-gradient(135deg,#EDE5D8,#D9CCBA)">
+            <svg viewBox="0 0 400 220" style="width:100%;height:100%">
+              <rect width="400" height="220" fill="#E8DFD0"/>
+              <rect y="110" width="400" height="110" fill="#D9CCBA"/>
+              <ellipse cx="200" cy="180" rx="180" ry="35" fill="#C9B99A" opacity=".4"/>
+              <!-- Carretera -->
+              <path d="M 350 55 Q 280 80 220 100 Q 155 120 80 155" stroke="#C9B09A" stroke-width="14" fill="none" stroke-linecap="round"/>
+              <path d="M 350 55 Q 280 80 220 100 Q 155 120 80 155" stroke="#E8DFD044" stroke-width="2" fill="none" stroke-dasharray="10,8"/>
+              <!-- Ruta activa -->
+              <path d="M 350 55 Q 280 80 220 100" stroke="#C1622D" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>
+              <!-- Bogotá -->
+              <circle cx="350" cy="55" r="7" fill="#C1622D"/>
+              <text x="355" y="48" style="font-family:Inter;font-size:9px;fill:#2C1A0E;font-weight:700">Bogotá</text>
+              <!-- Medellín -->
+              <circle cx="80" cy="155" r="7" fill="#5E7A52"/>
+              <text x="88" y="148" style="font-family:Inter;font-size:9px;fill:#2C1A0E;font-weight:700">Medellín</text>
+              <!-- Camión (posición actual) -->
+              <g transform="translate(215,94)">
+                <circle r="14" fill="#FFFFFF" stroke="#C1622D" stroke-width="2"/>
+                <text text-anchor="middle" y="5" style="font-family:Inter;font-size:11px">🚛</text>
+              </g>
+            </svg>
+          </div>
+          <div style="padding:14px 18px;background:#F8F4EE;border-top:1px solid #EDE5D8">
+            <div style="display:flex;justify-content:space-between">
+              <div style="text-align:center"><p style="font-size:10.5px;color:#9C8B78">Posición actual</p><p style="font-size:12px;font-weight:600;color:#2C1A0E">A 12 km de tu origen</p></div>
+              <div style="text-align:center"><p style="font-size:10.5px;color:#9C8B78">ETA llegada</p><p style="font-size:12px;font-weight:600;color:#C1622D">~15 min</p></div>
+              <div style="text-align:center"><p style="font-size:10.5px;color:#9C8B78">Velocidad</p><p style="font-size:12px;font-weight:600;color:#2C1A0E">67 km/h</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Equipo -->
+        <div class="card" style="padding:22px">
+          <h3 style="font-size:13px;font-weight:700;color:#2C1A0E;margin-bottom:14px">Equipo asignado</h3>
+          <div style="background:linear-gradient(135deg,#F8F4EE,#F0E8D8);border-radius:12px;padding:16px;margin-bottom:12px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+              <div style="width:44px;height:44px;border-radius:50%;background:#C99A3C;color:#2C1A0E;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0">CM</div>
+              <div>
+                <p style="font-size:13.5px;font-weight:700;color:#2C1A0E">Carlos Mendoza</p>
+                <div style="display:flex;gap:3px;margin-top:3px">
+                  <span class="material-symbols-outlined" style="font-size:13px;color:#C99A3C">star</span>
+                  <span class="material-symbols-outlined" style="font-size:13px;color:#C99A3C">star</span>
+                  <span class="material-symbols-outlined" style="font-size:13px;color:#C99A3C">star</span>
+                  <span class="material-symbols-outlined" style="font-size:13px;color:#C99A3C">star</span>
+                  <span class="material-symbols-outlined" style="font-size:13px;color:#C99A3C">star_half</span>
+                  <span style="font-size:11px;color:#9C8B78;margin-left:3px">4.8</span>
+                </div>
+              </div>
+            </div>
+            <p style="font-size:11.5px;color:#9C8B78;margin-bottom:10px">+57 310 XXX XXXX · 5 años de experiencia</p>
+            <button class="btn btn-p" style="width:100%;justify-content:center;font-size:12px;padding:8px" @click="$store.app.contactModal=true">
+              <span class="material-symbols-outlined" style="font-size:15px">call</span>Llamar al conductor
+            </button>
+          </div>
+          <div style="background:#F8F4EE;border-radius:10px;padding:14px;margin-bottom:12px">
+            <p style="font-size:10.5px;color:#9C8B78;margin-bottom:6px">Auxiliar de carga</p>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:34px;height:34px;border-radius:50%;background:#5E7A52;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">LR</div>
+              <p style="font-size:13px;font-weight:600;color:#2C1A0E">Luis Ramos</p>
+            </div>
+          </div>
+          <div style="background:#F8F4EE;border-radius:10px;padding:14px">
+            <p style="font-size:10.5px;color:#9C8B78;margin-bottom:4px">Vehículo asignado</p>
+            <p style="font-size:13px;font-weight:600;color:#2C1A0E">Ford F-350 · Camión mediano</p>
+            <p style="font-size:11.5px;color:#9C8B78">Placa: ABC-123 · 2.5 ton</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

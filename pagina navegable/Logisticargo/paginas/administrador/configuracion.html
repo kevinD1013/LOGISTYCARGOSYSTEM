@@ -1,0 +1,28 @@
+<!-- ══ CONFIGURACIÓN ══ -->
+  <!-- ==========================================================
+       ADMINISTRADOR - CONFIGURACIÓN
+       Ajustes generales y políticas del sistema.
+
+       EDITAR ESTA SECCIÓN:
+       Estilos:    css/formularios.css, css/componentes.css, css/botones.css
+       JavaScript: javascript/aplicacion.js
+       ========================================================== -->
+  <div x-show="$store.app.page==='ad_config'" class="flex-1 overflow-y-auto p-6">
+    <h1 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#2C1A0E;margin-bottom:6px">Configuración</h1>
+    <p style="font-size:13px;color:#9C8B78;margin-bottom:22px">Ajustes generales del sistema y política de precios.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card" style="padding:24px">
+        <h3 style="font-size:14px;font-weight:700;color:#2C1A0E;margin-bottom:16px">Tarifas de cotización</h3>
+        <div style="margin-bottom:14px"><label class="lbl">Costo base por servicio</label><input class="inp" value="$X.XXX.XXX"/></div>
+        <div style="margin-bottom:14px"><label class="lbl">Costo por m³ adicional</label><input class="inp" value="$XX.XXX"/></div>
+        <div style="margin-bottom:18px"><label class="lbl">Costo por km</label><input class="inp" value="$X.XXX"/></div>
+        <button class="btn btn-p" @click="$store.app.toast_('Tarifas actualizadas')">Guardar tarifas</button>
+      </div>
+      <div class="card" style="padding:24px">
+        <h3 style="font-size:14px;font-weight:700;color:#2C1A0E;margin-bottom:16px">Política de cancelación</h3>
+        <div style="margin-bottom:14px"><label class="lbl">Cargo si se cancela con camión en ruta</label><input class="inp" value="20%"/></div>
+        <div style="margin-bottom:18px"><label class="lbl">Horas mínimas de aviso sin cargo</label><input class="inp" value="24 horas"/></div>
+        <button class="btn btn-p" @click="$store.app.toast_('Política actualizada')">Guardar política</button>
+      </div>
+    </div>
+  </div>

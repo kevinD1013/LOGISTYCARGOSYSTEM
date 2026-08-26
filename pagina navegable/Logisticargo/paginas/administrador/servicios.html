@@ -1,0 +1,241 @@
+<!-- ══ SERVICIOS ══ -->
+  <!-- ==========================================================
+       ADMINISTRADOR - SERVICIOS
+       Listado y gestión de los servicios/mudanzas registrados.
+
+       EDITAR ESTA SECCIÓN:
+       Estilos:    css/tablas.css, css/componentes.css, css/botones.css
+       JavaScript: javascript/aplicacion.js
+       ========================================================== -->
+  <div x-show="$store.app.page==='ad_servicios'" class="flex-1 overflow-y-auto">
+    <!-- Hero banner -->
+    <div style="position:relative;overflow:hidden;background:linear-gradient(135deg,#F0E8D8,#E8DFD0);border-bottom:1px solid #EDE5D8;padding:28px 32px;display:flex;align-items:center;justify-content:space-between">
+      <div style="position:absolute;right:0;top:0;bottom:0;width:40%;display:flex;align-items:center;justify-content:flex-end;padding-right:20px;overflow:hidden">
+        <svg viewBox="0 0 360 160" style="width:100%;max-height:100%">
+          <rect width="360" height="160" fill="none"/>
+          <!-- Ventana con cajas de mudanza -->
+          <rect x="20" y="20" width="200" height="130" rx="8" fill="#F8F4EE" stroke="#EDE5D8" stroke-width="2"/>
+          <!-- Sofá -->
+          <rect x="35" y="110" width="80" height="30" rx="6" fill="#6B7F5E"/>
+          <rect x="30" y="100" width="90" height="20" rx="6" fill="#5E7052"/>
+          <rect x="30" y="95" width="12" height="40" rx="4" fill="#5E7052"/>
+          <rect x="108" y="95" width="12" height="40" rx="4" fill="#5E7052"/>
+          <!-- Cajas -->
+          <rect x="140" y="108" width="38" height="30" rx="4" fill="#C99A3C"/>
+          <rect x="142" y="110" width="34" height="26" rx="3" fill="#D4AA4C"/>
+          <line x1="142" y1="120" x2="174" y2="120" stroke="#C99A3C" stroke-width="1.5"/>
+          <rect x="155" y="90" width="30" height="28" rx="4" fill="#C1622D"/>
+          <line x1="157" y1="103" x2="183" y2="103" stroke="#9C4D22" stroke-width="1.5"/>
+          <!-- Planta izquierda -->
+          <rect x="192" y="115" width="6" height="30" fill="#5C3D20"/>
+          <ellipse cx="195" cy="110" rx="12" ry="16" fill="#5E7A52"/>
+          <!-- Carrito cargador -->
+          <rect x="225" y="90" width="12" height="50" rx="2" fill="#9C8B78"/>
+          <rect x="218" y="120" width="30" height="24" rx="3" fill="#C1622D"/>
+          <rect x="220" y="112" width="26" height="20" rx="3" fill="#D4744A"/>
+          <circle cx="227" cy="144" r="5" fill="#2C1A0E"/>
+          <circle cx="241" cy="144" r="5" fill="#2C1A0E"/>
+        </svg>
+      </div>
+      <div style="position:relative;z-index:1">
+        <h1 style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#2C1A0E;margin-bottom:4px">Servicios</h1>
+        <p style="font-size:13px;color:#9C8B78">Gestiona y supervisa todos los servicios de mudanza.</p>
+      </div>
+      <button class="btn btn-p" style="position:relative;z-index:1" @click="$store.app.toast_('Abriendo formulario de nuevo servicio')">
+        <span class="material-symbols-outlined" style="font-size:16px">add</span>Crear servicio
+      </button>
+    </div>
+
+    <div style="padding:24px 32px">
+      <!-- KPIs de servicios -->
+      <div class="grid grid-cols-5 gap-4 mb-6">
+        <div class="kpi"><p style="font-size:11px;color:#9C8B78;margin-bottom:2px">Total servicios</p><p style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#2C1A0E">32</p><p style="font-size:11px;color:#9C8B78">Este mes</p></div>
+        <div class="kpi"><p style="font-size:11px;color:#9C8B78;margin-bottom:2px">En curso</p><p style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#1D6FA4">8</p><p style="font-size:11px;color:#9C8B78">25% del total</p></div>
+        <div class="kpi"><p style="font-size:11px;color:#9C8B78;margin-bottom:2px">Completados</p><p style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#5E7A52">18</p><p style="font-size:11px;color:#9C8B78">56% del total</p></div>
+        <div class="kpi"><p style="font-size:11px;color:#9C8B78;margin-bottom:2px">Pendientes</p><p style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#C99A3C">4</p><p style="font-size:11px;color:#9C8B78">12% del total</p></div>
+        <div class="kpi"><p style="font-size:11px;color:#9C8B78;margin-bottom:2px">Cancelados</p><p style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#A84230">2</p><p style="font-size:11px;color:#9C8B78">6% del total</p></div>
+      </div>
+      <!-- Filtros -->
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:18px">
+        <div style="position:relative;flex:1;min-width:220px">
+          <span class="material-symbols-outlined" style="position:absolute;left:11px;top:9px;font-size:16px;color:#C4B49E">search</span>
+          <input class="inp" style="padding-left:36px" placeholder="Buscar por código, cliente o ruta..."/>
+        </div>
+        <select class="inp sel" style="width:170px"><option>Todos los estados</option><option>Pendiente</option><option>En curso</option><option>Completado</option><option>Cancelado</option></select>
+        <select class="inp sel" style="width:160px"><option>Todas las rutas</option><option>Bogotá → Medellín</option><option>Bogotá → Cali</option></select>
+        <select class="inp sel" style="width:160px"><option>Rango de fechas</option></select>
+        <button class="btn btn-s"><span class="material-symbols-outlined" style="font-size:15px">filter_list</span>Filtros</button>
+      </div>
+      <!-- Tabla -->
+      <div class="card" style="overflow:hidden">
+        <table style="width:100%;border-collapse:collapse">
+          <thead style="background:#F8F4EE">
+            <tr>
+              <th class="th">Servicio</th>
+              <th class="th">Cliente</th>
+              <th class="th">Ruta</th>
+              <th class="th">Fecha</th>
+              <th class="th">Estado</th>
+              <th class="th">Asignación</th>
+              <th class="th">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="trow">
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="width:34px;height:34px;border-radius:9px;background:#C99A3C1A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:16px;color:#C99A3C">inventory_2</span></div>
+                  <div><p style="font-weight:700;color:#2C1A0E;font-size:13px">SRV-2026-00850</p><p style="font-size:10.5px;color:#C4B49E">ID: #55032</p></div>
+                </div>
+              </td>
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="material-symbols-outlined" style="font-size:18px;color:#C4B49E">person</span>
+                  <div><p style="font-size:12.5px;font-weight:600;color:#2C1A0E">Ana García</p><p style="font-size:11px;color:#9C8B78">ana.garcia@email.com</p><p style="font-size:11px;color:#9C8B78">+57 300 XXX XXXX</p></div>
+                </div>
+              </td>
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span class="material-symbols-outlined" style="font-size:14px;color:#C4B49E">location_on</span>
+                  <span style="font-size:12px;color:#5C3D20">Bogotá</span>
+                  <span style="font-size:12px;color:#C4B49E">→</span>
+                  <span class="material-symbols-outlined" style="font-size:14px;color:#C1622D">location_on</span>
+                  <span style="font-size:12px;color:#5C3D20">Medellín</span>
+                </div>
+              </td>
+              <td class="td"><p style="font-size:12px;color:#2C1A0E;font-weight:500">22 May, 2026</p><p style="font-size:11px;color:#9C8B78">08:00 AM</p></td>
+              <td class="td"><span class="badge b-ocre"><span class="dot dot-o" style="margin-right:3px"></span>Pendiente</span></td>
+              <td class="td"><div style="display:flex;align-items:center;gap:6px"><span class="material-symbols-outlined" style="font-size:16px;color:#C4B49E">local_shipping</span><div><p style="font-size:12px;color:#2C1A0E">Camión mediano</p><p style="font-size:10.5px;color:#9C8B78">ABC-123</p></div></div></td>
+              <td class="td"><button class="btn btn-s" style="padding:6px 10px" @click="$store.app.toast_('Abriendo detalle del servicio')"><span class="material-symbols-outlined" style="font-size:16px">more_vert</span></button></td>
+            </tr>
+            <tr class="trow">
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="width:34px;height:34px;border-radius:9px;background:#5E7A521A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:16px;color:#5E7A52">local_shipping</span></div>
+                  <div><p style="font-weight:700;color:#2C1A0E;font-size:13px">SRV-2026-00847</p><p style="font-size:10.5px;color:#C4B49E">ID: #55031</p></div>
+                </div>
+              </td>
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="material-symbols-outlined" style="font-size:18px;color:#C4B49E">person</span>
+                  <div><p style="font-size:12.5px;font-weight:600;color:#2C1A0E">Carlos Mendoza</p><p style="font-size:11px;color:#9C8B78">c.mendoza@email.com</p><p style="font-size:11px;color:#9C8B78">+57 311 XXX XXXX</p></div>
+                </div>
+              </td>
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span class="material-symbols-outlined" style="font-size:14px;color:#C4B49E">location_on</span>
+                  <span style="font-size:12px;color:#5C3D20">Rioegro</span>
+                  <span style="font-size:12px;color:#C4B49E">→</span>
+                  <span class="material-symbols-outlined" style="font-size:14px;color:#C1622D">location_on</span>
+                  <span style="font-size:12px;color:#5C3D20">Medellín</span>
+                </div>
+              </td>
+              <td class="td"><p style="font-size:12px;color:#2C1A0E;font-weight:500">21 May, 2026</p><p style="font-size:11px;color:#9C8B78">02:00 PM</p></td>
+              <td class="td"><span class="badge b-blue"><span class="dot dot-b" style="margin-right:3px"></span>En curso</span></td>
+              <td class="td"><div style="display:flex;align-items:center;gap:6px"><span class="material-symbols-outlined" style="font-size:16px;color:#C4B49E">local_shipping</span><div><p style="font-size:12px;color:#2C1A0E">Camión grande</p><p style="font-size:10.5px;color:#9C8B78">XYZ-789</p></div></div></td>
+              <td class="td"><button class="btn btn-s" style="padding:6px 10px" @click="$store.app.toast_('Abriendo detalle del servicio')"><span class="material-symbols-outlined" style="font-size:16px">more_vert</span></button></td>
+            </tr>
+            <tr class="trow">
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="width:34px;height:34px;border-radius:9px;background:#5E7A521A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:16px;color:#5E7A52">home</span></div>
+                  <div><p style="font-weight:700;color:#2C1A0E;font-size:13px">SRV-2026-00846</p><p style="font-size:10.5px;color:#C4B49E">ID: #55030</p></div>
+                </div>
+              </td>
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="material-symbols-outlined" style="font-size:18px;color:#C4B49E">person</span>
+                  <div><p style="font-size:12.5px;font-weight:600;color:#2C1A0E">María López</p><p style="font-size:11px;color:#9C8B78">maria.lopez@email.com</p></div>
+                </div>
+              </td>
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span class="material-symbols-outlined" style="font-size:14px;color:#C4B49E">location_on</span>
+                  <span style="font-size:12px;color:#5C3D20">Bogotá</span>
+                  <span style="font-size:12px;color:#C4B49E">→</span>
+                  <span class="material-symbols-outlined" style="font-size:14px;color:#C1622D">location_on</span>
+                  <span style="font-size:12px;color:#5C3D20">Cali</span>
+                </div>
+              </td>
+              <td class="td"><p style="font-size:12px;color:#2C1A0E;font-weight:500">20 May, 2026</p><p style="font-size:11px;color:#9C8B78">10:30 AM</p></td>
+              <td class="td"><span class="badge b-sage"><span class="dot dot-g" style="margin-right:3px"></span>Completado</span></td>
+              <td class="td"><div style="display:flex;align-items:center;gap:6px"><span class="material-symbols-outlined" style="font-size:16px;color:#C4B49E">local_shipping</span><div><p style="font-size:12px;color:#2C1A0E">Camión mediano</p><p style="font-size:10.5px;color:#9C8B78">DEF-456</p></div></div></td>
+              <td class="td"><button class="btn btn-s" style="padding:6px 10px" @click="$store.app.toast_('Descargando factura')"><span class="material-symbols-outlined" style="font-size:16px">more_vert</span></button></td>
+            </tr>
+            <tr class="trow">
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="width:34px;height:34px;border-radius:9px;background:#C99A3C1A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:16px;color:#C99A3C">inventory_2</span></div>
+                  <div><p style="font-weight:700;color:#2C1A0E;font-size:13px">SRV-2026-00845</p><p style="font-size:10.5px;color:#C4B49E">ID: #55029</p></div>
+                </div>
+              </td>
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="material-symbols-outlined" style="font-size:18px;color:#C4B49E">person</span>
+                  <div><p style="font-size:12.5px;font-weight:600;color:#2C1A0E">Juan Camilo Rojas</p><p style="font-size:11px;color:#9C8B78">j.rojas@email.com</p></div>
+                </div>
+              </td>
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span class="material-symbols-outlined" style="font-size:14px;color:#C4B49E">location_on</span>
+                  <span style="font-size:12px;color:#5C3D20">Cali</span>
+                  <span style="font-size:12px;color:#C4B49E">→</span>
+                  <span class="material-symbols-outlined" style="font-size:14px;color:#C1622D">location_on</span>
+                  <span style="font-size:12px;color:#5C3D20">Barranquilla</span>
+                </div>
+              </td>
+              <td class="td"><p style="font-size:12px;color:#2C1A0E;font-weight:500">19 May, 2026</p><p style="font-size:11px;color:#9C8B78">09:00 AM</p></td>
+              <td class="td"><span class="badge b-ocre"><span class="dot dot-o" style="margin-right:3px"></span>Pendiente</span></td>
+              <td class="td"><span style="font-size:12px;color:#9C8B78">Por asignar —</span></td>
+              <td class="td"><button class="btn btn-s" style="padding:6px 10px" @click="$store.app.toast_('Asignando vehículo')"><span class="material-symbols-outlined" style="font-size:16px">more_vert</span></button></td>
+            </tr>
+            <tr>
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="width:34px;height:34px;border-radius:9px;background:#A842301A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:16px;color:#A84230">cancel</span></div>
+                  <div><p style="font-weight:700;color:#2C1A0E;font-size:13px">SRV-2026-00844</p><p style="font-size:10.5px;color:#C4B49E">ID: #55028</p></div>
+                </div>
+              </td>
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="material-symbols-outlined" style="font-size:18px;color:#C4B49E">person</span>
+                  <div><p style="font-size:12.5px;font-weight:600;color:#2C1A0E">Sofía Martínez</p><p style="font-size:11px;color:#9C8B78">sofia.martinez@email.com</p></div>
+                </div>
+              </td>
+              <td class="td">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span class="material-symbols-outlined" style="font-size:14px;color:#C4B49E">location_on</span>
+                  <span style="font-size:12px;color:#5C3D20">Pereira</span>
+                  <span style="font-size:12px;color:#C4B49E">→</span>
+                  <span class="material-symbols-outlined" style="font-size:14px;color:#C1622D">location_on</span>
+                  <span style="font-size:12px;color:#5C3D20">Bogotá</span>
+                </div>
+              </td>
+              <td class="td"><p style="font-size:12px;color:#2C1A0E;font-weight:500">18 May, 2026</p><p style="font-size:11px;color:#9C8B78">01:00 PM</p></td>
+              <td class="td"><span class="badge b-rust"><span class="dot dot-r" style="margin-right:3px"></span>Cancelado</span></td>
+              <td class="td"><span style="font-size:12px;color:#9C8B78">No aplica —</span></td>
+              <td class="td"><button class="btn btn-s" style="padding:6px 10px" @click="$store.app.toast_('Viendo detalle del servicio cancelado')"><span class="material-symbols-outlined" style="font-size:16px">more_vert</span></button></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Paginación -->
+        <div style="padding:14px 20px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #F3EDE3;background:#FBFAF7">
+          <p style="font-size:12px;color:#9C8B78">Mostrando 1 a 5 de 32 servicios</p>
+          <div style="display:flex;align-items:center;gap:6px">
+            <button class="btn btn-s" style="padding:6px 10px;font-size:12px">←</button>
+            <button class="btn btn-p" style="padding:6px 12px;font-size:12px">1</button>
+            <button class="btn btn-s" style="padding:6px 12px;font-size:12px">2</button>
+            <button class="btn btn-s" style="padding:6px 12px;font-size:12px">3</button>
+            <button class="btn btn-s" style="padding:6px 10px;font-size:12px">...</button>
+            <button class="btn btn-s" style="padding:6px 12px;font-size:12px">7</button>
+            <button class="btn btn-s" style="padding:6px 10px;font-size:12px">→</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:12px;color:#9C8B78">Mostrar</span>
+            <select class="inp sel" style="width:70px;font-size:12px;padding:5px 10px"><option>5</option><option>10</option><option>25</option></select>
+            <span style="font-size:12px;color:#9C8B78">por página</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

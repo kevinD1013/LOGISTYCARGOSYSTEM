@@ -1,0 +1,45 @@
+/* ==========================================================
+   COMPONENTES REUTILIZABLES
+   Piezas visuales que se repiten en varias pantallas:
+   tarjetas (cards), tarjetas KPI, etiquetas/badges de
+   estado, puntos de estado (dot), animaciones de la
+   pantalla de carga, el aro del gráfico donut y el fondo
+   oscuro que aparece detrás de los modales.
+   ========================================================== */
+
+/* ── Cards ── */
+.card{background:#FFFFFF;border:1px solid #EDE5D8;border-radius:14px}
+.card-sm{background:#FFFFFF;border:1px solid #EDE5D8;border-radius:10px}
+
+/* ── KPI Cards ── */
+.kpi{background:#FFFFFF;border:1px solid #EDE5D8;border-radius:12px;padding:18px 20px}
+.kpi-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* ── Badges ── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 11px;border-radius:20px;font-size:11px;font-weight:600}
+.b-sage{background:#5E7A521A;color:#3D5435;border:1px solid #5E7A5244}
+.b-ocre{background:#C99A3C1A;color:#8A6820;border:1px solid #C99A3C44}
+.b-rust{background:#A842301A;color:#A84230;border:1px solid #A8423044}
+.b-terra{background:#C1622D1A;color:#9C4D22;border:1px solid #C1622D44}
+.b-taupe{background:#F8F4EE;color:#9C8B78;border:1px solid #EDE5D8}
+.b-blue{background:#1D6FA41A;color:#1D6FA4;border:1px solid #1D6FA444}
+
+/* ── Status dot ── */
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
+.dot-g{background:#5E7A52}.dot-o{background:#C99A3C}.dot-r{background:#A84230}.dot-b{background:#1D6FA4}
+
+/* ── Animaciones loading ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+@keyframes barGrow{from{width:0}to{width:100%}}
+.a1{animation:scaleIn .5s .1s both}
+.a2{animation:fadeUp .4s .5s both}
+.a3{animation:fadeUp .4s .8s both}
+.a4{animation:fadeUp .4s 1.1s both}
+.abar{animation:barGrow 1.5s 1.3s both}
+
+/* ── Donut ── */
+.donut-ring{transform:rotate(-90deg);transform-origin:50% 50%}
+
+/* ── Modales ── */
+.modal-bg{position:fixed;inset:0;background:#2C1A0E55;z-index:200;display:flex;align-items:center;justify-content:center}
