@@ -1,0 +1,8 @@
+.fondo-panel {
+    background-color: #F4EBE1 !important;
+    background-image: 
+      linear-gradient(#E6DDD3 1px, transparent 1px),
+      linear-gradient(90deg, #E6DDD3 1px, transparent 1px) !important;
+    background-size: 80px 80px !important;
+    min-height: 100vh !important;
+  }
