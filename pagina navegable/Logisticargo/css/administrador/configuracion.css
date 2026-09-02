@@ -1,0 +1,16 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   ADMINISTRADOR - CONFIGURACIÓN
+
+   Archivo:
+   css/administrador/configuracion.css
+
+   Estilos visuales exclusivos de la pantalla de configuración.
+   ========================================================== */
+
+.ad-config-titulo-1 { font-family:'Fraunces',serif; font-size:22px; font-weight:700; color:#2C1A0E; margin-bottom:6px; }
+.ad-config-texto-2 { font-size:13px; color:#9C8B78; margin-bottom:22px; }
+.ad-config-bloque-3 { padding:24px; }
+.ad-config-subtitulo-4 { font-size:14px; font-weight:700; color:#2C1A0E; margin-bottom:16px; }
+.ad-config-bloque-5 { margin-bottom:14px; }
+.ad-config-bloque-6 { margin-bottom:18px; }

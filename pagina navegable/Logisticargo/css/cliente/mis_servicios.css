@@ -1,0 +1,30 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   CLIENTE - MIS SERVICIOS (HISTORIAL)
+
+   Archivo:
+   css/cliente/mis_servicios.css
+
+   Estilos visuales exclusivos de la pantalla de historial de servicios.
+   ========================================================== */
+
+.cl-historial-bloque-1 { position:relative; overflow:hidden; background-image:url('../../imagenes/solicitarmudanza.jpg'); background-size:100% 100%; background-position:center; background-repeat:no-repeat; border-bottom:1px solid #EDE5D8; padding:26px 40px; display:flex; align-items:center; justify-content:space-between; min-height:145px; }
+.cl-historial-titulo-2 { font-family:'Fraunces',serif; font-size:32px; font-weight:700; color:#2C1A0E; margin-bottom:8px; }
+.cl-historial-texto-3 { font-size:14px; color:#857560; }
+.cl-historial-bloque-4 { padding:28px 40px; }
+.cl-historial-bloque-5 { display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; }
+.cl-historial-bloque-6 { position:relative; flex:1; min-width:200px; }
+.cl-historial-texto-7 { position:absolute; left:11px; top:9px; font-size:16px; color:#C4B49E; }
+.cl-historial-campo-8 { padding-left:36px; }
+.cl-historial-select-9 { width:170px; }
+.cl-historial-bloque-10 { overflow:hidden; }
+.cl-historial-tabla-11 { width:100%; border-collapse:collapse; }
+.cl-historial-elemento-12 { background:#F8F4EE; }
+.cl-historial-texto-13 { font-weight:700; color:#2C1A0E; }
+.cl-historial-celda-14 { font-size:12.5px; color:#5C3D20; }
+.cl-historial-celda-15 { font-size:12px; color:#9C8B78; }
+.cl-historial-texto-16 { font-size:12px; color:#C4B49E; }
+.cl-historial-boton-17 { padding:5px 12px; font-size:12px; }
+.cl-historial-bloque-18 { display:flex; gap:2px; }
+.cl-historial-texto-19 { font-size:14px; color:#C99A3C; }
+.cl-historial-texto-20 { font-size:14px; color:#EDE5D8; }

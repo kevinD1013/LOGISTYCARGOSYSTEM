@@ -14,4 +14,9 @@
   --sage:#5E7A52; --sage-l:#5E7A521A;
   --ocre:#C99A3C; --ocre-l:#C99A3C1A;
   --rust:#A84230;
+
+  /* Variante oscura de --wood, usada como fondo de tarjeta en el
+     tema oscuro del rol Conductor (antes repetida como #1E1108
+     directamente en cada pantalla; ahora es una sola variable). */
+  --wood-d:#1E1108;
 }

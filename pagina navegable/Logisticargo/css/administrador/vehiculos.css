@@ -1,0 +1,31 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   ADMINISTRADOR - VEHÍCULOS
+
+   Archivo:
+   css/administrador/vehiculos.css
+
+   Estilos visuales exclusivos de la pantalla de vehículos.
+   ========================================================== */
+
+.ad-vehiculos-bloque-1 { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+.ad-vehiculos-titulo-2 { font-family:'Fraunces',serif; font-size:22px; font-weight:700; color:#2C1A0E; }
+.ad-vehiculos-texto-3 { font-size:13px; color:#9C8B78; }
+.ad-vehiculos-texto-4 { font-size:16px; }
+.ad-vehiculos-texto-5 { font-size:11px; color:#9C8B78; }
+.ad-vehiculos-texto-6 { font-family:'Fraunces',serif; font-size:26px; font-weight:700; color:#5E7A52; }
+.ad-vehiculos-texto-7 { font-family:'Fraunces',serif; font-size:26px; font-weight:700; color:#C99A3C; }
+.ad-vehiculos-texto-8 { font-family:'Fraunces',serif; font-size:26px; font-weight:700; color:#A84230; }
+.ad-vehiculos-bloque-9 { overflow:hidden; }
+.ad-vehiculos-tabla-10 { width:100%; border-collapse:collapse; }
+.ad-vehiculos-elemento-11 { background:#F8F4EE; }
+.ad-vehiculos-texto-12 { font-weight:700; color:#2C1A0E; }
+.ad-vehiculos-celda-13 { font-size:12px; color:#5C3D20; }
+.ad-vehiculos-bloque-14 { display:flex; align-items:center; gap:8px; }
+.ad-vehiculos-bloque-15 { width:26px; height:26px; border-radius:50%; background:#C99A3C; color:#FFF; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; }
+.ad-vehiculos-texto-16 { font-size:12.5px; color:#5C3D20; }
+.ad-vehiculos-bloque-17 { display:flex; gap:6px; }
+.ad-vehiculos-boton-18 { padding:5px 10px; }
+.ad-vehiculos-texto-19 { font-size:14px; }
+.ad-vehiculos-texto-20 { font-size:12px; color:#C4B49E; }
+.ad-vehiculos-boton-21 { padding:5px 12px; font-size:12px; }

@@ -1,0 +1,13 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   COMPONENTE - MODALES
+
+   Archivo:
+   css/componentes/modales.css
+
+   Fondo oscuro semitransparente que aparece detrás de los
+   modales (contactar conductor, cancelar servicio, etc.),
+   definidos de forma estructural en index.html.
+   ========================================================== */
+
+.modal-bg{position:fixed;inset:0;background:#2C1A0E55;z-index:200;display:flex;align-items:center;justify-content:center}

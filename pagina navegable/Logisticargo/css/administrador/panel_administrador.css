@@ -1,0 +1,114 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   ADMINISTRADOR - PANEL PRINCIPAL
+
+   Archivo:
+   css/administrador/panel_administrador.css
+
+   Estilos visuales exclusivos del dashboard de administrador.
+   ========================================================== */
+
+.ad-panel-bloque-1 { position:relative; overflow:hidden; border-radius:16px; border:1px solid #EDE5D8; margin-bottom:28px; background:#F8F4EE; }
+.ad-panel-imagen-2 { display:block; width:100%; height:auto; min-height:145px; max-height:190px; object-fit:contain; object-position:center; }
+.ad-panel-bloque-3 { position:absolute; inset:0; background:linear-gradient(
+      90deg,
+      rgba(255,252,246,.94) 0%,
+      rgba(255,252,246,.82) 32%,
+      rgba(255,252,246,.20) 58%,
+      rgba(255,252,246,0) 78%
+    ); pointer-events:none; }
+.ad-panel-bloque-4 { position:absolute; left:40px; top:50%; transform:translateY(-50%); z-index:2; max-width:430px; }
+.ad-panel-titulo-5 { font-family:'Fraunces',serif; font-size:27px; font-weight:700; color:#2C1A0E; margin-bottom:4px; }
+.ad-panel-texto-6 { font-size:13.5px; color:#6F6255; margin-bottom:12px; }
+.ad-panel-bloque-7 { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.92); border:1px solid #EDE5D8; border-radius:9px; padding:8px 14px; box-shadow:0 2px 8px rgba(44,26,14,.06); }
+.ad-panel-texto-8 { font-size:16px; color:#9C8B78; }
+.ad-panel-texto-9 { font-size:13px; font-weight:500; color:#2C1A0E; }
+.ad-panel-texto-10 { font-size:14px; color:#C4B49E; }
+.ad-panel-bloque-11 { position:absolute; right:32px; top:50%; transform:translateY(-50%); z-index:2; width:275px; background:rgba(255,255,255,.93); border:1px solid #EDE5D8; border-radius:14px; padding:16px 18px; box-shadow:0 4px 14px rgba(44,26,14,.08); backdrop-filter:blur(3px); }
+.ad-panel-bloque-12 { display:flex; align-items:center; gap:10px; margin-bottom:7px; }
+.ad-panel-bloque-13 { width:36px; height:36px; border-radius:9px; background:#C1622D; display:flex; align-items:center; justify-content:center; }
+.ad-panel-texto-14 { color:#FFF; font-size:19px; }
+.ad-panel-texto-15 { font-size:12px; color:#9C8B78; font-weight:500; }
+.ad-panel-texto-16 { font-family:'Fraunces',serif; font-size:27px; font-weight:700; color:#2C1A0E; line-height:1; }
+.ad-panel-texto-17 { font-size:11.5px; color:#5E7A52; font-weight:600; margin-top:6px; display:flex; align-items:center; gap:4px; }
+.ad-panel-texto-18 { font-size:14px; }
+.ad-panel-bloque-19 { display:flex; align-items:center; gap:14px; }
+.ad-panel-bloque-20 { background:#C1622D1A; }
+.ad-panel-texto-21 { color:#C1622D; font-size:22px; }
+.ad-panel-texto-22 { font-size:11px; color:#9C8B78; }
+.ad-panel-texto-23 { font-family:'Fraunces',serif; font-size:26px; font-weight:700; color:#2C1A0E; }
+.ad-panel-texto-24 { font-size:11px; color:#C1622D; }
+.ad-panel-bloque-25 { display:flex; align-items:center; gap:14px; cursor:pointer; }
+.ad-panel-bloque-26 { background:#5E7A521A; }
+.ad-panel-texto-27 { color:#5E7A52; font-size:22px; }
+.ad-panel-bloque-28 { background:#C99A3C1A; }
+.ad-panel-texto-29 { color:#C99A3C; font-size:22px; }
+.ad-panel-texto-30 { font-family:'Fraunces',serif; font-size:26px; font-weight:700; color:#C99A3C; }
+.ad-panel-texto-31 { font-size:11px; color:#C99A3C; }
+.ad-panel-bloque-32 { background:#5C3D201A; }
+.ad-panel-texto-33 { color:#5C3D20; font-size:22px; }
+.ad-panel-bloque-34 { padding:22px; }
+.ad-panel-subtitulo-35 { font-size:14px; font-weight:700; color:#2C1A0E; margin-bottom:16px; }
+.ad-panel-bloque-36 { display:flex; align-items:center; gap:18px; }
+.ad-panel-bloque-37 { position:relative; flex-shrink:0; }
+.ad-panel-elemento-38 { transform-origin:55px 55px; }
+.ad-panel-elemento-39 { font-family:'Inter',sans-serif; font-size:11px; fill:#9C8B78; }
+.ad-panel-elemento-40 { font-family:'Fraunces',serif; font-size:16px; font-weight:700; fill:#2C1A0E; }
+.ad-panel-bloque-41 { display:flex; flex-direction:column; gap:8px; flex:1; }
+.ad-panel-bloque-42 { display:flex; justify-content:space-between; align-items:center; }
+.ad-panel-bloque-43 { display:flex; align-items:center; gap:6px; }
+.ad-panel-texto-44 { font-size:12px; color:#5C3D20; }
+.ad-panel-texto-45 { font-size:12px; font-weight:600; color:#2C1A0E; }
+.ad-panel-texto-46 { width:8px; height:8px; border-radius:50%; background:#EDE5D8; display:inline-block; }
+.ad-panel-boton-47 { margin-top:16px; font-size:12px; padding:7px 14px; }
+.ad-panel-bloque-48 { padding:22px; grid-column:span 2; }
+.ad-panel-bloque-49 { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.ad-panel-subtitulo-50 { font-size:14px; font-weight:700; color:#2C1A0E; }
+.ad-panel-boton-51 { font-size:12px; padding:6px 12px; }
+.ad-panel-bloque-52 { display:flex; flex-direction:column; gap:1px; }
+.ad-panel-bloque-53 { display:grid; grid-template-columns:1.4fr 1.2fr 80px 90px; gap:8px; align-items:center; padding:12px 8px; cursor:pointer; }
+.ad-panel-texto-54 { font-size:13px; font-weight:600; color:#2C1A0E; }
+.ad-panel-texto-55 { font-size:12px; color:#9C8B78; }
+.ad-panel-boton-56 { font-size:11px; padding:4px 10px; }
+.ad-panel-bloque-57 { padding:0; overflow:hidden; grid-column:span 2; }
+.ad-panel-bloque-58 { display:flex; justify-content:space-between; align-items:center; padding:18px 22px 14px; }
+.ad-panel-select-59 { width:180px; font-size:12px; }
+.ad-panel-bloque-60 { position:relative; width:100%; height:220px; overflow:hidden; background:#E8DFD0; }
+.ad-panel-imagen-61 { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+.ad-panel-bloque-62 { position:absolute; bottom:14px; left:14px; background:rgba(255,255,255,.96); border:1px solid #EDE5D8; border-radius:10px; padding:12px 14px; min-width:200px; box-shadow:0 3px 10px rgba(44,26,14,.10); }
+.ad-panel-bloque-63 { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+.ad-panel-texto-64 { font-size:12px; font-weight:700; color:#2C1A0E; }
+.ad-panel-texto-65 { font-size:10px; padding:2px 8px; }
+.ad-panel-texto-66 { font-size:11px; color:#9C8B78; margin-bottom:6px; }
+.ad-panel-bloque-67 { display:flex; align-items:center; gap:8px; }
+.ad-panel-bloque-68 { width:24px; height:24px; border-radius:50%; background:#C99A3C; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; color:#FFF; flex-shrink:0; }
+.ad-panel-texto-69 { font-size:11px; font-weight:600; color:#2C1A0E; }
+.ad-panel-texto-70 { font-size:10px; color:#9C8B78; }
+.ad-panel-bloque-71 { display:flex; flex-direction:column; gap:14px; }
+.ad-panel-bloque-72 { padding:18px; }
+.ad-panel-subtitulo-73 { font-size:13px; font-weight:700; color:#2C1A0E; margin-bottom:14px; }
+.ad-panel-bloque-74 { display:flex; flex-direction:column; gap:10px; }
+.ad-panel-bloque-75 { display:flex; align-items:flex-start; gap:10px; }
+.ad-panel-bloque-76 { width:28px; height:28px; border-radius:50%; background:#5E7A521A; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.ad-panel-texto-77 { font-size:14px; color:#5E7A52; }
+.ad-panel-texto-78 { font-size:10.5px; color:#9C8B78; }
+.ad-panel-bloque-79 { width:28px; height:28px; border-radius:50%; background:#C1622D1A; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.ad-panel-texto-80 { font-size:14px; color:#C1622D; }
+.ad-panel-bloque-81 { width:28px; height:28px; border-radius:50%; background:#5C3D201A; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.ad-panel-texto-82 { font-size:14px; color:#5C3D20; }
+.ad-panel-bloque-83 { width:28px; height:28px; border-radius:50%; background:#C99A3C1A; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.ad-panel-texto-84 { font-size:14px; color:#C99A3C; }
+.ad-panel-boton-85 { width:100%; justify-content:center; margin-top:14px; font-size:12px; padding:9px; }
+.ad-panel-bloque-86 { padding:16px; }
+.ad-panel-bloque-87 { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.ad-panel-subtitulo-88 { font-size:12px; font-weight:700; color:#2C1A0E; }
+.ad-panel-bloque-89 { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; margin-bottom:8px; }
+.ad-panel-bloque-90 { text-align:center; font-size:10px; color:#C4B49E; font-weight:700; }
+.ad-panel-bloque-91 { text-align:center; font-size:11px; color:#9C8B78; padding:4px; }
+.ad-panel-bloque-92 { text-align:center; font-size:11px; background:#C1622D; color:#FFF; border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; margin:0 auto; font-weight:700; }
+.ad-panel-bloque-93 { display:flex; flex-direction:column; gap:6px; }
+.ad-panel-bloque-94 { background:#C1622D14; border-left:3px solid #C1622D; border-radius:6px; padding:7px 10px; }
+.ad-panel-texto-95 { font-size:11px; font-weight:600; color:#9C4D22; }
+.ad-panel-texto-96 { font-size:10px; color:#9C8B78; }
+.ad-panel-bloque-97 { background:#C99A3C14; border-left:3px solid #C99A3C; border-radius:6px; padding:7px 10px; }
+.ad-panel-texto-98 { font-size:11px; font-weight:600; color:#8A6820; }

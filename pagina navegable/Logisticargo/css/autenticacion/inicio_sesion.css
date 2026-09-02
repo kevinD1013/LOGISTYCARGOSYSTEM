@@ -1,0 +1,45 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   AUTENTICACIÓN - INICIO DE SESIÓN
+
+   Archivo:
+   css/autenticacion/inicio_sesion.css
+
+   Estilos visuales exclusivos de la pantalla de login (paginas/inicio_sesion.html).
+   ========================================================== */
+
+.auth-login-bloque-1 { background-image: linear-gradient(rgba(35, 18, 8, 0.62), rgba(35, 18, 8, 0.72)), url('../../imagenes/fondo_login.jpeg'); background-size: cover; background-position: center; background-repeat: no-repeat; }
+.auth-login-bloque-2 { position:absolute; inset:0; background-image:radial-gradient(circle at 1px 1px,#FFFFFF08 1px,transparent 0); background-size:18px 18px; pointer-events:none; }
+.auth-login-bloque-3 { position:absolute; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle,#C1622D18,transparent 65%); bottom:-120px; right:-100px; pointer-events:none; }
+.auth-login-bloque-4 { width:70px; height:70px; border-radius:10px; background:#bb825c; display:flex; align-items:center; justify-content:center; }
+.auth-login-imagen-5 { width:70px; height:70px; border-radius:10px; }
+.auth-login-texto-6 { margin:0; font-family:'Fraunces',serif; font-weight:600; font-size:25px; letter-spacing:5px; }
+.auth-login-texto-7 { color:#FFFFFF; }
+.auth-login-texto-8 { color:#E86F1C; }
+.auth-login-texto-9 { margin:5px 0 0; color:#FFFFFF; font-family:'Fraunces',serif; font-size:11px; letter-spacing:4px; }
+.auth-login-titulo-10 { font-family:'Fraunces',serif; font-weight:700; font-size:36px; line-height:1.2; color:#FFFFFF; margin-bottom:16px; }
+.auth-login-texto-11 { color:#C99A3C; }
+.auth-login-texto-12 { font-size:14px; color:#C4B49E; line-height:1.7; max-width:340px; }
+.auth-login-bloque-13 { border:1px solid #5C3D20; border-radius:10px; padding:14px; }
+.auth-login-texto-14 { font-family:'Fraunces',serif; font-size:22px; font-weight:700; color:#C99A3C; }
+.auth-login-texto-15 { font-size:11px; color:#9C8B78; }
+.auth-login-bloque-16 { background:#F8F4EE; }
+.auth-login-bloque-17 { width:100%; max-width:420px; }
+.auth-login-texto-18 { color:#c41d1d; }
+.auth-login-subtitulo-19 { font-family:'Fraunces',serif; font-size:27px; font-weight:700; color:#2C1A0E; margin-bottom:4px; }
+.auth-login-texto-20 { font-size:13px; color:#9C8B78; margin-bottom:26px; }
+.auth-login-texto-21 { margin-bottom:10px; }
+.auth-login-bloque-22 { border-radius:12px; padding:16px 12px; text-align:center; cursor:pointer; transition:all .2s; border:1.5px solid; }
+.auth-login-texto-23 { font-size:22px; }
+.auth-login-texto-24 { font-size:11.5px; font-weight:600; margin-top:6px; }
+.auth-login-bloque-25 { margin-bottom:14px; }
+.auth-login-bloque-26 { margin-bottom:6px; }
+.auth-login-bloque-27 { text-align:right; margin-bottom:22px; }
+.auth-login-enlace-28 { font-size:12px; color:#C1622D; cursor:pointer; font-weight:600; }
+.auth-login-boton-29 { width:100%; justify-content:center; padding:13px; }
+.auth-login-texto-30 { font-size:17px; }
+.auth-login-texto-31 { text-align:center; margin-top:20px; font-size:13px; color:#9C8B78; }
+.auth-login-enlace-32 { color:#C1622D; cursor:pointer; font-weight:600; }
+.auth-login-bloque-33 { margin-top:16px; background:#C99A3C14; border:1px solid #C99A3C44; border-radius:10px; padding:10px 14px; display:flex; align-items:center; gap:8px; }
+.auth-login-texto-34 { color:#8A6820; font-size:17px; }
+.auth-login-texto-35 { font-size:12px; color:#8A6820; }

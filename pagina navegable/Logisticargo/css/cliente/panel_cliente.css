@@ -1,0 +1,102 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   CLIENTE - PANEL PRINCIPAL
+
+   Archivo:
+   css/cliente/panel_cliente.css
+
+   Estilos visuales exclusivos del dashboard de cliente.
+   ========================================================== */
+
+.cl-panel-bloque-1 { position:relative; overflow:hidden; margin:14px; border-radius:16px; background-image:url('../../imagenes/bannercliente.jpg'); background-size:100% 100%; background-position:center; background-repeat:no-repeat; min-height:330px; padding:36px 40px; }
+.cl-panel-bloque-2 { position:relative; z-index:1; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; height:100%; }
+.cl-panel-texto-3 { font-size:13px; color:#C4B49E; margin-bottom:6px; }
+.cl-panel-titulo-4 { font-family:'Fraunces',serif; font-size:32px; font-weight:700; color:#FFFFFF; margin-bottom:8px; }
+.cl-panel-texto-5 { font-size:13.5px; color:#C4B49E; max-width:380px; line-height:1.6; }
+.cl-panel-elemento-6 { color:#C99A3C; }
+.cl-panel-elemento-7 { color:#FFFFFF; }
+.cl-panel-bloque-8 { display:flex; gap:12px; margin-top:22px; }
+.cl-panel-boton-9 { padding:11px 22px; }
+.cl-panel-texto-10 { font-size:16px; }
+.cl-panel-boton-11 { background:#FFFFFF1A; border:1px solid #FFFFFF33; color:#FFFFFF; padding:11px 22px; border-radius:9px; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px; }
+.cl-panel-bloque-12 { background:#FFFFFF14; backdrop-filter:blur(10px); border:1px solid #FFFFFF22; border-radius:16px; padding:20px 24px; min-width:280px; }
+.cl-panel-bloque-13 { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+.cl-panel-texto-14 { font-size:11px; color:#C4B49E; text-transform:uppercase; letter-spacing:.06em; font-weight:700; }
+.cl-panel-texto-15 { background:#C1622D; color:#FFF; font-size:10px; font-weight:700; padding:3px 10px; border-radius:20px; }
+.cl-panel-texto-16 { font-family:'Fraunces',serif; font-size:16px; font-weight:700; color:#FFFFFF; margin-bottom:4px; }
+.cl-panel-bloque-17 { display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+.cl-panel-texto-18 { font-size:14px; color:#C4B49E; }
+.cl-panel-texto-19 { font-size:12.5px; color:#E8D5C0; }
+.cl-panel-texto-20 { font-size:12px; color:#C4B49E; }
+.cl-panel-texto-21 { font-size:14px; color:#C1622D; }
+.cl-panel-bloque-22 { display:flex; align-items:center; gap:10px; }
+.cl-panel-bloque-23 { width:32px; height:32px; border-radius:50%; background:#C99A3C; color:#2C1A0E; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex-shrink:0; }
+.cl-panel-texto-24 { font-size:12px; font-weight:600; color:#FFFFFF; }
+.cl-panel-texto-25 { font-size:10.5px; color:#C4B49E; }
+.cl-panel-bloque-26 { padding:28px 40px; }
+.cl-panel-bloque-27 { border-left:3px solid #C1622D; }
+.cl-panel-texto-28 { font-size:11px; color:#9C8B78; margin-bottom:4px; }
+.cl-panel-texto-29 { font-family:'Fraunces',serif; font-size:30px; font-weight:700; color:#C1622D; }
+.cl-panel-texto-30 { font-size:11px; color:#9C8B78; }
+.cl-panel-bloque-31 { border-left:3px solid #5E7A52; }
+.cl-panel-texto-32 { font-family:'Fraunces',serif; font-size:30px; font-weight:700; color:#5E7A52; }
+.cl-panel-bloque-33 { border-left:3px solid #C99A3C; cursor:pointer; }
+.cl-panel-texto-34 { font-family:'Fraunces',serif; font-size:20px; font-weight:700; color:#C99A3C; }
+.cl-panel-texto-35 { font-size:11px; color:#C99A3C; }
+.cl-panel-bloque-36 { border-left:3px solid #A84230; cursor:pointer; }
+.cl-panel-texto-37 { font-family:'Fraunces',serif; font-size:20px; font-weight:700; color:#A84230; }
+.cl-panel-texto-38 { font-size:11px; color:#A84230; font-weight:600; }
+.cl-panel-bloque-39 { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.cl-panel-subtitulo-40 { font-family:'Fraunces',serif; font-size:18px; font-weight:700; color:#2C1A0E; }
+.cl-panel-boton-41 { font-size:12px; padding:7px 14px; }
+.cl-panel-bloque-42 { overflow:hidden; cursor:pointer; }
+.cl-panel-bloque-43 { background:linear-gradient(135deg,#C1622D,#9C4D22); padding:18px 20px; position:relative; overflow:hidden; }
+.cl-panel-bloque-44 { position:absolute; right:-10px; top:-10px; width:80px; height:80px; border-radius:50%; background:#FFFFFF0A; }
+.cl-panel-bloque-45 { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; }
+.cl-panel-texto-46 { background:#FFFFFF22; color:#FFFFFF; font-size:10px; font-weight:700; padding:3px 10px; border-radius:20px; display:flex; align-items:center; gap:4px; }
+.cl-panel-texto-47 { width:6px; height:6px; border-radius:50%; background:#FFE; display:inline-block; }
+.cl-panel-texto-48 { font-size:22px; color:#FFFFFF88; }
+.cl-panel-texto-49 { font-family:'Fraunces',serif; font-size:15px; font-weight:700; color:#FFFFFF; margin-bottom:3px; }
+.cl-panel-bloque-50 { display:flex; align-items:center; gap:6px; }
+.cl-panel-texto-51 { font-size:12px; color:#FFE0CC; }
+.cl-panel-texto-52 { font-size:11px; color:#FFFFFF77; }
+.cl-panel-bloque-53 { padding:16px 20px; }
+.cl-panel-bloque-54 { display:flex; justify-content:space-between; margin-bottom:8px; }
+.cl-panel-texto-55 { font-size:12px; font-weight:600; color:#2C1A0E; }
+.cl-panel-bloque-56 { display:flex; justify-content:space-between; margin-bottom:12px; }
+.cl-panel-bloque-57 { margin-bottom:10px; }
+.cl-panel-bloque-58 { display:flex; justify-content:space-between; margin-bottom:5px; }
+.cl-panel-texto-59 { font-size:10.5px; color:#9C8B78; }
+.cl-panel-texto-60 { font-size:10.5px; font-weight:600; color:#C1622D; }
+.cl-panel-bloque-61 { height:5px; background:#EDE5D8; border-radius:3px; }
+.cl-panel-bloque-62 { height:100%; width:40%; background:#C1622D; border-radius:3px; }
+.cl-panel-boton-63 { width:100%; justify-content:center; font-size:12px; padding:8px; }
+.cl-panel-texto-64 { font-size:15px; }
+.cl-panel-bloque-65 { overflow:hidden; }
+.cl-panel-bloque-66 { background:linear-gradient(135deg,#C99A3C,#A87B25); padding:18px 20px; position:relative; overflow:hidden; }
+.cl-panel-texto-67 { background:#FFFFFF22; color:#FFFFFF; font-size:10px; font-weight:700; padding:3px 10px; border-radius:20px; }
+.cl-panel-texto-68 { font-size:12px; color:#FFF3D0; }
+.cl-panel-bloque-69 { background:#C99A3C14; border:1px solid #C99A3C33; border-radius:8px; padding:10px; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.cl-panel-texto-70 { font-size:15px; color:#A87B25; }
+.cl-panel-texto-71 { font-size:11.5px; color:#A87B25; }
+.cl-panel-bloque-72 { background:linear-gradient(135deg,#5E7A52,#3D5435); padding:18px 20px; position:relative; overflow:hidden; }
+.cl-panel-texto-73 { font-size:12px; }
+.cl-panel-texto-74 { font-size:12px; color:#D4EDCC; }
+.cl-panel-bloque-75 { margin-bottom:12px; }
+.cl-panel-texto-76 { font-size:11px; color:#9C8B78; margin-bottom:6px; }
+.cl-panel-bloque-77 { display:flex; gap:4px; }
+.cl-panel-texto-78 { font-size:18px; color:#C99A3C; cursor:pointer; }
+.cl-panel-texto-79 { font-size:18px; color:#EDE5D8; cursor:pointer; }
+.cl-panel-subtitulo-80 { font-family:'Fraunces',serif; font-size:16px; font-weight:700; color:#2C1A0E; margin-bottom:14px; }
+.cl-panel-bloque-81 { padding:18px; text-align:center; cursor:pointer; }
+.cl-panel-bloque-82 { width:44px; height:44px; border-radius:12px; background:#C1622D1A; display:flex; align-items:center; justify-content:center; margin:0 auto 10px; }
+.cl-panel-texto-83 { color:#C1622D; font-size:22px; }
+.cl-panel-texto-84 { font-size:13px; font-weight:600; color:#2C1A0E; }
+.cl-panel-texto-85 { font-size:11px; color:#9C8B78; margin-top:3px; }
+.cl-panel-bloque-86 { width:44px; height:44px; border-radius:12px; background:#5E7A521A; display:flex; align-items:center; justify-content:center; margin:0 auto 10px; }
+.cl-panel-texto-87 { color:#5E7A52; font-size:22px; }
+.cl-panel-bloque-88 { width:44px; height:44px; border-radius:12px; background:#A842301A; display:flex; align-items:center; justify-content:center; margin:0 auto 10px; }
+.cl-panel-texto-89 { color:#A84230; font-size:22px; }
+.cl-panel-texto-90 { font-size:11px; color:#A84230; margin-top:3px; font-weight:600; }
+.cl-panel-bloque-91 { width:44px; height:44px; border-radius:12px; background:#1D6FA41A; display:flex; align-items:center; justify-content:center; margin:0 auto 10px; }
+.cl-panel-texto-92 { color:#1D6FA4; font-size:22px; }

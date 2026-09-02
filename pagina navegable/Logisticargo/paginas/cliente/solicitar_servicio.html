@@ -1,142 +1,114 @@
+<!-- ==========================================================
+     CLIENTE - SOLICITAR SERVICIO
+
+     EDITAR ESTA SECCIÓN:
+     Estilos específicos: css/cliente/solicitar_servicio.css
+     (además de css/global/*.css y css/componentes/*.css)
+     JavaScript: javascript/aplicacion.js
+     ========================================================== -->
 <!--  CLIENTE-SOLICITAR SERVICIO -->
 <!-- ══════════ SOLICITAR MUDANZA ══════════ -->
-<div x-show="$store.app.page==='cl_solicitud'" class="flex-1 overflow-y-auto">
-
-  <div
-    style="position:relative;overflow:hidden;background-image:url('imagenes/solicitarmudanza.jpg');background-size:100% 100%;background-position:center;background-repeat:no-repeat;border-bottom:1px solid #EDE5D8;padding:26px 40px;display:flex;align-items:center;justify-content:space-between;min-height:145px">
-
-    <div style="position:relative;z-index:2">
-      <h1 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#2C1A0E;margin-bottom:4px">Solicitar
+<div class="flex-1 overflow-y-auto" x-show="$store.app.page==='cl_solicitud'">
+<div class="cl-solicitud-bloque-1">
+<div class="cl-solicitud-bloque-2">
+<h1 class="cl-solicitud-titulo-3">Solicitar
         mudanza</h1>
-      <p style="font-size:13px;color:#6F6255">Cuéntanos de dónde a dónde, y te damos un precio antes de confirmar nada.
+<p class="cl-solicitud-texto-4">Cuéntanos de dónde a dónde, y te damos un precio antes de confirmar nada.
       </p>
-    </div>
-
-    <div
-      style="position:relative;z-index:2;display:flex;align-items:center;gap:10px;background:#FFF;border:1px solid #EDE5D8;border-radius:12px;padding:10px 16px">
-      <span class="material-symbols-outlined" style="color:#5E7A52;font-size:18px">check_circle</span>
-      <div style="width:32px;height:3px;background:#C99A3C;border-radius:2px"></div>
-      <span class="material-symbols-outlined" style="color:#C1622D;font-size:18px">pending</span>
-      <div style="width:32px;height:3px;background:#EDE5D8;border-radius:2px"></div>
-      <span class="material-symbols-outlined" style="color:#C4B49E;font-size:18px">radio_button_unchecked</span>
-      <p style="font-size:11px;color:#9C8B78;margin-left:4px">Paso 1 de 3</p>
-    </div>
-
-  </div>
-
-  <div style="padding:28px 40px">
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-5">
-
-      <div class="card" style="padding:24px">
-        <h3
-          style="font-size:13.5px;font-weight:700;color:#2C1A0E;margin-bottom:16px;display:flex;align-items:center;gap:8px">
-          <div
-            style="width:28px;height:28px;border-radius:8px;background:#5E7A521A;display:flex;align-items:center;justify-content:center">
-            <span class="material-symbols-outlined" style="color:#5E7A52;font-size:16px">trip_origin</span>
-          </div>Origen
+</div>
+<div class="cl-solicitud-bloque-5">
+<span class="material-symbols-outlined cl-solicitud-texto-6">check_circle</span>
+<div class="cl-solicitud-bloque-7"></div>
+<span class="material-symbols-outlined cl-solicitud-texto-8">pending</span>
+<div class="cl-solicitud-bloque-9"></div>
+<span class="material-symbols-outlined cl-solicitud-texto-10">radio_button_unchecked</span>
+<p class="cl-solicitud-texto-11">Paso 1 de 3</p>
+</div>
+</div>
+<div class="cl-solicitud-bloque-12">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-5">
+<div class="card cl-solicitud-bloque-13">
+<h3 class="cl-solicitud-subtitulo-14">
+<div class="cl-solicitud-bloque-15">
+<span class="material-symbols-outlined cl-solicitud-texto-16">trip_origin</span>
+</div>Origen
         </h3>
-        <div style="margin-bottom:13px"><label class="lbl">Dirección completa</label><input class="inp"
-            placeholder="Calle 85 #15-32, Bogotá" /></div>
-        <div style="margin-bottom:13px"><label class="lbl">Ciudad</label><input class="inp" placeholder="Bogotá" />
-        </div>
-        <div style="margin-bottom:13px"><label class="lbl">Piso / Apartamento</label><input class="inp"
-            placeholder="Piso 5, Apto 502" /></div>
-        <div><label class="lbl">Tipo de propiedad</label>
-          <select class="inp sel">
-            <option>Apartamento</option>
-            <option>Casa</option>
-            <option>Oficina</option>
-            <option>Bodega</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="card" style="padding:24px">
-        <h3
-          style="font-size:13.5px;font-weight:700;color:#2C1A0E;margin-bottom:16px;display:flex;align-items:center;gap:8px">
-          <div
-            style="width:28px;height:28px;border-radius:8px;background:#C1622D1A;display:flex;align-items:center;justify-content:center">
-            <span class="material-symbols-outlined" style="color:#C1622D;font-size:16px">location_on</span>
-          </div>Destino
+<div class="cl-solicitud-bloque-17"><label class="lbl">Dirección completa</label><input class="inp" placeholder="Calle 85 #15-32, Bogotá"/></div>
+<div class="cl-solicitud-bloque-17"><label class="lbl">Ciudad</label><input class="inp" placeholder="Bogotá"/>
+</div>
+<div class="cl-solicitud-bloque-17"><label class="lbl">Piso / Apartamento</label><input class="inp" placeholder="Piso 5, Apto 502"/></div>
+<div><label class="lbl">Tipo de propiedad</label>
+<select class="inp sel">
+<option>Apartamento</option>
+<option>Casa</option>
+<option>Oficina</option>
+<option>Bodega</option>
+</select>
+</div>
+</div>
+<div class="card cl-solicitud-bloque-13">
+<h3 class="cl-solicitud-subtitulo-14">
+<div class="cl-solicitud-bloque-18">
+<span class="material-symbols-outlined cl-solicitud-texto-19">location_on</span>
+</div>Destino
         </h3>
-        <div style="margin-bottom:13px"><label class="lbl">Dirección completa</label><input class="inp"
-            placeholder="Carrera 7 #12-34, Medellín" /></div>
-        <div style="margin-bottom:13px"><label class="lbl">Ciudad</label><input class="inp" placeholder="Medellín" />
-        </div>
-        <div style="margin-bottom:13px"><label class="lbl">Piso / Apartamento</label><input class="inp"
-            placeholder="Opcional" /></div>
-        <div><label class="lbl">Tipo de propiedad</label>
-          <select class="inp sel">
-            <option>Apartamento</option>
-            <option>Casa</option>
-            <option>Oficina</option>
-            <option>Bodega</option>
-          </select>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="card" style="padding:24px;margin-bottom:18px">
-      <h3 style="font-size:13.5px;font-weight:700;color:#2C1A0E;margin-bottom:6px">Volumen de carga</h3>
-      <p style="font-size:12px;color:#9C8B78;margin-bottom:16px">Selecciona el que mejor describe tu mudanza para
+<div class="cl-solicitud-bloque-17"><label class="lbl">Dirección completa</label><input class="inp" placeholder="Carrera 7 #12-34, Medellín"/></div>
+<div class="cl-solicitud-bloque-17"><label class="lbl">Ciudad</label><input class="inp" placeholder="Medellín"/>
+</div>
+<div class="cl-solicitud-bloque-17"><label class="lbl">Piso / Apartamento</label><input class="inp" placeholder="Opcional"/></div>
+<div><label class="lbl">Tipo de propiedad</label>
+<select class="inp sel">
+<option>Apartamento</option>
+<option>Casa</option>
+<option>Oficina</option>
+<option>Bodega</option>
+</select>
+</div>
+</div>
+</div>
+<div class="card cl-solicitud-bloque-20">
+<h3 class="cl-solicitud-subtitulo-21">Volumen de carga</h3>
+<p class="cl-solicitud-texto-22">Selecciona el que mejor describe tu mudanza para
         calcular el precio.</p>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-
-        <div
-          style="border:1.5px solid #EDE5D8;border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all .2s"
-          @click="$store.app.toast_('Estudio seleccionado')">
-          <p style="font-size:24px;margin-bottom:8px">🛋️</p>
-          <p style="font-size:12px;font-weight:700;color:#2C1A0E">Estudio</p>
-          <p style="font-size:10.5px;color:#9C8B78;margin-top:3px">~8 m³</p>
-        </div>
-
-        <div
-          style="border:1.5px solid #C1622D;border-radius:12px;padding:16px;text-align:center;cursor:pointer;background:#C1622D08">
-          <p style="font-size:24px;margin-bottom:8px">🏠</p>
-          <p style="font-size:12px;font-weight:700;color:#C1622D">Apto 2-3 hab.</p>
-          <p style="font-size:10.5px;color:#9C8B78;margin-top:3px">~15 m³ · Seleccionado</p>
-        </div>
-
-        <div
-          style="border:1.5px solid #EDE5D8;border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all .2s"
-          @click="$store.app.toast_('Casa completa seleccionada')">
-          <p style="font-size:24px;margin-bottom:8px">🏡</p>
-          <p style="font-size:12px;font-weight:700;color:#2C1A0E">Casa completa</p>
-          <p style="font-size:10.5px;color:#9C8B78;margin-top:3px">~30 m³</p>
-        </div>
-
-        <div
-          style="border:1.5px solid #EDE5D8;border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all .2s"
-          @click="$store.app.toast_('Oficina seleccionada')">
-          <p style="font-size:24px;margin-bottom:8px">🏢</p>
-          <p style="font-size:12px;font-weight:700;color:#2C1A0E">Oficina</p>
-          <p style="font-size:10.5px;color:#9C8B78;margin-top:3px">A medir</p>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="card" style="padding:20px;margin-bottom:20px">
-      <h3 style="font-size:13px;font-weight:700;color:#2C1A0E;margin-bottom:14px">Fecha deseada de mudanza</h3>
-      <div class="grid grid-cols-2 gap-4">
-        <div><label class="lbl">Fecha</label><input class="inp" type="text" placeholder="dd/mm/aaaa" /></div>
-        <div><label class="lbl">Horario preferido</label><select class="inp sel">
-            <option>Mañana (7AM–12PM)</option>
-            <option>Tarde (12PM–6PM)</option>
-            <option>Flexible</option>
-          </select></div>
-      </div>
-    </div>
-
-    <div style="display:flex;justify-content:flex-end;gap:12px">
-      <button class="btn btn-s" @click="$store.app.page='dash_cliente'">Cancelar</button>
-      <button class="btn btn-p" @click="$store.app.page='cl_cotizacion'">
-        <span class="material-symbols-outlined" style="font-size:16px">calculate</span>Calcular cotización →
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<div @click="$store.app.toast_('Estudio seleccionado')" class="cl-solicitud-bloque-23">
+<p class="cl-solicitud-texto-24">🛋️</p>
+<p class="cl-solicitud-texto-25">Estudio</p>
+<p class="cl-solicitud-texto-26">~8 m³</p>
+</div>
+<div class="cl-solicitud-bloque-27">
+<p class="cl-solicitud-texto-24">🏠</p>
+<p class="cl-solicitud-texto-28">Apto 2-3 hab.</p>
+<p class="cl-solicitud-texto-26">~15 m³ · Seleccionado</p>
+</div>
+<div @click="$store.app.toast_('Casa completa seleccionada')" class="cl-solicitud-bloque-23">
+<p class="cl-solicitud-texto-24">🏡</p>
+<p class="cl-solicitud-texto-25">Casa completa</p>
+<p class="cl-solicitud-texto-26">~30 m³</p>
+</div>
+<div @click="$store.app.toast_('Oficina seleccionada')" class="cl-solicitud-bloque-23">
+<p class="cl-solicitud-texto-24">🏢</p>
+<p class="cl-solicitud-texto-25">Oficina</p>
+<p class="cl-solicitud-texto-26">A medir</p>
+</div>
+</div>
+</div>
+<div class="card cl-solicitud-bloque-29">
+<h3 class="cl-solicitud-subtitulo-30">Fecha deseada de mudanza</h3>
+<div class="grid grid-cols-2 gap-4">
+<div><label class="lbl">Fecha</label><input class="inp" placeholder="dd/mm/aaaa" type="text"/></div>
+<div><label class="lbl">Horario preferido</label><select class="inp sel">
+<option>Mañana (7AM–12PM)</option>
+<option>Tarde (12PM–6PM)</option>
+<option>Flexible</option>
+</select></div>
+</div>
+</div>
+<div class="cl-solicitud-bloque-31">
+<button @click="$store.app.page='dash_cliente'" class="btn btn-s">Cancelar</button>
+<button @click="$store.app.page='cl_cotizacion'" class="btn btn-p">
+<span class="material-symbols-outlined cl-solicitud-texto-32">calculate</span>Calcular cotización →
       </button>
-    </div>
-
-  </div>
+</div>
+</div>
 </div>

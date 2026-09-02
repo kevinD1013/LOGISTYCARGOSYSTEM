@@ -1,19 +1,47 @@
-<!-- HISTORIAL CONDUCTOR -->
-  <!-- ==========================================================
-       CONDUCTOR - HISTORIAL
-       Historial de paradas y servicios completados por el
-       conductor.
+<!-- ==========================================================
+     CONDUCTOR - HISTORIAL
 
-       EDITAR ESTA SECCIÓN:
-       Estilos:    css/componentes.css
-       JavaScript: javascript/aplicacion.js
-       ========================================================== -->
-  <div x-show="$store.app.page==='co_historial'" class="flex-1 overflow-y-auto" style="padding:18px;max-width:560px;margin:0 auto;width:100%">
-    <h1 style="font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:#FFFFFF;margin-bottom:4px">Historial de paradas</h1>
-    <p style="font-size:12.5px;color:#9C8B78;margin-bottom:16px">Tus últimos servicios completados.</p>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <div style="background:#1E1108;border:1px solid #5C3D20;border-radius:14px;padding:16px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><p style="font-size:13px;font-weight:600;color:#FFFFFF">SRV-2026-00846</p><span class="badge b-sage">Completado</span></div><p style="font-size:12px;color:#9C8B78">Bogotá · 15 sep 2026 · 2 paradas</p></div>
-      <div style="background:#1E1108;border:1px solid #5C3D20;border-radius:14px;padding:16px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><p style="font-size:13px;font-weight:600;color:#FFFFFF">SRV-2026-00839</p><span class="badge b-sage">Completado</span></div><p style="font-size:12px;color:#9C8B78">Bogotá → Chía · 8 sep 2026 · 2 paradas</p></div>
-      <div style="background:#1E1108;border:1px solid #5C3D20;border-radius:14px;padding:16px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><p style="font-size:13px;font-weight:600;color:#FFFFFF">SRV-2026-00820</p><span class="badge b-ocre">Con novedad</span></div><p style="font-size:12px;color:#9C8B78">Bogotá → Zipaquirá · 28 ago 2026 · retraso reportado</p></div>
-    </div>
+     Historial de paradas y servicios completados por el
+     conductor.
+
+     Estilos específicos: css/conductor/historial_servicios.css
+     Estilos comunes de Conductor: css/conductor/conductor_comun.css
+     Componentes reutilizados: css/componentes/tarjetas.css (.badge, .b-sage, .b-ocre)
+     Funcionalidad: javascript/aplicacion.js, javascript/enrutador.js
+     ========================================================== -->
+<div class="conductor-pantalla" x-show="$store.app.page==='co_historial'">
+
+  <div class="conductor-header">
+    <h1>Historial de paradas</h1>
+    <p>Tus últimos servicios completados.</p>
   </div>
+
+  <div class="historial-conductor-lista">
+
+    <div class="conductor-card historial-conductor-item">
+      <div class="historial-conductor-fila-superior">
+        <p class="historial-conductor-codigo">SRV-2026-00846</p>
+        <span class="badge b-sage">Completado</span>
+      </div>
+      <p class="historial-conductor-detalle">Bogotá · 15 sep 2026 · 2 paradas</p>
+    </div>
+
+    <div class="conductor-card historial-conductor-item">
+      <div class="historial-conductor-fila-superior">
+        <p class="historial-conductor-codigo">SRV-2026-00839</p>
+        <span class="badge b-sage">Completado</span>
+      </div>
+      <p class="historial-conductor-detalle">Bogotá → Chía · 8 sep 2026 · 2 paradas</p>
+    </div>
+
+    <div class="conductor-card historial-conductor-item">
+      <div class="historial-conductor-fila-superior">
+        <p class="historial-conductor-codigo">SRV-2026-00820</p>
+        <span class="badge b-ocre">Con novedad</span>
+      </div>
+      <p class="historial-conductor-detalle">Bogotá → Zipaquirá · 28 ago 2026 · retraso reportado</p>
+    </div>
+
+  </div>
+
+</div>

@@ -1,223 +1,221 @@
+<!-- ==========================================================
+     CLIENTE - PANEL PRINCIPAL
+
+     EDITAR ESTA SECCIÓN:
+     Estilos específicos: css/cliente/panel_cliente.css
+     (además de css/global/*.css y css/componentes/*.css)
+     JavaScript: javascript/aplicacion.js
+     ========================================================== -->
  <!--INICIO CLIENTE  -->
- <div x-show="$store.app.page==='dash_cliente'" class="flex-1 overflow-y-auto">
-
-  <div style="position:relative;overflow:hidden;margin:14px;border-radius:16px;background-image:url('imagenes/bannercliente.jpg');background-size:100% 100%;background-position:center;background-repeat:no-repeat;min-height:330px;padding:36px 40px">
-
-    <div style="position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;height:100%">
-      <div>
-        <p style="font-size:13px;color:#C4B49E;margin-bottom:6px">Bienvenida de vuelta,</p>
-        <h1 style="font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:#FFFFFF;margin-bottom:8px" x-text="$store.app.userName + ' 👋'"></h1>
-        <p style="font-size:13.5px;color:#C4B49E;max-width:380px;line-height:1.6">Tienes <strong style="color:#C99A3C">1 mudanza activa</strong> en camino y <strong style="color:#FFFFFF">1 confirmada</strong> para el 30 de octubre.</p>
-        <div style="display:flex;gap:12px;margin-top:22px">
-          <button class="btn btn-p" style="padding:11px 22px" @click="$store.app.page='cl_solicitud'">
-            <span class="material-symbols-outlined" style="font-size:16px">add</span>Nueva mudanza
+<div class="flex-1 overflow-y-auto" x-show="$store.app.page==='dash_cliente'">
+<div class="cl-panel-bloque-1">
+<div class="cl-panel-bloque-2">
+<div>
+<p class="cl-panel-texto-3">Bienvenida de vuelta,</p>
+<h1 class="cl-panel-titulo-4" x-text="$store.app.userName + ' 👋'"></h1>
+<p class="cl-panel-texto-5">Tienes <strong class="cl-panel-elemento-6">1 mudanza activa</strong> en camino y <strong class="cl-panel-elemento-7">1 confirmada</strong> para el 30 de octubre.</p>
+<div class="cl-panel-bloque-8">
+<button @click="$store.app.page='cl_solicitud'" class="btn btn-p cl-panel-boton-9">
+<span class="material-symbols-outlined cl-panel-texto-10">add</span>Nueva mudanza
           </button>
-          <button style="background:#FFFFFF1A;border:1px solid #FFFFFF33;color:#FFFFFF;padding:11px 22px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px" @click="$store.app.page='cl_seguimiento'">
-            <span class="material-symbols-outlined" style="font-size:16px">local_shipping</span>Ver seguimiento
+<button @click="$store.app.page='cl_seguimiento'" class="cl-panel-boton-11">
+<span class="material-symbols-outlined cl-panel-texto-10">local_shipping</span>Ver seguimiento
           </button>
-        </div>
-      </div>
-
-      <div style="background:#FFFFFF14;backdrop-filter:blur(10px);border:1px solid #FFFFFF22;border-radius:16px;padding:20px 24px;min-width:280px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-          <p style="font-size:11px;color:#C4B49E;text-transform:uppercase;letter-spacing:.06em;font-weight:700">Mudanza activa</p>
-          <span style="background:#C1622D;color:#FFF;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px">En camino</span>
-        </div>
-        <p style="font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:#FFFFFF;margin-bottom:4px">SRV-2026-00847</p>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
-          <span class="material-symbols-outlined" style="font-size:14px;color:#C4B49E">location_on</span>
-          <span style="font-size:12.5px;color:#E8D5C0">Bogotá</span>
-          <span style="font-size:12px;color:#C4B49E">→</span>
-          <span class="material-symbols-outlined" style="font-size:14px;color:#C1622D">location_on</span>
-          <span style="font-size:12.5px;color:#E8D5C0">Medellín</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px">
-          <div style="width:32px;height:32px;border-radius:50%;background:#C99A3C;color:#2C1A0E;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">CM</div>
-          <div><p style="font-size:12px;font-weight:600;color:#FFFFFF">Carlos Mendoza</p><p style="font-size:10.5px;color:#C4B49E">Ford F-350 · Sale 8:30 AM</p></div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-    <div style="padding:28px 40px">
-      <!-- KPIs del cliente -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div class="kpi" style="border-left:3px solid #C1622D">
-          <p style="font-size:11px;color:#9C8B78;margin-bottom:4px">Mudanzas activas</p>
-          <p style="font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:#C1622D">2</p>
-          <p style="font-size:11px;color:#9C8B78">1 en camino · 1 confirmada</p>
-        </div>
-        <div class="kpi" style="border-left:3px solid #5E7A52">
-          <p style="font-size:11px;color:#9C8B78;margin-bottom:4px">Completadas</p>
-          <p style="font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:#5E7A52">12</p>
-          <p style="font-size:11px;color:#9C8B78">Histórico de cuenta</p>
-        </div>
-        <div class="kpi" style="border-left:3px solid #C99A3C;cursor:pointer" @click="$store.app.toast_('Próximo servicio: 30 oct · Bogotá → Cali')">
-          <p style="font-size:11px;color:#9C8B78;margin-bottom:4px">Próximo servicio</p>
-          <p style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#C99A3C">30 oct</p>
-          <p style="font-size:11px;color:#C99A3C">Bogotá → Cali →</p>
-        </div>
-        <div class="kpi" style="border-left:3px solid #A84230;cursor:pointer" @click="$store.app.page='cl_pagos'">
-          <p style="font-size:11px;color:#9C8B78;margin-bottom:4px">Saldo pendiente</p>
-          <p style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#A84230">$X.XXX.XXX</p>
-          <p style="font-size:11px;color:#A84230;font-weight:600">Ver facturas →</p>
-        </div>
-      </div>
-
-      <!-- Sección mis mudanzas — tarjetas visuales -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <h2 style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:#2C1A0E">Mis mudanzas</h2>
-        <button class="btn btn-s" style="font-size:12px;padding:7px 14px" @click="$store.app.page='cl_historial'">Ver todas</button>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
-        <!-- Tarjeta 1: En camino -->
-        <div class="card" style="overflow:hidden;cursor:pointer" @click="$store.app.page='cl_seguimiento'">
-          <div style="background:linear-gradient(135deg,#C1622D,#9C4D22);padding:18px 20px;position:relative;overflow:hidden">
-            <div style="position:absolute;right:-10px;top:-10px;width:80px;height:80px;border-radius:50%;background:#FFFFFF0A"></div>
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
-              <span style="background:#FFFFFF22;color:#FFFFFF;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;display:flex;align-items:center;gap:4px">
-                <span style="width:6px;height:6px;border-radius:50%;background:#FFE;display:inline-block"></span>En camino
+</div>
+</div>
+<div class="cl-panel-bloque-12">
+<div class="cl-panel-bloque-13">
+<p class="cl-panel-texto-14">Mudanza activa</p>
+<span class="cl-panel-texto-15">En camino</span>
+</div>
+<p class="cl-panel-texto-16">SRV-2026-00847</p>
+<div class="cl-panel-bloque-17">
+<span class="material-symbols-outlined cl-panel-texto-18">location_on</span>
+<span class="cl-panel-texto-19">Bogotá</span>
+<span class="cl-panel-texto-20">→</span>
+<span class="material-symbols-outlined cl-panel-texto-21">location_on</span>
+<span class="cl-panel-texto-19">Medellín</span>
+</div>
+<div class="cl-panel-bloque-22">
+<div class="cl-panel-bloque-23">CM</div>
+<div><p class="cl-panel-texto-24">Carlos Mendoza</p><p class="cl-panel-texto-25">Ford F-350 · Sale 8:30 AM</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cl-panel-bloque-26">
+<!-- KPIs del cliente -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+<div class="kpi cl-panel-bloque-27">
+<p class="cl-panel-texto-28">Mudanzas activas</p>
+<p class="cl-panel-texto-29">2</p>
+<p class="cl-panel-texto-30">1 en camino · 1 confirmada</p>
+</div>
+<div class="kpi cl-panel-bloque-31">
+<p class="cl-panel-texto-28">Completadas</p>
+<p class="cl-panel-texto-32">12</p>
+<p class="cl-panel-texto-30">Histórico de cuenta</p>
+</div>
+<div @click="$store.app.toast_('Próximo servicio: 30 oct · Bogotá → Cali')" class="kpi cl-panel-bloque-33">
+<p class="cl-panel-texto-28">Próximo servicio</p>
+<p class="cl-panel-texto-34">30 oct</p>
+<p class="cl-panel-texto-35">Bogotá → Cali →</p>
+</div>
+<div @click="$store.app.page='cl_pagos'" class="kpi cl-panel-bloque-36">
+<p class="cl-panel-texto-28">Saldo pendiente</p>
+<p class="cl-panel-texto-37">$X.XXX.XXX</p>
+<p class="cl-panel-texto-38">Ver facturas →</p>
+</div>
+</div>
+<!-- Sección mis mudanzas — tarjetas visuales -->
+<div class="cl-panel-bloque-39">
+<h2 class="cl-panel-subtitulo-40">Mis mudanzas</h2>
+<button @click="$store.app.page='cl_historial'" class="btn btn-s cl-panel-boton-41">Ver todas</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+<!-- Tarjeta 1: En camino -->
+<div @click="$store.app.page='cl_seguimiento'" class="card cl-panel-bloque-42">
+<div class="cl-panel-bloque-43">
+<div class="cl-panel-bloque-44"></div>
+<div class="cl-panel-bloque-45">
+<span class="cl-panel-texto-46">
+<span class="cl-panel-texto-47"></span>En camino
               </span>
-              <span class="material-symbols-outlined" style="font-size:22px;color:#FFFFFF88">local_shipping</span>
-            </div>
-            <p style="font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:#FFFFFF;margin-bottom:3px">SRV-2026-00847</p>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="font-size:12px;color:#FFE0CC">Bogotá</span>
-              <span style="font-size:11px;color:#FFFFFF77">→</span>
-              <span style="font-size:12px;color:#FFE0CC">Medellín</span>
-            </div>
-          </div>
-          <div style="padding:16px 20px">
-            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
-              <p style="font-size:11px;color:#9C8B78">Conductor</p>
-              <p style="font-size:12px;font-weight:600;color:#2C1A0E">Carlos Mendoza</p>
-            </div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:12px">
-              <p style="font-size:11px;color:#9C8B78">Fecha</p>
-              <p style="font-size:12px;font-weight:600;color:#2C1A0E">25 oct 2026</p>
-            </div>
-            <!-- Barra de progreso del servicio -->
-            <div style="margin-bottom:10px">
-              <div style="display:flex;justify-content:space-between;margin-bottom:5px">
-                <span style="font-size:10.5px;color:#9C8B78">Progreso</span>
-                <span style="font-size:10.5px;font-weight:600;color:#C1622D">40%</span>
-              </div>
-              <div style="height:5px;background:#EDE5D8;border-radius:3px">
-                <div style="height:100%;width:40%;background:#C1622D;border-radius:3px"></div>
-              </div>
-            </div>
-            <button class="btn btn-p" style="width:100%;justify-content:center;font-size:12px;padding:8px">
-              <span class="material-symbols-outlined" style="font-size:15px">map</span>Ver seguimiento
+<span class="material-symbols-outlined cl-panel-texto-48">local_shipping</span>
+</div>
+<p class="cl-panel-texto-49">SRV-2026-00847</p>
+<div class="cl-panel-bloque-50">
+<span class="cl-panel-texto-51">Bogotá</span>
+<span class="cl-panel-texto-52">→</span>
+<span class="cl-panel-texto-51">Medellín</span>
+</div>
+</div>
+<div class="cl-panel-bloque-53">
+<div class="cl-panel-bloque-54">
+<p class="cl-panel-texto-30">Conductor</p>
+<p class="cl-panel-texto-55">Carlos Mendoza</p>
+</div>
+<div class="cl-panel-bloque-56">
+<p class="cl-panel-texto-30">Fecha</p>
+<p class="cl-panel-texto-55">25 oct 2026</p>
+</div>
+<!-- Barra de progreso del servicio -->
+<div class="cl-panel-bloque-57">
+<div class="cl-panel-bloque-58">
+<span class="cl-panel-texto-59">Progreso</span>
+<span class="cl-panel-texto-60">40%</span>
+</div>
+<div class="cl-panel-bloque-61">
+<div class="cl-panel-bloque-62"></div>
+</div>
+</div>
+<button class="btn btn-p cl-panel-boton-63">
+<span class="material-symbols-outlined cl-panel-texto-64">map</span>Ver seguimiento
             </button>
-          </div>
-        </div>
-
-        <!-- Tarjeta 2: Confirmada -->
-        <div class="card" style="overflow:hidden">
-          <div style="background:linear-gradient(135deg,#C99A3C,#A87B25);padding:18px 20px;position:relative;overflow:hidden">
-            <div style="position:absolute;right:-10px;top:-10px;width:80px;height:80px;border-radius:50%;background:#FFFFFF0A"></div>
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
-              <span style="background:#FFFFFF22;color:#FFFFFF;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px">Confirmada</span>
-              <span class="material-symbols-outlined" style="font-size:22px;color:#FFFFFF88">calendar_month</span>
-            </div>
-            <p style="font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:#FFFFFF;margin-bottom:3px">SRV-2026-00848</p>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="font-size:12px;color:#FFF3D0">Bogotá</span>
-              <span style="font-size:11px;color:#FFFFFF77">→</span>
-              <span style="font-size:12px;color:#FFF3D0">Cali</span>
-            </div>
-          </div>
-          <div style="padding:16px 20px">
-            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
-              <p style="font-size:11px;color:#9C8B78">Tipo</p>
-              <p style="font-size:12px;font-weight:600;color:#2C1A0E">Oficina</p>
-            </div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:12px">
-              <p style="font-size:11px;color:#9C8B78">Fecha programada</p>
-              <p style="font-size:12px;font-weight:600;color:#2C1A0E">30 oct 2026</p>
-            </div>
-            <div style="background:#C99A3C14;border:1px solid #C99A3C33;border-radius:8px;padding:10px;margin-bottom:10px;display:flex;align-items:center;gap:8px">
-              <span class="material-symbols-outlined" style="font-size:15px;color:#A87B25">schedule</span>
-              <p style="font-size:11.5px;color:#A87B25">Faltan <strong>8 días</strong> para tu mudanza</p>
-            </div>
-            <button class="btn btn-s" style="width:100%;justify-content:center;font-size:12px;padding:8px" @click="$store.app.toast_('Abriendo detalle del servicio SRV-2026-00848')">
-              <span class="material-symbols-outlined" style="font-size:15px">visibility</span>Ver detalle
+</div>
+</div>
+<!-- Tarjeta 2: Confirmada -->
+<div class="card cl-panel-bloque-65">
+<div class="cl-panel-bloque-66">
+<div class="cl-panel-bloque-44"></div>
+<div class="cl-panel-bloque-45">
+<span class="cl-panel-texto-67">Confirmada</span>
+<span class="material-symbols-outlined cl-panel-texto-48">calendar_month</span>
+</div>
+<p class="cl-panel-texto-49">SRV-2026-00848</p>
+<div class="cl-panel-bloque-50">
+<span class="cl-panel-texto-68">Bogotá</span>
+<span class="cl-panel-texto-52">→</span>
+<span class="cl-panel-texto-68">Cali</span>
+</div>
+</div>
+<div class="cl-panel-bloque-53">
+<div class="cl-panel-bloque-54">
+<p class="cl-panel-texto-30">Tipo</p>
+<p class="cl-panel-texto-55">Oficina</p>
+</div>
+<div class="cl-panel-bloque-56">
+<p class="cl-panel-texto-30">Fecha programada</p>
+<p class="cl-panel-texto-55">30 oct 2026</p>
+</div>
+<div class="cl-panel-bloque-69">
+<span class="material-symbols-outlined cl-panel-texto-70">schedule</span>
+<p class="cl-panel-texto-71">Faltan <strong>8 días</strong> para tu mudanza</p>
+</div>
+<button @click="$store.app.toast_('Abriendo detalle del servicio SRV-2026-00848')" class="btn btn-s cl-panel-boton-63">
+<span class="material-symbols-outlined cl-panel-texto-64">visibility</span>Ver detalle
             </button>
-          </div>
-        </div>
-
-        <!-- Tarjeta 3: Completada con calificación -->
-        <div class="card" style="overflow:hidden">
-          <div style="background:linear-gradient(135deg,#5E7A52,#3D5435);padding:18px 20px;position:relative;overflow:hidden">
-            <div style="position:absolute;right:-10px;top:-10px;width:80px;height:80px;border-radius:50%;background:#FFFFFF0A"></div>
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
-              <span style="background:#FFFFFF22;color:#FFFFFF;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;display:flex;align-items:center;gap:4px">
-                <span class="material-symbols-outlined" style="font-size:12px">check_circle</span>Completada
+</div>
+</div>
+<!-- Tarjeta 3: Completada con calificación -->
+<div class="card cl-panel-bloque-65">
+<div class="cl-panel-bloque-72">
+<div class="cl-panel-bloque-44"></div>
+<div class="cl-panel-bloque-45">
+<span class="cl-panel-texto-46">
+<span class="material-symbols-outlined cl-panel-texto-73">check_circle</span>Completada
               </span>
-              <span class="material-symbols-outlined" style="font-size:22px;color:#FFFFFF88">home</span>
-            </div>
-            <p style="font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:#FFFFFF;margin-bottom:3px">SRV-2026-00846</p>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="font-size:12px;color:#D4EDCC">Bogotá</span>
-              <span style="font-size:11px;color:#FFFFFF77">→</span>
-              <span style="font-size:12px;color:#D4EDCC">Bogotá (local)</span>
-            </div>
-          </div>
-          <div style="padding:16px 20px">
-            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
-              <p style="font-size:11px;color:#9C8B78">Completada el</p>
-              <p style="font-size:12px;font-weight:600;color:#2C1A0E">15 sep 2026</p>
-            </div>
-            <div style="margin-bottom:12px">
-              <p style="font-size:11px;color:#9C8B78;margin-bottom:6px">Tu calificación</p>
-              <div style="display:flex;gap:4px">
-                <span class="material-symbols-outlined" style="font-size:18px;color:#C99A3C;cursor:pointer" @click="$store.app.toast_('Calificación guardada: ★★★★★')">star</span>
-                <span class="material-symbols-outlined" style="font-size:18px;color:#C99A3C;cursor:pointer">star</span>
-                <span class="material-symbols-outlined" style="font-size:18px;color:#C99A3C;cursor:pointer">star</span>
-                <span class="material-symbols-outlined" style="font-size:18px;color:#C99A3C;cursor:pointer">star</span>
-                <span class="material-symbols-outlined" style="font-size:18px;color:#EDE5D8;cursor:pointer" @click="$store.app.toast_('Calificación actualizada')">star</span>
-              </div>
-            </div>
-            <button class="btn btn-s" style="width:100%;justify-content:center;font-size:12px;padding:8px" @click="$store.app.toast_('Descargando factura PDF')">
-              <span class="material-symbols-outlined" style="font-size:15px">download</span>Descargar factura
+<span class="material-symbols-outlined cl-panel-texto-48">home</span>
+</div>
+<p class="cl-panel-texto-49">SRV-2026-00846</p>
+<div class="cl-panel-bloque-50">
+<span class="cl-panel-texto-74">Bogotá</span>
+<span class="cl-panel-texto-52">→</span>
+<span class="cl-panel-texto-74">Bogotá (local)</span>
+</div>
+</div>
+<div class="cl-panel-bloque-53">
+<div class="cl-panel-bloque-54">
+<p class="cl-panel-texto-30">Completada el</p>
+<p class="cl-panel-texto-55">15 sep 2026</p>
+</div>
+<div class="cl-panel-bloque-75">
+<p class="cl-panel-texto-76">Tu calificación</p>
+<div class="cl-panel-bloque-77">
+<span @click="$store.app.toast_('Calificación guardada: ★★★★★')" class="material-symbols-outlined cl-panel-texto-78">star</span>
+<span class="material-symbols-outlined cl-panel-texto-78">star</span>
+<span class="material-symbols-outlined cl-panel-texto-78">star</span>
+<span class="material-symbols-outlined cl-panel-texto-78">star</span>
+<span @click="$store.app.toast_('Calificación actualizada')" class="material-symbols-outlined cl-panel-texto-79">star</span>
+</div>
+</div>
+<button @click="$store.app.toast_('Descargando factura PDF')" class="btn btn-s cl-panel-boton-63">
+<span class="material-symbols-outlined cl-panel-texto-64">download</span>Descargar factura
             </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Acceso rápido -->
-      <h2 style="font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:#2C1A0E;margin-bottom:14px">Accesos rápidos</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="card" style="padding:18px;text-align:center;cursor:pointer" @click="$store.app.page='cl_solicitud'">
-          <div style="width:44px;height:44px;border-radius:12px;background:#C1622D1A;display:flex;align-items:center;justify-content:center;margin:0 auto 10px">
-            <span class="material-symbols-outlined" style="color:#C1622D;font-size:22px">add_box</span>
-          </div>
-          <p style="font-size:13px;font-weight:600;color:#2C1A0E">Solicitar mudanza</p>
-          <p style="font-size:11px;color:#9C8B78;margin-top:3px">Cotización inmediata</p>
-        </div>
-        <div class="card" style="padding:18px;text-align:center;cursor:pointer" @click="$store.app.page='cl_seguimiento'">
-          <div style="width:44px;height:44px;border-radius:12px;background:#5E7A521A;display:flex;align-items:center;justify-content:center;margin:0 auto 10px">
-            <span class="material-symbols-outlined" style="color:#5E7A52;font-size:22px">location_on</span>
-          </div>
-          <p style="font-size:13px;font-weight:600;color:#2C1A0E">Seguimiento</p>
-          <p style="font-size:11px;color:#9C8B78;margin-top:3px">En tiempo real</p>
-        </div>
-        <div class="card" style="padding:18px;text-align:center;cursor:pointer" @click="$store.app.page='cl_pagos'">
-          <div style="width:44px;height:44px;border-radius:12px;background:#A842301A;display:flex;align-items:center;justify-content:center;margin:0 auto 10px">
-            <span class="material-symbols-outlined" style="color:#A84230;font-size:22px">receipt_long</span>
-          </div>
-          <p style="font-size:13px;font-weight:600;color:#2C1A0E">Pagos y facturas</p>
-          <p style="font-size:11px;color:#A84230;margin-top:3px;font-weight:600">2 pendientes</p>
-        </div>
-        <div class="card" style="padding:18px;text-align:center;cursor:pointer" @click="$store.app.page='cl_soporte'">
-          <div style="width:44px;height:44px;border-radius:12px;background:#1D6FA41A;display:flex;align-items:center;justify-content:center;margin:0 auto 10px">
-            <span class="material-symbols-outlined" style="color:#1D6FA4;font-size:22px">headset_mic</span>
-          </div>
-          <p style="font-size:13px;font-weight:600;color:#2C1A0E">Soporte</p>
-          <p style="font-size:11px;color:#9C8B78;margin-top:3px">Respuesta en 4h</p>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
+</div>
+</div>
+<!-- Acceso rápido -->
+<h2 class="cl-panel-subtitulo-80">Accesos rápidos</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div @click="$store.app.page='cl_solicitud'" class="card cl-panel-bloque-81">
+<div class="cl-panel-bloque-82">
+<span class="material-symbols-outlined cl-panel-texto-83">add_box</span>
+</div>
+<p class="cl-panel-texto-84">Solicitar mudanza</p>
+<p class="cl-panel-texto-85">Cotización inmediata</p>
+</div>
+<div @click="$store.app.page='cl_seguimiento'" class="card cl-panel-bloque-81">
+<div class="cl-panel-bloque-86">
+<span class="material-symbols-outlined cl-panel-texto-87">location_on</span>
+</div>
+<p class="cl-panel-texto-84">Seguimiento</p>
+<p class="cl-panel-texto-85">En tiempo real</p>
+</div>
+<div @click="$store.app.page='cl_pagos'" class="card cl-panel-bloque-81">
+<div class="cl-panel-bloque-88">
+<span class="material-symbols-outlined cl-panel-texto-89">receipt_long</span>
+</div>
+<p class="cl-panel-texto-84">Pagos y facturas</p>
+<p class="cl-panel-texto-90">2 pendientes</p>
+</div>
+<div @click="$store.app.page='cl_soporte'" class="card cl-panel-bloque-81">
+<div class="cl-panel-bloque-91">
+<span class="material-symbols-outlined cl-panel-texto-92">headset_mic</span>
+</div>
+<p class="cl-panel-texto-84">Soporte</p>
+<p class="cl-panel-texto-85">Respuesta en 4h</p>
+</div>
+</div>
+</div>
+</div>

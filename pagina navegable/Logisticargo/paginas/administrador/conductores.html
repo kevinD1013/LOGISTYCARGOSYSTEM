@@ -1,44 +1,45 @@
 <!-- ══ CONDUCTORES ══ -->
-  <!-- ==========================================================
+<!-- ==========================================================
        ADMINISTRADOR - CONDUCTORES
        Listado y estado de los conductores registrados.
 
        EDITAR ESTA SECCIÓN:
-       Estilos:    css/tablas.css, css/componentes.css
+       Estilos específicos: css/administrador/conductores.css
+       (además de css/global/*.css y css/componentes/*.css)
        JavaScript: javascript/aplicacion.js
        ========================================================== -->
-  <div x-show="$store.app.page==='ad_conductores'" class="flex-1 overflow-y-auto p-6">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
-      <div><h1 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#2C1A0E">Conductores</h1><p style="font-size:13px;color:#9C8B78">Gestiona el equipo de conductores.</p></div>
-      <button class="btn btn-p" @click="$store.app.toast_('Registrando nuevo conductor')"><span class="material-symbols-outlined" style="font-size:16px">person_add</span>Nuevo conductor</button>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="card" style="padding:20px">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-          <div style="width:46px;height:46px;border-radius:50%;background:#C99A3C;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">CM</div>
-          <div><p style="font-size:14px;font-weight:700;color:#2C1A0E">Carlos Mendoza</p><p style="font-size:11.5px;color:#9C8B78">+57 310 XXX XXXX</p></div>
-        </div>
-        <span class="badge b-blue" style="margin-bottom:10px">En ruta</span>
-        <p style="font-size:11.5px;color:#9C8B78;margin-bottom:12px">Vehículo: Ford F-350 · ABC-123</p>
-        <div style="display:flex;gap:8px"><button class="btn btn-s" style="flex:1;justify-content:center;font-size:12px" @click="$store.app.toast_('Llamando a Carlos Mendoza')"><span class="material-symbols-outlined" style="font-size:14px">call</span>Llamar</button><button class="btn btn-s" style="flex:1;justify-content:center;font-size:12px" @click="$store.app.toast_('Abriendo perfil')"><span class="material-symbols-outlined" style="font-size:14px">person</span>Perfil</button></div>
-      </div>
-      <div class="card" style="padding:20px">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-          <div style="width:46px;height:46px;border-radius:50%;background:#5E7A52;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">PR</div>
-          <div><p style="font-size:14px;font-weight:700;color:#2C1A0E">Pedro Ruiz</p><p style="font-size:11.5px;color:#9C8B78">+57 311 XXX XXXX</p></div>
-        </div>
-        <span class="badge b-sage" style="margin-bottom:10px">Disponible</span>
-        <p style="font-size:11.5px;color:#9C8B78;margin-bottom:12px">Sin vehículo asignado</p>
-        <div style="display:flex;gap:8px"><button class="btn btn-p" style="flex:1;justify-content:center;font-size:12px" @click="$store.app.page='ad_asignaciones'">Asignar</button><button class="btn btn-s" style="flex:1;justify-content:center;font-size:12px" @click="$store.app.toast_('Abriendo perfil')"><span class="material-symbols-outlined" style="font-size:14px">person</span>Perfil</button></div>
-      </div>
-      <div class="card" style="padding:20px">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-          <div style="width:46px;height:46px;border-radius:50%;background:#9C8B78;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">LR</div>
-          <div><p style="font-size:14px;font-weight:700;color:#2C1A0E">Luis Ramos</p><p style="font-size:11.5px;color:#9C8B78">+57 315 XXX XXXX</p></div>
-        </div>
-        <span class="badge b-taupe" style="margin-bottom:10px">Descanso</span>
-        <p style="font-size:11.5px;color:#9C8B78;margin-bottom:12px">Regresa mañana 07:00 AM</p>
-        <div style="display:flex;gap:8px"><button class="btn btn-s" style="flex:1;justify-content:center;font-size:12px" @click="$store.app.toast_('Abriendo perfil')"><span class="material-symbols-outlined" style="font-size:14px">person</span>Perfil</button></div>
-      </div>
-    </div>
-  </div>
+<div class="flex-1 overflow-y-auto p-6" x-show="$store.app.page==='ad_conductores'">
+<div class="ad-conductores-bloque-1">
+<div><h1 class="ad-conductores-titulo-2">Conductores</h1><p class="ad-conductores-texto-3">Gestiona el equipo de conductores.</p></div>
+<button @click="$store.app.toast_('Registrando nuevo conductor')" class="btn btn-p"><span class="material-symbols-outlined ad-conductores-texto-4">person_add</span>Nuevo conductor</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="card ad-conductores-bloque-5">
+<div class="ad-conductores-bloque-6">
+<div class="ad-conductores-bloque-7">CM</div>
+<div><p class="ad-conductores-texto-8">Carlos Mendoza</p><p class="ad-conductores-texto-9">+57 310 XXX XXXX</p></div>
+</div>
+<span class="badge b-blue ad-conductores-texto-10">En ruta</span>
+<p class="ad-conductores-texto-11">Vehículo: Ford F-350 · ABC-123</p>
+<div class="ad-conductores-bloque-12"><button @click="$store.app.toast_('Llamando a Carlos Mendoza')" class="btn btn-s ad-conductores-boton-13"><span class="material-symbols-outlined ad-conductores-texto-14">call</span>Llamar</button><button @click="$store.app.toast_('Abriendo perfil')" class="btn btn-s ad-conductores-boton-13"><span class="material-symbols-outlined ad-conductores-texto-14">person</span>Perfil</button></div>
+</div>
+<div class="card ad-conductores-bloque-5">
+<div class="ad-conductores-bloque-6">
+<div class="ad-conductores-bloque-15">PR</div>
+<div><p class="ad-conductores-texto-8">Pedro Ruiz</p><p class="ad-conductores-texto-9">+57 311 XXX XXXX</p></div>
+</div>
+<span class="badge b-sage ad-conductores-texto-10">Disponible</span>
+<p class="ad-conductores-texto-11">Sin vehículo asignado</p>
+<div class="ad-conductores-bloque-12"><button @click="$store.app.page='ad_asignaciones'" class="btn btn-p ad-conductores-boton-13">Asignar</button><button @click="$store.app.toast_('Abriendo perfil')" class="btn btn-s ad-conductores-boton-13"><span class="material-symbols-outlined ad-conductores-texto-14">person</span>Perfil</button></div>
+</div>
+<div class="card ad-conductores-bloque-5">
+<div class="ad-conductores-bloque-6">
+<div class="ad-conductores-bloque-16">LR</div>
+<div><p class="ad-conductores-texto-8">Luis Ramos</p><p class="ad-conductores-texto-9">+57 315 XXX XXXX</p></div>
+</div>
+<span class="badge b-taupe ad-conductores-texto-10">Descanso</span>
+<p class="ad-conductores-texto-11">Regresa mañana 07:00 AM</p>
+<div class="ad-conductores-bloque-12"><button @click="$store.app.toast_('Abriendo perfil')" class="btn btn-s ad-conductores-boton-13"><span class="material-symbols-outlined ad-conductores-texto-14">person</span>Perfil</button></div>
+</div>
+</div>
+</div>

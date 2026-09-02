@@ -1,0 +1,75 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   ESTRUCTURA GENERAL DE LA APLICACIÓN (index.html)
+
+   Archivo:
+   css/global/estructura_app.css
+
+   Estilos estructurales del "armazón" de la aplicación: pantalla
+   de bienvenida, topbars de Administrador y Cliente, barra y tabs
+   de Conductor, y modales globales (contactar conductor / cancelar
+   servicio). No es CSS de una página de negocio: es el contenedor
+   que envuelve a todas.
+   ========================================================== */
+
+.shell-bloque-1 { position:fixed; top:20px; left:50%; transform:translateX(-50%); z-index:9999; background:#2C1A0E; color:#FFFFFF; padding:11px 22px; border-radius:10px; font-size:13px; font-weight:500; box-shadow:0 8px 24px #0006; display:flex; align-items:center; gap:8px; }
+.shell-texto-2 { font-size:16px; color:#C99A3C; }
+.shell-bloque-3 { background:#2C1A0E; z-index:100; }
+.shell-bloque-4 { max-width:300px; width:100%; padding:0 24px; text-align:center; }
+.shell-bloque-5 { width:68px; height:68px; border-radius:18px; background:#C1622D; display:flex; align-items:center; justify-content:center; margin-bottom:20px; }
+.shell-imagen-6 { width:70px; height:70px; border-radius:10px; }
+.shell-texto-7 { font-family:'Fraunces',serif; font-size:22px; font-weight:700; color:#FFFFFF; margin-bottom:6px; }
+.shell-texto-8 { font-size:14px; color:#C4B49E; margin-bottom:4px; }
+.shell-texto-9 { color:#C99A3C; font-weight:700; }
+.shell-texto-10 { font-size:12px; color:#9C8B78; margin-bottom:28px; }
+.shell-bloque-11 { width:200px; height:3px; background:#5C3D20; border-radius:8px; overflow:hidden; }
+.shell-bloque-12 { height:100%; background:#C99A3C; }
+.shell-bloque-13 { background:#F8F4EE; }
+.shell-bloque-14 { display:flex; align-items:center; gap:10px; margin-right:32px; flex-shrink:0; }
+.shell-bloque-15 { width:36px; height:36px; border-radius:9px; background:#C1622D; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.shell-imagen-16 { width:100%; height:100%; border-radius:9px; }
+.shell-texto-17 { font-family:'Fraunces',serif; font-weight:700; font-size:13.5px; color:#2C1A0E; line-height:1.1; }
+.shell-texto-18 { font-size:10px; color:#9C8B78; }
+.shell-nav-19 { display:flex; align-items:center; gap:2px; flex:1; }
+.shell-enlace-20 { position:relative; }
+.shell-bloque-21 { display:flex; align-items:center; gap:14px; flex-shrink:0; }
+.shell-bloque-22 { position:relative; cursor:pointer; }
+.shell-texto-23 { font-size:22px; color:#9C8B78; }
+.shell-texto-24 { position:absolute; top:-2px; right:-2px; width:16px; height:16px; border-radius:50%; background:#C1622D; border:2px solid #FFF; font-size:9px; font-weight:700; color:#FFF; display:flex; align-items:center; justify-content:center; }
+.shell-bloque-25 { display:flex; align-items:center; gap:9px; cursor:pointer; }
+.shell-bloque-26 { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,#C1622D,#C99A3C); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:#FFF; }
+.shell-texto-27 { font-size:13px; font-weight:600; color:#2C1A0E; }
+.shell-texto-28 { font-size:10.5px; color:#9C8B78; }
+.shell-texto-29 { font-size:16px; color:#C4B49E; }
+.shell-bloque-30 { padding:0 28px; justify-content:space-between; }
+.shell-bloque-31 { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+.shell-bloque-32 { width:36px; height:36px; border-radius:9px; background:#C1622D; display:flex; align-items:center; justify-content:center; }
+.shell-nav-33 { display:flex; align-items:center; gap:2px; flex:1; justify-content:center; }
+.shell-texto-34 { position:absolute; top:-2px; right:-2px; width:8px; height:8px; border-radius:50%; background:#A84230; border:2px solid #FFF; }
+.shell-bloque-35 { background:#2C1A0E; }
+.shell-bloque-36 { background:#1E1108; border-bottom:1px solid #5C3D20; padding:14px 18px; display:flex; justify-content:space-between; align-items:center; flex-shrink:0; }
+.shell-bloque-37 { display:flex; align-items:center; gap:10px; }
+.shell-bloque-38 { width:36px; height:36px; border-radius:50%; background:#C99A3C; color:#2C1A0E; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; }
+.shell-texto-39 { font-size:13px; font-weight:700; color:#FFFFFF; }
+.shell-texto-40 { font-size:11px; color:#C99A3C; }
+.shell-enlace-41 { color:#9C8B78; cursor:pointer; }
+.shell-texto-42 { font-size:20px; }
+.shell-bloque-43 { display:flex; background:#1E1108; border-bottom:1px solid #5C3D20; overflow-x:auto; flex-shrink:0; }
+.shell-enlace-44 { flex:1; text-align:center; padding:12px 8px; font-size:12px; font-weight:600; cursor:pointer; white-space:nowrap; transition:color .15s; }
+.shell-bloque-45 { max-width:360px; width:100%; padding:26px; }
+.shell-bloque-46 { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+.shell-bloque-47 { width:44px; height:44px; border-radius:50%; background:#C99A3C; color:#FFF; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; flex-shrink:0; }
+.shell-texto-48 { font-size:14px; font-weight:700; color:#2C1A0E; }
+.shell-texto-49 { font-size:12px; color:#9C8B78; }
+.shell-bloque-50 { display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
+.shell-boton-51 { width:100%; justify-content:center; }
+.shell-texto-52 { font-size:16px; }
+.shell-enlace-53 { display:block; text-align:center; font-size:12.5px; color:#9C8B78; cursor:pointer; }
+.shell-bloque-54 { max-width:380px; width:100%; padding:26px; }
+.shell-bloque-55 { width:46px; height:46px; border-radius:14px; background:#A842301A; display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+.shell-texto-56 { color:#A84230; font-size:24px; }
+.shell-subtitulo-57 { font-size:16px; font-weight:700; color:#2C1A0E; margin-bottom:8px; }
+.shell-texto-58 { font-size:13px; color:#9C8B78; margin-bottom:20px; }
+.shell-bloque-59 { display:flex; gap:12px; }
+.shell-boton-60 { flex:1; justify-content:center; }
+.shell-boton-61 { flex:1; justify-content:center; background:#A84230; color:#FFF; border:none; }

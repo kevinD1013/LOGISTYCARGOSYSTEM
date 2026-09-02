@@ -1,0 +1,37 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   ADMINISTRADOR - REPORTES
+
+   Archivo:
+   css/administrador/reportes.css
+
+   Estilos visuales exclusivos de la pantalla de reportes.
+   ========================================================== */
+
+.ad-reportes-bloque-1 { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+.ad-reportes-titulo-2 { font-family:'Fraunces',serif; font-size:22px; font-weight:700; color:#2C1A0E; }
+.ad-reportes-texto-3 { font-size:13px; color:#9C8B78; }
+.ad-reportes-bloque-4 { display:flex; gap:10px; }
+.ad-reportes-texto-5 { font-size:15px; }
+.ad-reportes-bloque-6 { padding:22px; }
+.ad-reportes-subtitulo-7 { font-size:13px; font-weight:700; color:#2C1A0E; margin-bottom:16px; }
+.ad-reportes-bloque-8 { display:flex; flex-direction:column; gap:10px; }
+.ad-reportes-bloque-9 { display:flex; justify-content:space-between; margin-bottom:4px; }
+.ad-reportes-texto-10 { font-size:12.5px; color:#5C3D20; }
+.ad-reportes-texto-11 { font-size:12.5px; font-weight:700; color:#5E7A52; }
+.ad-reportes-bloque-12 { height:6px; background:#EDE5D8; border-radius:3px; }
+.ad-reportes-bloque-13 { height:100%; width:56%; background:#5E7A52; border-radius:3px; }
+.ad-reportes-texto-14 { font-size:12.5px; font-weight:700; color:#1D6FA4; }
+.ad-reportes-bloque-15 { height:100%; width:25%; background:#1D6FA4; border-radius:3px; }
+.ad-reportes-texto-16 { font-size:12.5px; font-weight:700; color:#C99A3C; }
+.ad-reportes-bloque-17 { height:100%; width:12%; background:#C99A3C; border-radius:3px; }
+.ad-reportes-texto-18 { font-size:12.5px; font-weight:700; color:#A84230; }
+.ad-reportes-bloque-19 { height:100%; width:6%; background:#A84230; border-radius:3px; }
+.ad-reportes-bloque-20 { display:flex; align-items:flex-end; gap:10px; height:100px; }
+.ad-reportes-bloque-21 { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; }
+.ad-reportes-bloque-22 { width:100%; background:linear-gradient(to top,#C1622D,#C1622D88); border-radius:4px 4px 0 0; height:55%; }
+.ad-reportes-texto-23 { font-size:10px; color:#C4B49E; }
+.ad-reportes-bloque-24 { width:100%; background:linear-gradient(to top,#C1622D,#C1622D88); border-radius:4px 4px 0 0; height:72%; }
+.ad-reportes-bloque-25 { width:100%; background:linear-gradient(to top,#C1622D,#C1622D88); border-radius:4px 4px 0 0; height:60%; }
+.ad-reportes-bloque-26 { width:100%; background:linear-gradient(to top,#C1622D,#C1622D88); border-radius:4px 4px 0 0; height:92%; }
+.ad-reportes-texto-27 { font-size:10px; color:#C1622D; font-weight:700; }

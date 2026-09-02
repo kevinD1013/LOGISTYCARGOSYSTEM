@@ -1,0 +1,25 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   CONDUCTOR - PARADA ACTUAL
+
+   Archivo:
+   css/conductor/parada_actual.css
+
+   Contiene únicamente los estilos visuales propios del detalle
+   de parada (paginas/conductor/parada_actual.html).
+   ========================================================== */
+
+.parada-conductor-bloque{margin-bottom:12px}
+.parada-conductor-direccion{font-size:15px;color:var(--paper);font-weight:700;margin:0 0 3px}
+.parada-conductor-detalle{font-size:12px;color:var(--taupe);margin:0}
+
+.parada-conductor-cliente{display:flex;justify-content:space-between;align-items:center}
+.parada-conductor-cliente-nombre{font-size:14px;color:var(--paper);font-weight:600;margin:0 0 2px}
+.parada-conductor-btn-llamar{background:transparent;border:1px solid var(--wood-l);border-radius:10px;padding:10px;cursor:pointer;color:var(--paper);display:flex;align-items:center;transition:border-color .15s}
+.parada-conductor-btn-llamar:hover{border-color:var(--taupe)}
+
+.parada-conductor-carga{margin-bottom:18px}
+.parada-conductor-carga-texto{font-size:13px;color:var(--paper);margin:0}
+
+.parada-conductor-acciones{display:flex;flex-direction:column;gap:10px}
+.parada-conductor-btn-checklist{background:var(--sage)}
