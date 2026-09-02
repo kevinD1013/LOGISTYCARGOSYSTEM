@@ -67,34 +67,14 @@
           </div>
         </div>
 
-        <!-- Mapa visual SVG -->
+        <!-- Mapa con Imagen -->
         <div class="card" style="overflow:hidden">
           <div style="padding:16px 18px 12px;border-bottom:1px solid #EDE5D8;display:flex;justify-content:space-between;align-items:center">
             <h3 style="font-size:13px;font-weight:700;color:#2C1A0E">Ubicación en tiempo real</h3>
             <span style="font-size:10.5px;color:#C4B49E">Actualizado hace 3 min</span>
           </div>
-          <div style="position:relative;height:220px;background:linear-gradient(135deg,#EDE5D8,#D9CCBA)">
-            <svg viewBox="0 0 400 220" style="width:100%;height:100%">
-              <rect width="400" height="220" fill="#E8DFD0"/>
-              <rect y="110" width="400" height="110" fill="#D9CCBA"/>
-              <ellipse cx="200" cy="180" rx="180" ry="35" fill="#C9B99A" opacity=".4"/>
-              <!-- Carretera -->
-              <path d="M 350 55 Q 280 80 220 100 Q 155 120 80 155" stroke="#C9B09A" stroke-width="14" fill="none" stroke-linecap="round"/>
-              <path d="M 350 55 Q 280 80 220 100 Q 155 120 80 155" stroke="#E8DFD044" stroke-width="2" fill="none" stroke-dasharray="10,8"/>
-              <!-- Ruta activa -->
-              <path d="M 350 55 Q 280 80 220 100" stroke="#C1622D" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>
-              <!-- Bogotá -->
-              <circle cx="350" cy="55" r="7" fill="#C1622D"/>
-              <text x="355" y="48" style="font-family:Inter;font-size:9px;fill:#2C1A0E;font-weight:700">Bogotá</text>
-              <!-- Medellín -->
-              <circle cx="80" cy="155" r="7" fill="#5E7A52"/>
-              <text x="88" y="148" style="font-family:Inter;font-size:9px;fill:#2C1A0E;font-weight:700">Medellín</text>
-              <!-- Camión (posición actual) -->
-              <g transform="translate(215,94)">
-                <circle r="14" fill="#FFFFFF" stroke="#C1622D" stroke-width="2"/>
-                <text text-anchor="middle" y="5" style="font-family:Inter;font-size:11px">🚛</text>
-              </g>
-            </svg>
+          <div style="position:relative;height:220px;">
+            <img src="imagenes/mapa.jpg" alt="Ubicación en tiempo real" style="width:100%;height:100%;object-fit:cover;object-position:center;">
           </div>
           <div style="padding:14px 18px;background:#F8F4EE;border-top:1px solid #EDE5D8">
             <div style="display:flex;justify-content:space-between">
