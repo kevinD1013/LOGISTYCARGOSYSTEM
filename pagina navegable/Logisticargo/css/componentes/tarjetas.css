@@ -1,10 +1,16 @@
 /* ==========================================================
-   COMPONENTES REUTILIZABLES
-   Piezas visuales que se repiten en varias pantallas:
-   tarjetas (cards), tarjetas KPI, etiquetas/badges de
-   estado, puntos de estado (dot), animaciones de la
-   pantalla de carga, el aro del gráfico donut y el fondo
-   oscuro que aparece detrás de los modales.
+   LOGISTICARGO SYSTEM
+   COMPONENTE - TARJETAS Y ELEMENTOS VISUALES REUTILIZABLES
+
+   Archivo:
+   css/componentes/tarjetas.css
+
+   Contiene piezas visuales reutilizables en varias pantallas:
+   tarjetas (cards), tarjetas KPI, badges de estado, puntos de
+   estado (dot), animaciones de la pantalla de carga y el aro
+   del gráfico donut.
+
+   Se usa en: Administrador, Cliente y Conductor.
    ========================================================== */
 
 /* ── Cards ── */
@@ -28,7 +34,7 @@
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
 .dot-g{background:#5E7A52}.dot-o{background:#C99A3C}.dot-r{background:#A84230}.dot-b{background:#1D6FA4}
 
-/* ── Animaciones loading ── */
+/* ── Animaciones loading (pantalla "welcome") ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes scaleIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
 @keyframes barGrow{from{width:0}to{width:100%}}
@@ -40,6 +46,3 @@
 
 /* ── Donut ── */
 .donut-ring{transform:rotate(-90deg);transform-origin:50% 50%}
-
-/* ── Modales ── */
-.modal-bg{position:fixed;inset:0;background:#2C1A0E55;z-index:200;display:flex;align-items:center;justify-content:center}

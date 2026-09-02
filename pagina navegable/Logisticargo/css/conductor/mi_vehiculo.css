@@ -1,0 +1,17 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   CONDUCTOR - MI VEHÍCULO
+
+   Archivo:
+   css/conductor/mi_vehiculo.css
+
+   Contiene únicamente los estilos visuales propios de la
+   pantalla de vehículo (paginas/conductor/mi_vehiculo.html).
+   ========================================================== */
+
+.vehiculo-conductor-datos{margin-bottom:14px}
+.vehiculo-conductor-valor-alerta{color:var(--ocre)}
+
+.vehiculo-conductor-acciones{display:flex;flex-direction:column;gap:10px}
+.vehiculo-conductor-icono-sage{color:var(--sage)}
+.vehiculo-conductor-icono-rust{color:var(--rust)}

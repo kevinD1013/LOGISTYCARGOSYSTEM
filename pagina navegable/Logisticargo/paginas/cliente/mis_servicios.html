@@ -3,76 +3,76 @@
        Historial de servicios/mudanzas del cliente.
 
        EDITAR ESTA SECCIÓN:
-       Estilos:    css/tablas.css, css/componentes.css
+       Estilos específicos: css/cliente/mis_servicios.css
+       (además de css/global/*.css y css/componentes/*.css)
        JavaScript: javascript/aplicacion.js
        ========================================================== -->
-  <!-- ══════════ HISTORIAL ══════════ -->
-  <div x-show="$store.app.page==='cl_historial'" class="flex-1 overflow-y-auto">
-    <!-- Contenedor del banner con textos agrupados -->
-  <div style="position:relative;overflow:hidden;background-image:url('imagenes/solicitarmudanza.jpg');background-size:100% 100%;background-position:center;background-repeat:no-repeat;border-bottom:1px solid #EDE5D8;padding:26px 40px;display:flex;align-items:center;justify-content:space-between;min-height:145px">
-      <div>
-        <h1 style="font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:#2C1A0E;margin-bottom:8px">Historial de mudanzas</h1>
-        <p style="font-size:14px;color:#857560">Todos tus servicios registrados en esta cuenta.</p>
-      </div>
-    </div>
-
-    <div style="padding:28px 40px">
-      <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap">
-        <div style="position:relative;flex:1;min-width:200px"><span class="material-symbols-outlined" style="position:absolute;left:11px;top:9px;font-size:16px;color:#C4B49E">search</span><input class="inp" style="padding-left:36px" placeholder="Buscar servicio..."/></div>
-        <select class="inp sel" style="width:170px"><option>Todos los estados</option><option>En camino</option><option>Confirmada</option><option>Completada</option><option>Cancelada</option></select>
-      </div>
-      <div class="card" style="overflow:hidden">
-        <table style="width:100%;border-collapse:collapse">
-          <thead style="background:#F8F4EE">
-            <tr>
-              <th class="th">Servicio</th>
-              <th class="th">Ruta</th>
-              <th class="th">Fecha</th>
-              <th class="th">Tipo</th>
-              <th class="th">Estado</th>
-              <th class="th">Calificación</th>
-              <th class="th"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="trow">
-              <td class="td"><p style="font-weight:700;color:#2C1A0E">SRV-2026-00847</p></td>
-              <td class="td" style="font-size:12.5px;color:#5C3D20">Bogotá → Medellín</td>
-              <td class="td" style="font-size:12px;color:#9C8B78">25 oct 2026</td>
-              <td class="td"><span style="font-size:12px;color:#9C8B78">Residencial</span></td>
-              <td class="td"><span class="badge b-terra">En camino</span></td>
-              <td class="td"><span style="font-size:12px;color:#C4B49E">—</span></td>
-              <td class="td"><button class="btn btn-p" style="padding:5px 12px;font-size:12px" @click="$store.app.page='cl_seguimiento'">Seguir</button></td>
-            </tr>
-            <tr class="trow">
-              <td class="td"><p style="font-weight:700;color:#2C1A0E">SRV-2026-00848</p></td>
-              <td class="td" style="font-size:12.5px;color:#5C3D20">Bogotá → Cali</td>
-              <td class="td" style="font-size:12px;color:#9C8B78">30 oct 2026</td>
-              <td class="td"><span style="font-size:12px;color:#9C8B78">Oficina</span></td>
-              <td class="td"><span class="badge b-ocre">Confirmada</span></td>
-              <td class="td"><span style="font-size:12px;color:#C4B49E">—</span></td>
-              <td class="td"><button class="btn btn-s" style="padding:5px 12px;font-size:12px" @click="$store.app.toast_('Viendo detalle del servicio')">Ver</button></td>
-            </tr>
-            <tr class="trow">
-              <td class="td"><p style="font-weight:700;color:#2C1A0E">SRV-2026-00846</p></td>
-              <td class="td" style="font-size:12.5px;color:#5C3D20">Bogotá (local)</td>
-              <td class="td" style="font-size:12px;color:#9C8B78">15 sep 2026</td>
-              <td class="td"><span style="font-size:12px;color:#9C8B78">Residencial</span></td>
-              <td class="td"><span class="badge b-sage">Completada</span></td>
-              <td class="td"><div style="display:flex;gap:2px"><span class="material-symbols-outlined" style="font-size:14px;color:#C99A3C">star</span><span class="material-symbols-outlined" style="font-size:14px;color:#C99A3C">star</span><span class="material-symbols-outlined" style="font-size:14px;color:#C99A3C">star</span><span class="material-symbols-outlined" style="font-size:14px;color:#C99A3C">star</span><span class="material-symbols-outlined" style="font-size:14px;color:#EDE5D8">star</span></div></td>
-              <td class="td"><button class="btn btn-s" style="padding:5px 12px;font-size:12px" @click="$store.app.toast_('Descargando factura PDF')">Factura</button></td>
-            </tr>
-            <tr>
-              <td class="td"><p style="font-weight:700;color:#2C1A0E">SRV-2026-00801</p></td>
-              <td class="td" style="font-size:12.5px;color:#5C3D20">Bogotá (local)</td>
-              <td class="td" style="font-size:12px;color:#9C8B78">2 ago 2026</td>
-              <td class="td"><span style="font-size:12px;color:#9C8B78">Residencial</span></td>
-              <td class="td"><span class="badge b-rust">Cancelada</span></td>
-              <td class="td"><span style="font-size:12px;color:#C4B49E">—</span></td>
-              <td class="td"><button class="btn btn-s" style="padding:5px 12px;font-size:12px" @click="$store.app.toast_('Abriendo detalle del servicio cancelado')">Ver</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+<!-- ══════════ HISTORIAL ══════════ -->
+<div class="flex-1 overflow-y-auto" x-show="$store.app.page==='cl_historial'">
+<!-- Contenedor del banner con textos agrupados -->
+<div class="cl-historial-bloque-1">
+<div>
+<h1 class="cl-historial-titulo-2">Historial de mudanzas</h1>
+<p class="cl-historial-texto-3">Todos tus servicios registrados en esta cuenta.</p>
+</div>
+</div>
+<div class="cl-historial-bloque-4">
+<div class="cl-historial-bloque-5">
+<div class="cl-historial-bloque-6"><span class="material-symbols-outlined cl-historial-texto-7">search</span><input class="inp cl-historial-campo-8" placeholder="Buscar servicio..."/></div>
+<select class="inp sel cl-historial-select-9"><option>Todos los estados</option><option>En camino</option><option>Confirmada</option><option>Completada</option><option>Cancelada</option></select>
+</div>
+<div class="card cl-historial-bloque-10">
+<table class="cl-historial-tabla-11">
+<thead class="cl-historial-elemento-12">
+<tr>
+<th class="th">Servicio</th>
+<th class="th">Ruta</th>
+<th class="th">Fecha</th>
+<th class="th">Tipo</th>
+<th class="th">Estado</th>
+<th class="th">Calificación</th>
+<th class="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="trow">
+<td class="td"><p class="cl-historial-texto-13">SRV-2026-00847</p></td>
+<td class="td cl-historial-celda-14">Bogotá → Medellín</td>
+<td class="td cl-historial-celda-15">25 oct 2026</td>
+<td class="td"><span class="cl-historial-celda-15">Residencial</span></td>
+<td class="td"><span class="badge b-terra">En camino</span></td>
+<td class="td"><span class="cl-historial-texto-16">—</span></td>
+<td class="td"><button @click="$store.app.page='cl_seguimiento'" class="btn btn-p cl-historial-boton-17">Seguir</button></td>
+</tr>
+<tr class="trow">
+<td class="td"><p class="cl-historial-texto-13">SRV-2026-00848</p></td>
+<td class="td cl-historial-celda-14">Bogotá → Cali</td>
+<td class="td cl-historial-celda-15">30 oct 2026</td>
+<td class="td"><span class="cl-historial-celda-15">Oficina</span></td>
+<td class="td"><span class="badge b-ocre">Confirmada</span></td>
+<td class="td"><span class="cl-historial-texto-16">—</span></td>
+<td class="td"><button @click="$store.app.toast_('Viendo detalle del servicio')" class="btn btn-s cl-historial-boton-17">Ver</button></td>
+</tr>
+<tr class="trow">
+<td class="td"><p class="cl-historial-texto-13">SRV-2026-00846</p></td>
+<td class="td cl-historial-celda-14">Bogotá (local)</td>
+<td class="td cl-historial-celda-15">15 sep 2026</td>
+<td class="td"><span class="cl-historial-celda-15">Residencial</span></td>
+<td class="td"><span class="badge b-sage">Completada</span></td>
+<td class="td"><div class="cl-historial-bloque-18"><span class="material-symbols-outlined cl-historial-texto-19">star</span><span class="material-symbols-outlined cl-historial-texto-19">star</span><span class="material-symbols-outlined cl-historial-texto-19">star</span><span class="material-symbols-outlined cl-historial-texto-19">star</span><span class="material-symbols-outlined cl-historial-texto-20">star</span></div></td>
+<td class="td"><button @click="$store.app.toast_('Descargando factura PDF')" class="btn btn-s cl-historial-boton-17">Factura</button></td>
+</tr>
+<tr>
+<td class="td"><p class="cl-historial-texto-13">SRV-2026-00801</p></td>
+<td class="td cl-historial-celda-14">Bogotá (local)</td>
+<td class="td cl-historial-celda-15">2 ago 2026</td>
+<td class="td"><span class="cl-historial-celda-15">Residencial</span></td>
+<td class="td"><span class="badge b-rust">Cancelada</span></td>
+<td class="td"><span class="cl-historial-texto-16">—</span></td>
+<td class="td"><button @click="$store.app.toast_('Abriendo detalle del servicio cancelado')" class="btn btn-s cl-historial-boton-17">Ver</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>

@@ -1,0 +1,20 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   CONDUCTOR - REPORTAR NOVEDAD
+
+   Archivo:
+   css/conductor/reportar_novedad.css
+
+   Contiene únicamente los estilos visuales propios del
+   formulario de novedades (paginas/conductor/reportar_novedad.html).
+   Reutiliza las clases .inp / .sel / .lbl de
+   css/componentes/formularios.css; aquí solo se ajustan al
+   tema oscuro de Conductor.
+   ========================================================== */
+
+.novedad-conductor-campo{margin-bottom:12px}
+.novedad-conductor-campo-descripcion{margin-bottom:18px}
+.novedad-conductor-etiqueta{color:var(--taupe)}
+.novedad-conductor-input{background:var(--wood-d);border-color:var(--wood-l);color:var(--paper)}
+
+.novedad-conductor-btn-enviar{background:var(--ocre);color:var(--wood)}

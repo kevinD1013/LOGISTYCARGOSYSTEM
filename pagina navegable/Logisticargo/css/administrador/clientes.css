@@ -1,0 +1,26 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   ADMINISTRADOR - CLIENTES
+
+   Archivo:
+   css/administrador/clientes.css
+
+   Estilos visuales exclusivos de la pantalla de clientes.
+   ========================================================== */
+
+.ad-clientes-bloque-1 { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+.ad-clientes-titulo-2 { font-family:'Fraunces',serif; font-size:22px; font-weight:700; color:#2C1A0E; }
+.ad-clientes-texto-3 { font-size:13px; color:#9C8B78; }
+.ad-clientes-texto-4 { font-size:16px; }
+.ad-clientes-bloque-5 { overflow:hidden; }
+.ad-clientes-tabla-6 { width:100%; border-collapse:collapse; }
+.ad-clientes-elemento-7 { background:#F8F4EE; }
+.ad-clientes-bloque-8 { display:flex; align-items:center; gap:10px; }
+.ad-clientes-bloque-9 { width:32px; height:32px; border-radius:50%; background:#C1622D; color:#FFF; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; }
+.ad-clientes-texto-10 { font-weight:600; color:#2C1A0E; }
+.ad-clientes-celda-11 { font-size:12.5px; color:#5C3D20; }
+.ad-clientes-bloque-12 { display:flex; gap:6px; }
+.ad-clientes-boton-13 { padding:5px 10px; }
+.ad-clientes-texto-14 { font-size:14px; }
+.ad-clientes-bloque-15 { width:32px; height:32px; border-radius:50%; background:#5E7A52; color:#FFF; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; }
+.ad-clientes-bloque-16 { width:32px; height:32px; border-radius:50%; background:#9C8B78; color:#FFF; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; }

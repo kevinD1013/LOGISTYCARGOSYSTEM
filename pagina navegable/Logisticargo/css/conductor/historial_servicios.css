@@ -1,0 +1,17 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   CONDUCTOR - HISTORIAL DE SERVICIOS
+
+   Archivo:
+   css/conductor/historial_servicios.css
+
+   Contiene únicamente los estilos visuales propios del
+   historial (paginas/conductor/historial_servicios.html).
+   Los badges de estado (.badge, .b-sage, .b-ocre) vienen de
+   css/componentes/tarjetas.css y no se repiten aquí.
+   ========================================================== */
+
+.historial-conductor-lista{display:flex;flex-direction:column;gap:10px}
+.historial-conductor-fila-superior{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.historial-conductor-codigo{font-size:13px;font-weight:600;color:var(--paper);margin:0}
+.historial-conductor-detalle{font-size:12px;color:var(--taupe);margin:0}

@@ -1,0 +1,69 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   CONDUCTOR - ESTILOS COMUNES
+
+   Archivo:
+   css/conductor/conductor_comun.css
+
+   Piezas visuales que se repiten en varias pantallas del rol
+   Conductor (tema oscuro): tarjetas oscuras, encabezados de
+   pantalla, filas de datos, botones de acción grandes y
+   badges de progreso. Los estilos que pertenecen SOLO a una
+   pantalla concreta viven en su propio archivo:
+
+     css/conductor/panel_conductor.css
+     css/conductor/parada_actual.css
+     css/conductor/checklist_carga.css
+     css/conductor/reportar_novedad.css
+     css/conductor/mi_vehiculo.css
+     css/conductor/historial_servicios.css
+
+   Se carga siempre desde index.html junto al resto de
+   css/componentes/*.css.
+   ========================================================== */
+
+/* ── Contenedor de página (ancho de lectura cómodo en escritorio) ── */
+.conductor-pantalla{padding:18px;max-width:560px;margin:0 auto;width:100%}
+
+/* ── Enlace "Volver" ── */
+.conductor-volver{display:flex;align-items:center;gap:6px;color:var(--taupe);font-size:12px;margin-bottom:16px;cursor:pointer;transition:color .15s}
+.conductor-volver:hover{color:var(--paper)}
+.conductor-volver .material-symbols-outlined{font-size:16px}
+
+/* ── Encabezado de pantalla (título + subtítulo) ── */
+.conductor-header{margin-bottom:18px}
+.conductor-header-eyebrow{font-size:12px;color:var(--taupe);margin-bottom:4px}
+.conductor-header h1{font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:var(--paper);margin:0 0 4px}
+.conductor-header p{font-size:12.5px;color:var(--taupe);margin:0}
+
+/* ── Tarjeta oscura genérica (base de casi toda la UI de Conductor) ── */
+.conductor-card{background:var(--wood-d);border:1px solid var(--wood-l);border-radius:14px;padding:16px}
+
+/* ── Fila etiqueta/valor dentro de una tarjeta (Mi vehículo, Parada actual) ── */
+.conductor-fila{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.conductor-fila + .conductor-fila{margin-top:8px}
+.conductor-fila-etiqueta{font-size:12px;color:var(--taupe)}
+.conductor-fila-valor{font-size:13px;color:var(--paper);font-weight:600;text-align:right}
+
+/* ── Etiqueta pequeña en mayúsculas (ej. "Dirección", "Cliente") ── */
+.conductor-eyebrow{font-size:10.5px;color:var(--taupe);text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:5px}
+
+/* ── Botón de acción grande, estilo lista (Checklist, Reportar novedad, Inspección...) ── */
+.conductor-accion{background:var(--wood-d);border:1px solid var(--wood-l);color:var(--paper);padding:16px;border-radius:14px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;cursor:pointer;transition:border-color .15s,transform .1s;width:100%;text-align:left}
+.conductor-accion:hover{border-color:var(--terra)}
+.conductor-accion:active{transform:scale(.99)}
+.conductor-accion .material-symbols-outlined{font-size:20px}
+
+/* ── Botón principal de ancho completo (confirmar / enviar) ── */
+.conductor-btn-primario{color:#FFFFFF;width:100%;padding:17px;border-radius:14px;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;border:none;transition:filter .15s}
+.conductor-btn-primario:hover{filter:brightness(1.06)}
+
+/* ── Botón secundario de contorno (GPS, volver...) ── */
+.conductor-btn-secundario{background:transparent;border:1px solid var(--wood-l);color:var(--taupe);padding:14px;border-radius:14px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;width:100%;transition:border-color .15s}
+.conductor-btn-secundario:hover{border-color:var(--taupe)}
+
+/* ── Círculo con iniciales / número (avatar, orden de parada) ── */
+.conductor-circulo{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+
+/* ── Título de sección pequeño en mayúsculas (ej. "Siguientes paradas") ── */
+.conductor-seccion-titulo{font-size:11px;color:var(--taupe);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:10px}

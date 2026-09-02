@@ -1,0 +1,20 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   AUTENTICACIÓN - REGISTRO DE CLIENTE
+
+   Archivo:
+   css/autenticacion/registro_cliente.css
+
+   Estilos visuales exclusivos de paginas/registro_cliente.html.
+   ========================================================== */
+
+.auth-registro-bloque-1 { background-image:linear-gradient(rgba(0,0,0,0.20),rgba(0,0,0,0.20)),url('../../imagenes/registro.png'); background-size:cover; background-position:center; background-repeat:no-repeat; }
+.auth-registro-bloque-2 { max-width:500px; width:100%; padding:36px; background:rgba(255,255,255,0.96); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.18); }
+.auth-registro-bloque-3 { display:flex; align-items:center; gap:10px; margin-bottom:24px; }
+.auth-registro-bloque-4 { width:34px; height:34px; border-radius:9px; background:#C1622D; display:flex; align-items:center; justify-content:center; }
+.auth-registro-texto-5 { color:#FFF; font-size:17px; }
+.auth-registro-texto-6 { font-family:'Fraunces',serif; font-weight:700; font-size:14px; color:#2C1A0E; }
+.auth-registro-subtitulo-7 { font-family:'Fraunces',serif; font-size:20px; font-weight:700; color:#2C1A0E; margin-bottom:18px; }
+.auth-registro-bloque-8 { margin-bottom:14px; }
+.auth-registro-bloque-9 { display:flex; gap:12px; }
+.auth-registro-boton-10 { flex:1; justify-content:center; }

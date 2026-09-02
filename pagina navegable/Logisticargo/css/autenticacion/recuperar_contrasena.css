@@ -1,0 +1,19 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   AUTENTICACIÓN - RECUPERAR CONTRASEÑA
+
+   Archivo:
+   css/autenticacion/recuperar_contrasena.css
+
+   Estilos visuales exclusivos de paginas/recuperar_contrasena.html.
+   ========================================================== */
+
+.auth-recuperar-bloque-1 { background-image:linear-gradient(rgba(0,0,0,0.20),rgba(0,0,0,0.20)),url('../../imagenes/recuperar_contrase.png'); background-size:cover; background-position:center; background-repeat:no-repeat; }
+.auth-recuperar-bloque-2 { max-width:400px; width:100%; padding:36px; text-align:center; background:rgba(255,255,255,0.96); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.18); }
+.auth-recuperar-bloque-3 { width:54px; height:54px; border-radius:14px; background:#C99A3C1A; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; }
+.auth-recuperar-texto-4 { color:#8A6820; font-size:25px; }
+.auth-recuperar-subtitulo-5 { font-family:'Fraunces',serif; font-size:20px; font-weight:700; color:#2C1A0E; margin-bottom:6px; }
+.auth-recuperar-texto-6 { font-size:13px; color:#9C8B78; margin-bottom:22px; }
+.auth-recuperar-bloque-7 { text-align:left; margin-bottom:18px; }
+.auth-recuperar-boton-8 { width:100%; justify-content:center; }
+.auth-recuperar-enlace-9 { display:block; margin-top:16px; font-size:13px; color:#9C8B78; cursor:pointer; }

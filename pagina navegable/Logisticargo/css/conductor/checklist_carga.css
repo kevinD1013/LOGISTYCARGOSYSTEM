@@ -1,0 +1,25 @@
+/* ==========================================================
+   LOGISTICARGO SYSTEM
+   CONDUCTOR - CHECKLIST DE CARGA
+
+   Archivo:
+   css/conductor/checklist_carga.css
+
+   Contiene únicamente los estilos visuales propios del
+   checklist (paginas/conductor/checklist_carga.html).
+   La lógica de marcar/desmarcar tareas sigue en
+   javascript/aplicacion.js (Alpine.data checklistCarga).
+   ========================================================== */
+
+.checklist-conductor-lista{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.checklist-conductor-item{background:var(--wood-d);border:1px solid var(--wood-l);border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:border-color .15s}
+.checklist-conductor-item:hover{border-color:var(--taupe)}
+
+/* La caja de check cambia de color según it.done mediante :style
+   (ver checklist_carga.html); aquí solo su forma y tamaño base. */
+.checklist-conductor-check{width:26px;height:26px;border-radius:8px;border:2px solid;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.checklist-conductor-check-icono{font-size:16px;color:#FFF}
+
+.checklist-conductor-texto{font-size:14px;font-weight:500;margin:0}
+
+.checklist-conductor-btn-enviar{background:var(--terra)}

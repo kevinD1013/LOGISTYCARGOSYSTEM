@@ -4,488 +4,266 @@
      actividad reciente.
 
      EDITAR ESTA SECCIÓN:
-     Estilos:    css/componentes.css, css/botones.css
+       Estilos específicos: css/administrador/panel_administrador.css
+       (además de css/global/*.css y css/componentes/*.css)
      JavaScript: javascript/aplicacion.js
      ========================================================== -->
 <!-- DASHBOARD ADMIN -->
-  <div x-show="$store.app.page==='dash_admin'" class="flex-1 overflow-y-auto p-6">
-    <!-- HERO ADMINISTRADOR -->
-<div style="position:relative;overflow:hidden;border-radius:16px;border:1px solid #EDE5D8;margin-bottom:28px;background:#F8F4EE">
-
-  <!-- IMAGEN COMPLETA SIN DEFORMAR -->
-  <img 
-    src="imagenes/banneradmi.jpg"
-    alt="Panel administrador Logisty Cargo"
-    style="
-      display:block;
-      width:100%;
-      height:auto;
-      min-height:145px;
-      max-height:190px;
-      object-fit:contain;
-      object-position:center;
-    "
-  >
-
-  <!-- CAPA SUAVE PARA QUE EL TEXTO SE LEA -->
-  <div style="
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
-      90deg,
-      rgba(255,252,246,.94) 0%,
-      rgba(255,252,246,.82) 32%,
-      rgba(255,252,246,.20) 58%,
-      rgba(255,252,246,0) 78%
-    );
-    pointer-events:none;
-  "></div>
-
-  <!-- CONTENIDO IZQUIERDO -->
-  <div style="
-    position:absolute;
-    left:40px;
-    top:50%;
-    transform:translateY(-50%);
-    z-index:2;
-    max-width:430px;
-  ">
-
-    <h1 style="
-      font-family:'Fraunces',serif;
-      font-size:27px;
-      font-weight:700;
-      color:#2C1A0E;
-      margin-bottom:4px;
-    ">
+<div class="flex-1 overflow-y-auto p-6" x-show="$store.app.page==='dash_admin'">
+<!-- HERO ADMINISTRADOR -->
+<div class="ad-panel-bloque-1">
+<!-- IMAGEN COMPLETA SIN DEFORMAR -->
+<img alt="Panel administrador Logisty Cargo" class="ad-panel-imagen-2" src="imagenes/banneradmi.jpg"/>
+<!-- CAPA SUAVE PARA QUE EL TEXTO SE LEA -->
+<div class="ad-panel-bloque-3"></div>
+<!-- CONTENIDO IZQUIERDO -->
+<div class="ad-panel-bloque-4">
+<h1 class="ad-panel-titulo-5">
       Hola, <span x-text="$store.app.userName.split(' ')[0]"></span> 👋
     </h1>
-
-    <p style="
-      font-size:13.5px;
-      color:#6F6255;
-      margin-bottom:12px;
-    ">
+<p class="ad-panel-texto-6">
       Aquí tienes un resumen de la operación de hoy.
     </p>
-
-    <div style="
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      background:rgba(255,255,255,.92);
-      border:1px solid #EDE5D8;
-      border-radius:9px;
-      padding:8px 14px;
-      box-shadow:0 2px 8px rgba(44,26,14,.06);
-    ">
-
-      <span 
-        class="material-symbols-outlined"
-        style="font-size:16px;color:#9C8B78"
-      >
+<div class="ad-panel-bloque-7">
+<span class="material-symbols-outlined ad-panel-texto-8">
         calendar_today
       </span>
-
-      <span style="
-        font-size:13px;
-        font-weight:500;
-        color:#2C1A0E;
-      ">
+<span class="ad-panel-texto-9">
         22 de mayo, 2026
       </span>
-
-      <span 
-        class="material-symbols-outlined"
-        style="font-size:14px;color:#C4B49E"
-      >
+<span class="material-symbols-outlined ad-panel-texto-10">
         expand_more
       </span>
-
-    </div>
-
-  </div>
-
-
-  <!-- TARJETA DE INGRESOS -->
-  <div style="
-    position:absolute;
-    right:32px;
-    top:50%;
-    transform:translateY(-50%);
-    z-index:2;
-    width:275px;
-    background:rgba(255,255,255,.93);
-    border:1px solid #EDE5D8;
-    border-radius:14px;
-    padding:16px 18px;
-    box-shadow:0 4px 14px rgba(44,26,14,.08);
-    backdrop-filter:blur(3px);
-  ">
-
-    <div style="
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:7px;
-    ">
-
-      <div style="
-        width:36px;
-        height:36px;
-        border-radius:9px;
-        background:#C1622D;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-      ">
-        <span 
-          class="material-symbols-outlined"
-          style="color:#FFF;font-size:19px"
-        >
+</div>
+</div>
+<!-- TARJETA DE INGRESOS -->
+<div class="ad-panel-bloque-11">
+<div class="ad-panel-bloque-12">
+<div class="ad-panel-bloque-13">
+<span class="material-symbols-outlined ad-panel-texto-14">
           payments
         </span>
-      </div>
-
-      <p style="
-        font-size:12px;
-        color:#9C8B78;
-        font-weight:500;
-      ">
+</div>
+<p class="ad-panel-texto-15">
         Ingresos del mes
       </p>
-
-    </div>
-
-    <p style="
-      font-family:'Fraunces',serif;
-      font-size:27px;
-      font-weight:700;
-      color:#2C1A0E;
-      line-height:1;
-    ">
+</div>
+<p class="ad-panel-texto-16">
       $XX,XXX,XXX
     </p>
-
-    <p style="
-      font-size:11.5px;
-      color:#5E7A52;
-      font-weight:600;
-      margin-top:6px;
-      display:flex;
-      align-items:center;
-      gap:4px;
-    ">
-
-      <span 
-        class="material-symbols-outlined"
-        style="font-size:14px"
-      >
+<p class="ad-panel-texto-17">
+<span class="material-symbols-outlined ad-panel-texto-18">
         trending_up
       </span>
 
       12.5% vs. mes anterior
 
     </p>
-
-  </div>
-
 </div>
-
-    <!-- KPIs -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <div class="kpi" style="display:flex;align-items:center;gap:14px">
-        <div class="kpi-icon" style="background:#C1622D1A"><span class="material-symbols-outlined" style="color:#C1622D;font-size:22px">assignment</span></div>
-        <div><p style="font-size:11px;color:#9C8B78">Servicios hoy</p><p style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#2C1A0E">8</p><p style="font-size:11px;color:#C1622D">3 en curso</p></div>
-      </div>
-      <div class="kpi" style="display:flex;align-items:center;gap:14px;cursor:pointer" @click="$store.app.page='ad_vehiculos'">
-        <div class="kpi-icon" style="background:#5E7A521A"><span class="material-symbols-outlined" style="color:#5E7A52;font-size:22px">local_shipping</span></div>
-        <div><p style="font-size:11px;color:#9C8B78">Vehículos activos</p><p style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#2C1A0E">6</p><p style="font-size:11px;color:#9C8B78">2 disponibles</p></div>
-      </div>
-      <div class="kpi" style="display:flex;align-items:center;gap:14px;cursor:pointer" @click="$store.app.page='ad_servicios'">
-        <div class="kpi-icon" style="background:#C99A3C1A"><span class="material-symbols-outlined" style="color:#C99A3C;font-size:22px">pending_actions</span></div>
-        <div><p style="font-size:11px;color:#9C8B78">Pendientes de validar</p><p style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#C99A3C">4</p><p style="font-size:11px;color:#C99A3C">Requieren atención</p></div>
-      </div>
-      <div class="kpi" style="display:flex;align-items:center;gap:14px;cursor:pointer" @click="$store.app.page='ad_conductores'">
-        <div class="kpi-icon" style="background:#5C3D201A"><span class="material-symbols-outlined" style="color:#5C3D20;font-size:22px">person_pin</span></div>
-        <div><p style="font-size:11px;color:#9C8B78">Conductores en ruta</p><p style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#2C1A0E">12</p><p style="font-size:11px;color:#9C8B78">De 16 disponibles</p></div>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
-      <!-- Donut + lista -->
-      <div class="card" style="padding:22px">
-        <h3 style="font-size:14px;font-weight:700;color:#2C1A0E;margin-bottom:16px">Estado de servicios</h3>
-        <div style="display:flex;align-items:center;gap:18px">
-          <div style="position:relative;flex-shrink:0">
-            <svg width="110" height="110" viewBox="0 0 110 110">
-              <circle cx="55" cy="55" r="40" fill="none" stroke="#F0E8D8" stroke-width="16"/>
-              <circle cx="55" cy="55" r="40" fill="none" stroke="#C1622D" stroke-width="16" stroke-dasharray="113 140" stroke-dashoffset="-35" class="donut-ring" style="transform-origin:55px 55px"/>
-              <circle cx="55" cy="55" r="40" fill="none" stroke="#5E7A52" stroke-width="16" stroke-dasharray="75 178" stroke-dashoffset="-148" class="donut-ring" style="transform-origin:55px 55px"/>
-              <circle cx="55" cy="55" r="40" fill="none" stroke="#C99A3C" stroke-width="16" stroke-dasharray="38 215" stroke-dashoffset="-223" class="donut-ring" style="transform-origin:55px 55px"/>
-              <text x="55" y="50" text-anchor="middle" style="font-family:'Inter',sans-serif;font-size:11px;fill:#9C8B78">Total</text>
-              <text x="55" y="66" text-anchor="middle" style="font-family:'Fraunces',serif;font-size:16px;font-weight:700;fill:#2C1A0E">32</text>
-            </svg>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:8px;flex:1">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div style="display:flex;align-items:center;gap:6px"><span class="dot dot-r"></span><span style="font-size:12px;color:#5C3D20">Completados</span></div>
-              <span style="font-size:12px;font-weight:600;color:#2C1A0E">45% (14)</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div style="display:flex;align-items:center;gap:6px"><span class="dot dot-g"></span><span style="font-size:12px;color:#5C3D20">En curso</span></div>
-              <span style="font-size:12px;font-weight:600;color:#2C1A0E">30% (10)</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div style="display:flex;align-items:center;gap:6px"><span class="dot dot-o"></span><span style="font-size:12px;color:#5C3D20">Pendientes</span></div>
-              <span style="font-size:12px;font-weight:600;color:#2C1A0E">15% (5)</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#EDE5D8;display:inline-block"></span><span style="font-size:12px;color:#5C3D20">Cancelados</span></div>
-              <span style="font-size:12px;font-weight:600;color:#2C1A0E">10% (3)</span>
-            </div>
-          </div>
-        </div>
-        <button class="btn btn-o" style="margin-top:16px;font-size:12px;padding:7px 14px" @click="$store.app.page='ad_reportes'">
-          <span class="material-symbols-outlined" style="font-size:14px">bar_chart</span>Ver reportes
+</div>
+<!-- KPIs -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+<div class="kpi ad-panel-bloque-19">
+<div class="kpi-icon ad-panel-bloque-20"><span class="material-symbols-outlined ad-panel-texto-21">assignment</span></div>
+<div><p class="ad-panel-texto-22">Servicios hoy</p><p class="ad-panel-texto-23">8</p><p class="ad-panel-texto-24">3 en curso</p></div>
+</div>
+<div @click="$store.app.page='ad_vehiculos'" class="kpi ad-panel-bloque-25">
+<div class="kpi-icon ad-panel-bloque-26"><span class="material-symbols-outlined ad-panel-texto-27">local_shipping</span></div>
+<div><p class="ad-panel-texto-22">Vehículos activos</p><p class="ad-panel-texto-23">6</p><p class="ad-panel-texto-22">2 disponibles</p></div>
+</div>
+<div @click="$store.app.page='ad_servicios'" class="kpi ad-panel-bloque-25">
+<div class="kpi-icon ad-panel-bloque-28"><span class="material-symbols-outlined ad-panel-texto-29">pending_actions</span></div>
+<div><p class="ad-panel-texto-22">Pendientes de validar</p><p class="ad-panel-texto-30">4</p><p class="ad-panel-texto-31">Requieren atención</p></div>
+</div>
+<div @click="$store.app.page='ad_conductores'" class="kpi ad-panel-bloque-25">
+<div class="kpi-icon ad-panel-bloque-32"><span class="material-symbols-outlined ad-panel-texto-33">person_pin</span></div>
+<div><p class="ad-panel-texto-22">Conductores en ruta</p><p class="ad-panel-texto-23">12</p><p class="ad-panel-texto-22">De 16 disponibles</p></div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+<!-- Donut + lista -->
+<div class="card ad-panel-bloque-34">
+<h3 class="ad-panel-subtitulo-35">Estado de servicios</h3>
+<div class="ad-panel-bloque-36">
+<div class="ad-panel-bloque-37">
+<svg height="110" viewbox="0 0 110 110" width="110">
+<circle cx="55" cy="55" fill="none" r="40" stroke="#F0E8D8" stroke-width="16"></circle>
+<circle class="donut-ring ad-panel-elemento-38" cx="55" cy="55" fill="none" r="40" stroke="#C1622D" stroke-dasharray="113 140" stroke-dashoffset="-35" stroke-width="16"></circle>
+<circle class="donut-ring ad-panel-elemento-38" cx="55" cy="55" fill="none" r="40" stroke="#5E7A52" stroke-dasharray="75 178" stroke-dashoffset="-148" stroke-width="16"></circle>
+<circle class="donut-ring ad-panel-elemento-38" cx="55" cy="55" fill="none" r="40" stroke="#C99A3C" stroke-dasharray="38 215" stroke-dashoffset="-223" stroke-width="16"></circle>
+<text class="ad-panel-elemento-39" text-anchor="middle" x="55" y="50">Total</text>
+<text class="ad-panel-elemento-40" text-anchor="middle" x="55" y="66">32</text>
+</svg>
+</div>
+<div class="ad-panel-bloque-41">
+<div class="ad-panel-bloque-42">
+<div class="ad-panel-bloque-43"><span class="dot dot-r"></span><span class="ad-panel-texto-44">Completados</span></div>
+<span class="ad-panel-texto-45">45% (14)</span>
+</div>
+<div class="ad-panel-bloque-42">
+<div class="ad-panel-bloque-43"><span class="dot dot-g"></span><span class="ad-panel-texto-44">En curso</span></div>
+<span class="ad-panel-texto-45">30% (10)</span>
+</div>
+<div class="ad-panel-bloque-42">
+<div class="ad-panel-bloque-43"><span class="dot dot-o"></span><span class="ad-panel-texto-44">Pendientes</span></div>
+<span class="ad-panel-texto-45">15% (5)</span>
+</div>
+<div class="ad-panel-bloque-42">
+<div class="ad-panel-bloque-43"><span class="ad-panel-texto-46"></span><span class="ad-panel-texto-44">Cancelados</span></div>
+<span class="ad-panel-texto-45">10% (3)</span>
+</div>
+</div>
+</div>
+<button @click="$store.app.page='ad_reportes'" class="btn btn-o ad-panel-boton-47">
+<span class="material-symbols-outlined ad-panel-texto-18">bar_chart</span>Ver reportes
         </button>
-      </div>
-
-      <!-- Servicios recientes -->
-      <div class="card" style="padding:22px;grid-column:span 2">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-          <h3 style="font-size:14px;font-weight:700;color:#2C1A0E">Servicios recientes</h3>
-          <button class="btn btn-o" style="font-size:12px;padding:6px 12px" @click="$store.app.page='ad_servicios'">Ver todos</button>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:1px">
-          <div class="trow" style="display:grid;grid-template-columns:1.4fr 1.2fr 80px 90px;gap:8px;align-items:center;padding:12px 8px;cursor:pointer" @click="$store.app.page='ad_servicios'">
-            <div>
-              <p style="font-size:13px;font-weight:600;color:#2C1A0E">SRV-2026-00852</p>
-              <p style="font-size:11px;color:#9C8B78">Bogotá → Medellín · Residencial</p>
-            </div>
-            <p style="font-size:12px;color:#9C8B78">Hace 10 min</p>
-            <span class="badge b-sage">Validado</span>
-            <span></span>
-          </div>
-          <div class="trow" style="display:grid;grid-template-columns:1.4fr 1.2fr 80px 90px;gap:8px;align-items:center;padding:12px 8px;cursor:pointer">
-            <div>
-              <p style="font-size:13px;font-weight:600;color:#2C1A0E">SRV-2026-00851</p>
-              <p style="font-size:11px;color:#9C8B78">Bogotá → Cali · Oficina</p>
-            </div>
-            <p style="font-size:12px;color:#9C8B78">Hace 35 min</p>
-            <span class="badge b-ocre">Pendiente</span>
-            <button class="btn btn-p" style="font-size:11px;padding:4px 10px" @click="$store.app.toast_('SRV-2026-00851 validado')">Validar</button>
-          </div>
-          <div class="trow" style="display:grid;grid-template-columns:1.4fr 1.2fr 80px 90px;gap:8px;align-items:center;padding:12px 8px;cursor:pointer">
-            <div>
-              <p style="font-size:13px;font-weight:600;color:#2C1A0E">SRV-2026-00850</p>
-              <p style="font-size:11px;color:#9C8B78">Cali → Barranquilla · Comercial</p>
-            </div>
-            <p style="font-size:12px;color:#9C8B78">Hace 1 h</p>
-            <span class="badge b-blue">En curso</span>
-            <span></span>
-          </div>
-          <div class="trow" style="display:grid;grid-template-columns:1.4fr 1.2fr 80px 90px;gap:8px;align-items:center;padding:12px 8px;cursor:pointer">
-            <div>
-              <p style="font-size:13px;font-weight:600;color:#2C1A0E">SRV-2026-00849</p>
-              <p style="font-size:11px;color:#9C8B78">Medellín → Bogotá · Residencial</p>
-            </div>
-            <p style="font-size:12px;color:#9C8B78">Hace 2 h</p>
-            <span class="badge b-sage">Validado</span>
-            <span></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mapa + actividad + calendario -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-     <!-- Mapa -->
-<div class="card" style="padding:0;overflow:hidden;grid-column:span 2">
-
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 22px 14px">
-
-    <h3 style="font-size:14px;font-weight:700;color:#2C1A0E">
+</div>
+<!-- Servicios recientes -->
+<div class="card ad-panel-bloque-48">
+<div class="ad-panel-bloque-49">
+<h3 class="ad-panel-subtitulo-50">Servicios recientes</h3>
+<button @click="$store.app.page='ad_servicios'" class="btn btn-o ad-panel-boton-51">Ver todos</button>
+</div>
+<div class="ad-panel-bloque-52">
+<div @click="$store.app.page='ad_servicios'" class="trow ad-panel-bloque-53">
+<div>
+<p class="ad-panel-texto-54">SRV-2026-00852</p>
+<p class="ad-panel-texto-22">Bogotá → Medellín · Residencial</p>
+</div>
+<p class="ad-panel-texto-55">Hace 10 min</p>
+<span class="badge b-sage">Validado</span>
+<span></span>
+</div>
+<div class="trow ad-panel-bloque-53">
+<div>
+<p class="ad-panel-texto-54">SRV-2026-00851</p>
+<p class="ad-panel-texto-22">Bogotá → Cali · Oficina</p>
+</div>
+<p class="ad-panel-texto-55">Hace 35 min</p>
+<span class="badge b-ocre">Pendiente</span>
+<button @click="$store.app.toast_('SRV-2026-00851 validado')" class="btn btn-p ad-panel-boton-56">Validar</button>
+</div>
+<div class="trow ad-panel-bloque-53">
+<div>
+<p class="ad-panel-texto-54">SRV-2026-00850</p>
+<p class="ad-panel-texto-22">Cali → Barranquilla · Comercial</p>
+</div>
+<p class="ad-panel-texto-55">Hace 1 h</p>
+<span class="badge b-blue">En curso</span>
+<span></span>
+</div>
+<div class="trow ad-panel-bloque-53">
+<div>
+<p class="ad-panel-texto-54">SRV-2026-00849</p>
+<p class="ad-panel-texto-22">Medellín → Bogotá · Residencial</p>
+</div>
+<p class="ad-panel-texto-55">Hace 2 h</p>
+<span class="badge b-sage">Validado</span>
+<span></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mapa + actividad + calendario -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+<!-- Mapa -->
+<div class="card ad-panel-bloque-57">
+<div class="ad-panel-bloque-58">
+<h3 class="ad-panel-subtitulo-50">
       Mapa de operación en tiempo real
     </h3>
-
-    <select class="inp sel" style="width:180px;font-size:12px">
-      <option>Todos los servicios</option>
-      <option>En ruta</option>
-      <option>Completados</option>
-    </select>
-
-  </div>
-
-  <!-- IMAGEN DEL MAPA -->
-  <div style="
-    position:relative;
-    width:100%;
-    height:220px;
-    overflow:hidden;
-    background:#E8DFD0;
-  ">
-
-    <img
-      src="imagenes/mapaadmi.jpg"
-      alt="Mapa de operación Logisty Cargo"
-      style="
-        display:block;
-        width:100%;
-        height:100%;
-        object-fit:cover;
-        object-position:center;
-      "
-    >
-
-    <!-- TARJETA DE SERVICIO ACTIVO -->
-    <div style="
-      position:absolute;
-      bottom:14px;
-      left:14px;
-      background:rgba(255,255,255,.96);
-      border:1px solid #EDE5D8;
-      border-radius:10px;
-      padding:12px 14px;
-      min-width:200px;
-      box-shadow:0 3px 10px rgba(44,26,14,.10);
-    ">
-
-      <div style="
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        margin-bottom:6px;
-      ">
-
-        <p style="
-          font-size:12px;
-          font-weight:700;
-          color:#2C1A0E;
-        ">
+<select class="inp sel ad-panel-select-59">
+<option>Todos los servicios</option>
+<option>En ruta</option>
+<option>Completados</option>
+</select>
+</div>
+<!-- IMAGEN DEL MAPA -->
+<div class="ad-panel-bloque-60">
+<img alt="Mapa de operación Logisty Cargo" class="ad-panel-imagen-61" src="imagenes/mapaadmi.jpg"/>
+<!-- TARJETA DE SERVICIO ACTIVO -->
+<div class="ad-panel-bloque-62">
+<div class="ad-panel-bloque-63">
+<p class="ad-panel-texto-64">
           SRV-2026-00852
         </p>
-
-        <span
-          class="badge b-blue"
-          style="font-size:10px;padding:2px 8px"
-        >
+<span class="badge b-blue ad-panel-texto-65">
           En ruta
         </span>
-
-      </div>
-
-      <p style="
-        font-size:11px;
-        color:#9C8B78;
-        margin-bottom:6px;
-      ">
+</div>
+<p class="ad-panel-texto-66">
         Bogotá → Medellín
       </p>
-
-      <div style="
-        display:flex;
-        align-items:center;
-        gap:8px;
-      ">
-
-        <div style="
-          width:24px;
-          height:24px;
-          border-radius:50%;
-          background:#C99A3C;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          font-size:9px;
-          font-weight:700;
-          color:#FFF;
-          flex-shrink:0;
-        ">
+<div class="ad-panel-bloque-67">
+<div class="ad-panel-bloque-68">
           CM
         </div>
-
-        <div>
-
-          <p style="
-            font-size:11px;
-            font-weight:600;
-            color:#2C1A0E;
-          ">
+<div>
+<p class="ad-panel-texto-69">
             Carlos Mendoza
           </p>
-
-          <p style="
-            font-size:10px;
-            color:#9C8B78;
-          ">
+<p class="ad-panel-texto-70">
             Camión mediano · F-350
           </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
 </div>
-
-      <!-- Actividad + calendario derecha -->
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <!-- Actividad reciente -->
-        <div class="card" style="padding:18px">
-          <h3 style="font-size:13px;font-weight:700;color:#2C1A0E;margin-bottom:14px">Actividad reciente</h3>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;align-items:flex-start;gap:10px">
-              <div style="width:28px;height:28px;border-radius:50%;background:#5E7A521A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:14px;color:#5E7A52">check_circle</span></div>
-              <div><p style="font-size:12px;font-weight:600;color:#2C1A0E">SRV-2026-00852 validado</p><p style="font-size:10.5px;color:#9C8B78">Hace 10 min</p></div>
-            </div>
-            <div style="display:flex;align-items:flex-start;gap:10px">
-              <div style="width:28px;height:28px;border-radius:50%;background:#C1622D1A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:14px;color:#C1622D">add_circle</span></div>
-              <div><p style="font-size:12px;font-weight:600;color:#2C1A0E">Nuevo servicio creado</p><p style="font-size:10.5px;color:#9C8B78">Bogotá → Medellín · Hace 35 min</p></div>
-            </div>
-            <div style="display:flex;align-items:flex-start;gap:10px">
-              <div style="width:28px;height:28px;border-radius:50%;background:#5C3D201A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:14px;color:#5C3D20">person_check</span></div>
-              <div><p style="font-size:12px;font-weight:600;color:#2C1A0E">Asignación completada</p><p style="font-size:10.5px;color:#9C8B78">Carlos Mendoza · Hace 1 h</p></div>
-            </div>
-            <div style="display:flex;align-items:flex-start;gap:10px">
-              <div style="width:28px;height:28px;border-radius:50%;background:#C99A3C1A;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:14px;color:#C99A3C">payments</span></div>
-              <div><p style="font-size:12px;font-weight:600;color:#2C1A0E">Pago recibido</p><p style="font-size:10.5px;color:#9C8B78">Facturación #F-XXXX · Hace 2 h</p></div>
-            </div>
-          </div>
-          <button class="btn btn-p" style="width:100%;justify-content:center;margin-top:14px;font-size:12px;padding:9px" @click="$store.app.toast_('Cargando historial de actividad completo')">Ver toda la actividad</button>
-        </div>
-        <!-- Mini calendario -->
-        <div class="card" style="padding:16px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-            <h3 style="font-size:12px;font-weight:700;color:#2C1A0E">Calendario de asignaciones</h3>
-            <button class="btn btn-o" style="font-size:11px;padding:4px 10px" @click="$store.app.page='ad_asignaciones'">Ver calendario</button>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:8px">
-            <div style="text-align:center;font-size:10px;color:#C4B49E;font-weight:700">LUN</div>
-            <div style="text-align:center;font-size:10px;color:#C4B49E;font-weight:700">MAR</div>
-            <div style="text-align:center;font-size:10px;color:#C4B49E;font-weight:700">MIÉ</div>
-            <div style="text-align:center;font-size:10px;color:#C4B49E;font-weight:700">JUE</div>
-            <div style="text-align:center;font-size:10px;color:#C4B49E;font-weight:700">VIE</div>
-            <div style="text-align:center;font-size:11px;color:#9C8B78;padding:4px">20</div>
-            <div style="text-align:center;font-size:11px;color:#9C8B78;padding:4px">21</div>
-            <div style="text-align:center;font-size:11px;background:#C1622D;color:#FFF;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;margin:0 auto;font-weight:700">22</div>
-            <div style="text-align:center;font-size:11px;color:#9C8B78;padding:4px">23</div>
-            <div style="text-align:center;font-size:11px;color:#9C8B78;padding:4px">24</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="background:#C1622D14;border-left:3px solid #C1622D;border-radius:6px;padding:7px 10px">
-              <p style="font-size:11px;font-weight:600;color:#9C4D22">SRV-2026-00852 · Bogotá → Medellín</p>
-              <p style="font-size:10px;color:#9C8B78">8:00 AM</p>
-            </div>
-            <div style="background:#C99A3C14;border-left:3px solid #C99A3C;border-radius:6px;padding:7px 10px">
-              <p style="font-size:11px;font-weight:600;color:#8A6820">SRV-2026-00853 · Cali → Bogotá</p>
-              <p style="font-size:10px;color:#9C8B78">2:00 PM</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Actividad + calendario derecha -->
+<div class="ad-panel-bloque-71">
+<!-- Actividad reciente -->
+<div class="card ad-panel-bloque-72">
+<h3 class="ad-panel-subtitulo-73">Actividad reciente</h3>
+<div class="ad-panel-bloque-74">
+<div class="ad-panel-bloque-75">
+<div class="ad-panel-bloque-76"><span class="material-symbols-outlined ad-panel-texto-77">check_circle</span></div>
+<div><p class="ad-panel-texto-45">SRV-2026-00852 validado</p><p class="ad-panel-texto-78">Hace 10 min</p></div>
+</div>
+<div class="ad-panel-bloque-75">
+<div class="ad-panel-bloque-79"><span class="material-symbols-outlined ad-panel-texto-80">add_circle</span></div>
+<div><p class="ad-panel-texto-45">Nuevo servicio creado</p><p class="ad-panel-texto-78">Bogotá → Medellín · Hace 35 min</p></div>
+</div>
+<div class="ad-panel-bloque-75">
+<div class="ad-panel-bloque-81"><span class="material-symbols-outlined ad-panel-texto-82">person_check</span></div>
+<div><p class="ad-panel-texto-45">Asignación completada</p><p class="ad-panel-texto-78">Carlos Mendoza · Hace 1 h</p></div>
+</div>
+<div class="ad-panel-bloque-75">
+<div class="ad-panel-bloque-83"><span class="material-symbols-outlined ad-panel-texto-84">payments</span></div>
+<div><p class="ad-panel-texto-45">Pago recibido</p><p class="ad-panel-texto-78">Facturación #F-XXXX · Hace 2 h</p></div>
+</div>
+</div>
+<button @click="$store.app.toast_('Cargando historial de actividad completo')" class="btn btn-p ad-panel-boton-85">Ver toda la actividad</button>
+</div>
+<!-- Mini calendario -->
+<div class="card ad-panel-bloque-86">
+<div class="ad-panel-bloque-87">
+<h3 class="ad-panel-subtitulo-88">Calendario de asignaciones</h3>
+<button @click="$store.app.page='ad_asignaciones'" class="btn btn-o ad-panel-boton-56">Ver calendario</button>
+</div>
+<div class="ad-panel-bloque-89">
+<div class="ad-panel-bloque-90">LUN</div>
+<div class="ad-panel-bloque-90">MAR</div>
+<div class="ad-panel-bloque-90">MIÉ</div>
+<div class="ad-panel-bloque-90">JUE</div>
+<div class="ad-panel-bloque-90">VIE</div>
+<div class="ad-panel-bloque-91">20</div>
+<div class="ad-panel-bloque-91">21</div>
+<div class="ad-panel-bloque-92">22</div>
+<div class="ad-panel-bloque-91">23</div>
+<div class="ad-panel-bloque-91">24</div>
+</div>
+<div class="ad-panel-bloque-93">
+<div class="ad-panel-bloque-94">
+<p class="ad-panel-texto-95">SRV-2026-00852 · Bogotá → Medellín</p>
+<p class="ad-panel-texto-96">8:00 AM</p>
+</div>
+<div class="ad-panel-bloque-97">
+<p class="ad-panel-texto-98">SRV-2026-00853 · Cali → Bogotá</p>
+<p class="ad-panel-texto-96">2:00 PM</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
