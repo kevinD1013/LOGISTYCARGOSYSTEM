@@ -8,10 +8,14 @@
        ========================================================== -->
   <!-- ══════════ HISTORIAL ══════════ -->
   <div x-show="$store.app.page==='cl_historial'" class="flex-1 overflow-y-auto">
-    <div style="background:linear-gradient(135deg,#F0E8D8,#EDE5D8);border-bottom:1px solid #EDE5D8;padding:26px 40px">
-      <h1 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#2C1A0E;margin-bottom:4px">Historial de mudanzas</h1>
-      <p style="font-size:13px;color:#9C8B78">Todos tus servicios registrados en esta cuenta.</p>
+    <!-- Contenedor del banner con textos agrupados -->
+  <div style="position:relative;overflow:hidden;background-image:url('imagenes/solicitarmudanza.jpg');background-size:100% 100%;background-position:center;background-repeat:no-repeat;border-bottom:1px solid #EDE5D8;padding:26px 40px;display:flex;align-items:center;justify-content:space-between;min-height:145px">
+      <div>
+        <h1 style="font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:#2C1A0E;margin-bottom:8px">Historial de mudanzas</h1>
+        <p style="font-size:14px;color:#857560">Todos tus servicios registrados en esta cuenta.</p>
+      </div>
     </div>
+
     <div style="padding:28px 40px">
       <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap">
         <div style="position:relative;flex:1;min-width:200px"><span class="material-symbols-outlined" style="position:absolute;left:11px;top:9px;font-size:16px;color:#C4B49E">search</span><input class="inp" style="padding-left:36px" placeholder="Buscar servicio..."/></div>

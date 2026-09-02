@@ -8,10 +8,15 @@
        ========================================================== -->
   <!-- ══════════ PAGOS ══════════ -->
   <div x-show="$store.app.page==='cl_pagos'" class="flex-1 overflow-y-auto">
-    <div style="background:linear-gradient(135deg,#F0E8D8,#EDE5D8);border-bottom:1px solid #EDE5D8;padding:26px 40px">
-      <h1 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#2C1A0E;margin-bottom:4px">Pagos y facturas</h1>
-      <p style="font-size:13px;color:#9C8B78">Revisa lo que debes y el historial de pagos de tu cuenta.</p>
+    
+    <!-- Contenedor del banner actualizado con la imagen de solicitar mudanza -->
+    <div style="position:relative;overflow:hidden;background-image:url('imagenes/solicitarmudanza.jpg');background-size:100% 100%;background-position:center;background-repeat:no-repeat;border-bottom:1px solid #EDE5D8;padding:26px 40px;display:flex;align-items:center;min-height:145px">
+      <div style="position:relative;z-index:2">
+        <h1 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#2C1A0E;margin-bottom:4px">Pagos y facturas</h1>
+        <p style="font-size:13px;color:#6F6255">Revisa lo que debes y el historial de pagos de tu cuenta.</p>
+      </div>
     </div>
+
     <div style="padding:28px 40px">
       <div class="grid grid-cols-3 gap-4 mb-6">
         <div class="kpi" style="border-left:3px solid #A84230">
