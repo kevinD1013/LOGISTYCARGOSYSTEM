@@ -1,7 +1,7 @@
 export const CONDUCTORES = [
   {
     id: 1,
-    nombre: 'Carlos Mendoza',
+    nombre: 'Giovanny gonzalez',
     correo: 'conductor@logisticargo.com',
     password: '123',
     telefono: '+57 310 000 0002',
