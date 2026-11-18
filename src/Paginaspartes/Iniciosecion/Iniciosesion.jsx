@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import '../../Css general/iniciosesion.css';
 
 export default function Iniciosesion({ role, setRole, setPage, doLogin }) {
+  const [correo, setCorreo] = useState('');
+  const [password, setPassword] = useState('');
+
   const manejarSubmit = (e) => {
     e.preventDefault();
-    doLogin();
+    doLogin(correo, password);
   };
 
   return (
@@ -74,12 +78,26 @@ export default function Iniciosesion({ role, setRole, setPage, doLogin }) {
 
           <div className="login-campo">
             <label className="lbl">Correo electrónico</label>
-            <input className="inp" type="email" placeholder="usuario@logisticargo.com" required />
+            <input
+              className="inp"
+              type="email"
+              value={correo}
+              onChange={(e) => setCorreo(e.target.value)}
+              placeholder="usuario@logisticargo.com"
+              required
+            />
           </div>
 
           <div className="login-campo">
             <label className="lbl">Contraseña</label>
-            <input className="inp" type="password" placeholder="••••••••" required />
+            <input
+              className="inp"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              required
+            />
           </div>
 
           <div className="login-olvido">
@@ -94,7 +112,7 @@ export default function Iniciosesion({ role, setRole, setPage, doLogin }) {
           </button>
 
           <p className="login-registro-texto">
-            ¿No tienes cuenta?{' '}
+            ¿Eres cliente y no tienes cuenta?{' '}
             <a href="#register" onClick={(e) => { e.preventDefault(); setPage('register'); }} className="login-enlace">
               Regístrate aquí
             </a>

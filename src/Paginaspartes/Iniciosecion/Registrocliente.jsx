@@ -1,10 +1,32 @@
+import { useState } from 'react';
 import './Registrocliente.css';
 
-export default function Registrocliente({ setPage, doLogin }) {
+export default function Registrocliente({ setPage, registrarCliente, mostrarToast }) {
+  const [nombre, setNombre] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmar, setConfirmar] = useState('');
+
   const manejarRegistro = (e) => {
     e.preventDefault();
-    // Inicia sesión directamente con el rol 'cliente'
-    doLogin('cliente');
+
+    if (password !== confirmar) {
+      mostrarToast('Las contraseñas no coinciden');
+      return;
+    }
+
+    const exito = registrarCliente({
+      nombre: nombre.trim(),
+      telefono: telefono.trim(),
+      correo: correo.trim().toLowerCase(),
+      password,
+      rol: 'cliente' // Siempre se guarda como cliente
+    });
+
+    if (exito) {
+      setPage('login');
+    }
   };
 
   return (
@@ -22,27 +44,61 @@ export default function Registrocliente({ setPage, doLogin }) {
         <div className="registro-fila-doble">
           <div>
             <label className="lbl">Nombre completo</label>
-            <input className="inp" placeholder="Tu nombre completo" required />
+            <input
+              className="inp"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+              placeholder="Ej. Ana García"
+              required
+            />
           </div>
           <div>
             <label className="lbl">Teléfono</label>
-            <input className="inp" type="tel" placeholder="+57 300 000 0000" required />
+            <input
+              className="inp"
+              type="tel"
+              value={telefono}
+              onChange={(e) => setTelefono(e.target.value)}
+              placeholder="+57 300 000 0000"
+              required
+            />
           </div>
         </div>
 
         <div className="registro-campo">
           <label className="lbl">Correo electrónico</label>
-          <input className="inp" type="email" placeholder="cliente@email.com" required />
+          <input
+            className="inp"
+            type="email"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+            placeholder="cliente@email.com"
+            required
+          />
         </div>
 
         <div className="registro-fila-doble">
           <div>
             <label className="lbl">Contraseña</label>
-            <input className="inp" type="password" placeholder="••••••••" required />
+            <input
+              className="inp"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              required
+            />
           </div>
           <div>
             <label className="lbl">Confirmar contraseña</label>
-            <input className="inp" type="password" placeholder="••••••••" required />
+            <input
+              className="inp"
+              type="password"
+              value={confirmar}
+              onChange={(e) => setConfirmar(e.target.value)}
+              placeholder="••••••••"
+              required
+            />
           </div>
         </div>
 
