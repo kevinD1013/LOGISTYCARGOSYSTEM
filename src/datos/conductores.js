@@ -8,5 +8,5 @@ export const CONDUCTORES = [
     vehiculo: 'Ford F-350 · ABC-123',
     rol: 'conductor'
   }
-  // Agrega aquí más conductores cuando los necesites
+
 ];

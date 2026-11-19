@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
-// Listas editables solo desde código
+
 import { ADMINISTRADORES } from './datos/administradores';
 import { CONDUCTORES } from './datos/conductores';
 
-// Archivos que ya tienes creados en Iniciosecion
+
 import Iniciosesion from './Paginaspartes/Iniciosecion/Iniciosesion';
 import Registrocliente from './Paginaspartes/Iniciosecion/Registrocliente';
 import Recuperacioncontrasena from './Paginaspartes/Iniciosecion/Recuperacioncontrasena';
@@ -15,10 +15,10 @@ export default function App() {
   const [usuarioActual, setUsuarioActual] = useState(null);
   const [toast, setToast] = useState('');
 
-  // Clientes registrados desde el formulario
+  
   const [clientes, setClientes] = useState(() => {
     const guardados = localStorage.getItem('lc_clientes');
-    return guardados ? JSON.parse(guardados) : [];
+    return guardados ? JSON.parse(guardados) : [];                               // Clientes registrados desde el formulario
   });
 
   useEffect(() => {
@@ -48,10 +48,10 @@ export default function App() {
     return true;
   };
 
-  // Valida según el rol seleccionado
+  
   const doLogin = (correoIngresado, passwordIngresada) => {
     if (!role) {
-      mostrarToast('Selecciona primero un rol');
+      mostrarToast('Selecciona primero un rol');                    // Valida según el rol seleccionado
       return;
     }
 
