@@ -1,0 +1,29 @@
+
+.pagos {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.pagos h2 {
+  margin-bottom: 10px;
+}
+
+.pagos p {
+  margin-bottom: 20px;
+}
+
+.pagos table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pagos th,
+.pagos td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.pagos th {
+  background-color: #eeeeee;
+}

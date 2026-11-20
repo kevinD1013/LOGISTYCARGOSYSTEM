@@ -1,0 +1,50 @@
+
+.panel-cliente {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.panel-cliente h2 {
+  margin-bottom: 10px;
+}
+
+.panel-cliente > p {
+  margin-bottom: 25px;
+}
+
+.panel-resumen {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.panel-tarjeta {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 200px;
+  border-radius: 5px;
+}
+
+.panel-tarjeta h3 {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.panel-tarjeta p {
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+.panel-tarjeta span {
+  font-size: 13px;
+}
+
+.panel-informacion {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.panel-informacion h3 {
+  margin-bottom: 10px;
+}

@@ -1,0 +1,29 @@
+
+.mis-servicios {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.mis-servicios h2 {
+  margin-bottom: 10px;
+}
+
+.mis-servicios p {
+  margin-bottom: 20px;
+}
+
+.mis-servicios table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mis-servicios th,
+.mis-servicios td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.mis-servicios th {
+  background-color: #eeeeee;
+}

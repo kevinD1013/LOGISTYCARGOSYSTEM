@@ -1,0 +1,54 @@
+
+.soporte {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.soporte h2 {
+  margin-bottom: 10px;
+}
+
+.soporte > p {
+  margin-bottom: 20px;
+}
+
+.soporte form {
+  width: 400px;
+  max-width: 100%;
+  margin-bottom: 30px;
+}
+
+.soporte label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.soporte input,
+.soporte select,
+.soporte textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.soporte textarea {
+  height: 100px;
+}
+
+.soporte button {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.soporte h3 {
+  margin-bottom: 15px;
+}
+
+.soporte li {
+  border: 1px solid #ccc;
+  padding: 12px;
+  margin-bottom: 10px;
+  list-style: none;
+}

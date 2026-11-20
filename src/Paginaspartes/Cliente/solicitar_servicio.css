@@ -1,0 +1,42 @@
+
+.solicitar-servicio {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.solicitar-servicio h2 {
+  margin-bottom: 10px;
+}
+
+.solicitar-servicio p {
+  margin-bottom: 20px;
+}
+
+.solicitar-servicio form {
+  width: 400px;
+  max-width: 100%;
+}
+
+.solicitar-servicio label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.solicitar-servicio input,
+.solicitar-servicio select,
+.solicitar-servicio textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.solicitar-servicio textarea {
+  height: 90px;
+}
+
+.solicitar-servicio button {
+  padding: 10px 15px;
+  cursor: pointer;
+}

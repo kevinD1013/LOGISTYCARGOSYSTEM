@@ -1,0 +1,52 @@
+
+.seguimiento-servicio {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.seguimiento-servicio h2 {
+  margin-bottom: 10px;
+}
+
+.seguimiento-servicio form {
+  width: 350px;
+  max-width: 100%;
+  margin-top: 20px;
+}
+
+.seguimiento-servicio label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.seguimiento-servicio input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+}
+
+.seguimiento-servicio button {
+  padding: 9px 15px;
+  cursor: pointer;
+}
+
+.resultado-seguimiento {
+  margin-top: 25px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  max-width: 400px;
+}
+
+.resultado-seguimiento h3 {
+  margin-bottom: 15px;
+}
+
+.resultado-seguimiento p {
+  margin-bottom: 10px;
+}
+
+.mensaje-error {
+  margin-top: 15px;
+  color: red;
+}
