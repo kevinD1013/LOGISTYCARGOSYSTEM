@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 
-
 import { ADMINISTRADORES } from './datos/administradores';
 import { CONDUCTORES } from './datos/conductores';
-
 
 import Iniciosesion from './Paginaspartes/Iniciosecion/Iniciosesion';
 import Registrocliente from './Paginaspartes/Iniciosecion/Registrocliente';
 import Recuperacioncontrasena from './Paginaspartes/Iniciosecion/Recuperacioncontrasena';
+
+import NavbarAdmin from './componentes/NavbarAdmin';
+import PanelAdministrador from './Paginaspartes/Administrador/PanelAdministrador';
 
 export default function App() {
   const [page, setPage] = useState('login');
@@ -15,10 +16,9 @@ export default function App() {
   const [usuarioActual, setUsuarioActual] = useState(null);
   const [toast, setToast] = useState('');
 
-  
   const [clientes, setClientes] = useState(() => {
     const guardados = localStorage.getItem('lc_clientes');
-    return guardados ? JSON.parse(guardados) : [];                               // Clientes registrados desde el formulario
+    return guardados ? JSON.parse(guardados) : [];
   });
 
   useEffect(() => {
@@ -30,7 +30,6 @@ export default function App() {
     setTimeout(() => setToast(''), 3000);
   };
 
-  // Solo registra clientes
   const registrarCliente = (nuevoCliente) => {
     const correoLimpio = nuevoCliente.correo.toLowerCase();
     const existe = [...clientes, ...ADMINISTRADORES, ...CONDUCTORES].some(
@@ -48,10 +47,9 @@ export default function App() {
     return true;
   };
 
-  
   const doLogin = (correoIngresado, passwordIngresada) => {
     if (!role) {
-      mostrarToast('Selecciona primero un rol');                    // Valida según el rol seleccionado
+      mostrarToast('Selecciona primero un rol');
       return;
     }
 
@@ -72,7 +70,8 @@ export default function App() {
     }
 
     setUsuarioActual(encontrado);
-    setPage('panel');
+    if (role === 'admin') setPage('dash_admin');
+    else setPage('panel');
   };
 
   const cerrarSesion = () => {
@@ -80,6 +79,9 @@ export default function App() {
     setRole('');
     setPage('login');
   };
+
+  const todosLosUsuarios = [...ADMINISTRADORES, ...CONDUCTORES, ...clientes];
+  const paginasAdmin = ['dash_admin', 'ad_servicios', 'ad_asignaciones', 'ad_vehiculos', 'ad_conductores', 'ad_clientes'];
 
   return (
     <div>
@@ -96,29 +98,50 @@ export default function App() {
       )}
 
       {page === 'login' && (
-        <Iniciosesion
-          role={role}
-          setRole={setRole}
-          setPage={setPage}
-          doLogin={doLogin}
-        />
+        <Iniciosesion role={role} setRole={setRole} setPage={setPage} doLogin={doLogin} />
       )}
 
       {page === 'register' && (
-        <Registrocliente
-          setPage={setPage}
-          registrarCliente={registrarCliente}
-          mostrarToast={mostrarToast}
-        />
+        <Registrocliente setPage={setPage} registrarCliente={registrarCliente} mostrarToast={mostrarToast} />
       )}
 
       {page === 'recover' && (
-        <Recuperacioncontrasena
-          setPage={setPage}
-          mostrarToast={mostrarToast}
-        />
+        <Recuperacioncontrasena setPage={setPage} mostrarToast={mostrarToast} />
       )}
 
+      {/* Módulo Administrador */}
+      {paginasAdmin.includes(page) && usuarioActual && (
+        <div>
+          <NavbarAdmin
+            page={page}
+            setPage={setPage}
+            usuarioActual={usuarioActual}
+            cerrarSesion={cerrarSesion}
+          />
+
+          {page === 'dash_admin' && (
+            <PanelAdministrador
+              usuarioActual={usuarioActual}
+              usuarios={todosLosUsuarios}
+              setPage={setPage}
+            />
+          )}
+
+          {page !== 'dash_admin' && (
+            <div style={{ padding: '40px', textAlign: 'center' }}>
+              <h2>Subsección de Oficina: {page}</h2>
+              <p style={{ color: 'var(--topo)', margin: '8px 0 18px' }}>
+                Esta vista la construiremos en los siguientes bloques.
+              </p>
+              <button onClick={() => setPage('dash_admin')} className="btn btn-primario">
+                Volver al Dashboard
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Temporal para Cliente y Conductor */}
       {page === 'panel' && usuarioActual && (
         <div style={{ padding: '40px', maxWidth: '500px', margin: '60px auto' }} className="card">
           <h2>Sesión iniciada</h2>
