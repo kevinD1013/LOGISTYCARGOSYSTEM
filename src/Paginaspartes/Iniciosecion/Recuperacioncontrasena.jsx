@@ -1,6 +1,6 @@
 import './Recuperacioncontrasena.css';
 
-export default function Recuperacioncontraseña({ setPage, mostrarToast }) {
+export default function Recuperacioncontrasena({ setPage, mostrarToast }) {
   const manejarRecuperacion = (e) => {
     e.preventDefault();
     mostrarToast('Código enviado a tu correo electrónico');
@@ -27,7 +27,10 @@ export default function Recuperacioncontraseña({ setPage, mostrarToast }) {
 
         <a
           href="#login"
-          onClick={(e) => { e.preventDefault(); setPage('login'); }}
+          onClick={(e) => {
+            e.preventDefault();
+            setPage?.('login');
+          }}
           className="recuperar-volver"
         >
           ← Volver al inicio de sesión
