@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 // Listas editables solo desde código
@@ -10,7 +9,7 @@ import Iniciosesion from './Paginaspartes/Iniciosecion/Iniciosesion';
 import Registrocliente from './Paginaspartes/Iniciosecion/Registrocliente';
 import Recuperacioncontrasena from './Paginaspartes/Iniciosecion/Recuperacioncontrasena';
 
-// Módulo Conductor
+// Módulo Conductor (Cabecera y 8 vistas)
 import HeaderConductor from './componentes/HeaderConductor';
 import PanelConductor from './Paginaspartes/Conductor/PanelConductor';
 import ParadaActual from './Paginaspartes/Conductor/ParadaActual';
@@ -21,13 +20,14 @@ import ReportarNovedad from './Paginaspartes/Conductor/ReportarNovedad';
 import ReportarProblemaMecanico from './Paginaspartes/Conductor/ReportarProblemaMecanico';
 import HistorialConductor from './Paginaspartes/Conductor/HistorialConductor';
 
-// Módulo Cliente
+// Módulo Cliente (Cabecera y 7 vistas)
+import HeaderCliente from './componentes/HeaderCliente';
+import PanelCliente from './Paginaspartes/Cliente/PanelCliente';
 import Cotizacion from './Paginaspartes/Cliente/Cotizacion';
+import SolicitarServicio from './Paginaspartes/Cliente/SolicitarServicio';
+import SeguimientoServicio from './Paginaspartes/Cliente/SeguimientoServicio';
 import MisServicios from './Paginaspartes/Cliente/MisServicios';
 import Pagos from './Paginaspartes/Cliente/Pagos';
-import PanelCliente from './Paginaspartes/Cliente/PanelCliente';
-import SeguimientoServicio from './Paginaspartes/Cliente/SeguimientoServicio';
-import SolicitarServicio from './Paginaspartes/Cliente/SolicitarServicio';
 import Soporte from './Paginaspartes/Cliente/Soporte';
 
 const INVENTARIO_INICIAL = [
@@ -36,6 +36,48 @@ const INVENTARIO_INICIAL = [
   { id: 3, nombre: 'Comedor madera 6 puestos', categoria: 'Sala / Comedor', marcado: false },
   { id: 4, nombre: 'Cama Queen + Base cama', categoria: 'Alcoba', marcado: false },
   { id: 5, nombre: '14 Cajas selladas y etiquetadas', categoria: 'Cajas / Embalaje', marcado: false }
+];
+
+const FACTURAS_INICIALES = [
+  {
+    codigo: 'FAC-2026-0411',
+    servicio: 'SRV-2026-00852',
+    concepto: 'Mudanza Residencial (Chapinero → Suba)',
+    fecha: '2026-11-20',
+    monto: 335000,
+    estado: 'Pendiente'
+  },
+  {
+    codigo: 'FAC-2026-0389',
+    servicio: 'SRV-2026-00815',
+    concepto: 'Transporte de Carga Puntual — Bogotá D.C.',
+    fecha: '2026-10-28',
+    monto: 195000,
+    estado: 'Pagado',
+    metodo: 'PSE · Débito bancario'
+  },
+  {
+    codigo: 'FAC-2026-0354',
+    servicio: 'SRV-2026-00762',
+    concepto: 'Mudanza Residencial (Bogotá → Chía)',
+    fecha: '2026-09-14',
+    monto: 340000,
+    estado: 'Pagado',
+    metodo: 'Tarjeta Crédito / Débito'
+  }
+];
+
+const TICKETS_INICIALES = [
+  {
+    codigo: 'TKT-2026-0123',
+    cliente: 'Ana García',
+    orden: 'SRV-2026-00852',
+    categoria: 'Actualización de direcciones o inventario',
+    asunto: 'Autorización de parqueadero en torre destino',
+    mensaje: 'Ya quedó radicado el permiso en la portería de Suba para el camión NPR.',
+    fecha: '20/11/2026',
+    estado: 'Resuelto'
+  }
 ];
 
 const PAGINAS_CONDUCTOR = [
@@ -49,15 +91,14 @@ const PAGINAS_CONDUCTOR = [
   'co_historial'
 ];
 
-// Páginas del Cliente
 const PAGINAS_CLIENTE = [
-  'cliente_panel',
-  'cliente_servicios',
-  'cliente_pagos',
-  'cliente_cotizacion',
-  'cliente_seguimiento',
-  'cliente_solicitar',
-  'cliente_soporte'
+  'dash_cliente',
+  'cl_servicios',
+  'cl_cotizacion',
+  'cl_solicitar',
+  'cl_seguimiento',
+  'cl_pagos',
+  'cl_soporte'
 ];
 
 export default function App() {
@@ -66,13 +107,19 @@ export default function App() {
   const [usuarioActual, setUsuarioActual] = useState(null);
   const [toast, setToast] = useState('');
 
-  // Estados compartidos del Conductor
+  // Estados operativos compartidos entre Conductor, Cliente y Admin
   const [etapaActual, setEtapaActual] = useState(1);
   const [inventario, setInventario] = useState(INVENTARIO_INICIAL);
   const [novedades, setNovedades] = useState([]);
   const [fallasMecanicas, setFallasMecanicas] = useState([]);
 
-  // Clientes registrados
+  // Estados propios del flujo del Cliente
+  const [cotizacionSeleccionada, setCotizacionSeleccionada] = useState(null);
+  const [serviciosCliente, setServiciosCliente] = useState([]);
+  const [facturas, setFacturas] = useState(FACTURAS_INICIALES);
+  const [ticketsSoporte, setTicketsSoporte] = useState(TICKETS_INICIALES);
+
+  // Clientes registrados desde el formulario
   const [clientes, setClientes] = useState(() => {
     const guardados = localStorage.getItem('lc_clientes');
     return guardados ? JSON.parse(guardados) : [];
@@ -87,10 +134,9 @@ export default function App() {
     setTimeout(() => setToast(''), 3000);
   };
 
-  // Registrar cliente
+  // Solo registra clientes
   const registrarCliente = (nuevoCliente) => {
     const correoLimpio = nuevoCliente.correo.toLowerCase();
-
     const existe = [...clientes, ...ADMINISTRADORES, ...CONDUCTORES].some(
       (u) => u.correo.toLowerCase() === correoLimpio
     );
@@ -103,11 +149,10 @@ export default function App() {
     setClientes([...clientes, { ...nuevoCliente, rol: 'cliente' }]);
     setRole('cliente');
     mostrarToast('Cliente registrado. Ahora inicia sesión');
-
     return true;
   };
 
-  // Inicio de sesión según el rol
+  // Valida según el rol seleccionado
   const doLogin = (correoIngresado, passwordIngresada) => {
     if (!role) {
       mostrarToast('Selecciona primero un rol');
@@ -115,7 +160,6 @@ export default function App() {
     }
 
     let listaDelRol = [];
-
     if (role === 'cliente') listaDelRol = clientes;
     else if (role === 'conductor') listaDelRol = CONDUCTORES;
     else if (role === 'admin') listaDelRol = ADMINISTRADORES;
@@ -136,13 +180,12 @@ export default function App() {
     if (encontrado.rol === 'conductor') {
       setPage('dash_conductor');
     } else if (encontrado.rol === 'cliente') {
-      setPage('cliente_panel');
+      setPage('dash_cliente');
     } else {
       setPage('panel');
     }
   };
 
-  // Cerrar sesión
   const cerrarSesion = () => {
     setUsuarioActual(null);
     setRole('');
@@ -151,31 +194,20 @@ export default function App() {
 
   return (
     <div>
-      {/* Mensajes */}
       {toast && (
         <div style={{
-          position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-          zIndex: 999,
-          background: 'var(--madera)',
-          color: 'var(--blanco)',
-          padding: '12px 18px',
-          borderRadius: '10px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          fontSize: '13px',
+          position: 'fixed', bottom: '20px', right: '20px', zIndex: 999,
+          background: 'var(--madera)', color: 'var(--blanco)',
+          padding: '12px 18px', borderRadius: '10px',
+          display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px',
           boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
         }}>
-          <span className="material-symbols-outlined" style={{ color: 'var(--ocre)' }}>
-            info
-          </span>
+          <span className="material-symbols-outlined" style={{ color: 'var(--ocre)' }}>info</span>
           <span>{toast}</span>
         </div>
       )}
 
-      {/* AUTENTICACIÓN */}
+      {/* Módulo Autenticación */}
       {page === 'login' && (
         <Iniciosesion
           role={role}
@@ -200,7 +232,7 @@ export default function App() {
         />
       )}
 
-      {/* MÓDULO CONDUCTOR */}
+      {/* Módulo Completo del Conductor */}
       {PAGINAS_CONDUCTOR.includes(page) && usuarioActual && (
         <div>
           <HeaderConductor
@@ -286,103 +318,99 @@ export default function App() {
         </div>
       )}
 
-      {/* MÓDULO CLIENTE */}
+      {/* Módulo Completo del Cliente */}
       {PAGINAS_CLIENTE.includes(page) && usuarioActual && (
         <div>
-          {/* Menú de navegación del Cliente */}
-          <nav style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            gap: '10px',
-            padding: '15px 25px',
-            background: 'var(--madera)',
-            color: 'var(--blanco)'
-          }}>
-            <strong style={{ marginRight: '15px' }}>
-              LOGISTY CARGO - CLIENTE
-            </strong>
+          <HeaderCliente
+            page={page}
+            setPage={setPage}
+            usuarioActual={usuarioActual}
+            cerrarSesion={cerrarSesion}
+          />
 
-            <button onClick={() => setPage('cliente_panel')}>
-              Inicio
-            </button>
+          {page === 'dash_cliente' && (
+            <PanelCliente
+              usuarioActual={usuarioActual}
+              setPage={setPage}
+              etapaActual={etapaActual}
+              novedades={novedades}
+              serviciosCliente={serviciosCliente}
+              facturas={facturas}
+            />
+          )}
 
-            <button onClick={() => setPage('cliente_servicios')}>
-              Mis servicios
-            </button>
+          {page === 'cl_cotizacion' && (
+            <Cotizacion
+              setPage={setPage}
+              setCotizacionSeleccionada={setCotizacionSeleccionada}
+              mostrarToast={mostrarToast}
+            />
+          )}
 
-            <button onClick={() => setPage('cliente_solicitar')}>
-              Solicitar servicio
-            </button>
+          {page === 'cl_solicitar' && (
+            <SolicitarServicio
+              setPage={setPage}
+              usuarioActual={usuarioActual}
+              cotizacionSeleccionada={cotizacionSeleccionada}
+              serviciosCliente={serviciosCliente}
+              setServiciosCliente={setServiciosCliente}
+              facturas={facturas}
+              setFacturas={setFacturas}
+              mostrarToast={mostrarToast}
+            />
+          )}
 
-            <button onClick={() => setPage('cliente_cotizacion')}>
-              Cotización
-            </button>
+          {page === 'cl_seguimiento' && (
+            <SeguimientoServicio
+              setPage={setPage}
+              etapaActual={etapaActual}
+              inventario={inventario}
+              novedades={novedades}
+              mostrarToast={mostrarToast}
+            />
+          )}
 
-            <button onClick={() => setPage('cliente_seguimiento')}>
-              Seguimiento
-            </button>
+          {page === 'cl_servicios' && (
+            <MisServicios
+              setPage={setPage}
+              usuarioActual={usuarioActual}
+              serviciosCliente={serviciosCliente}
+              etapaActual={etapaActual}
+              mostrarToast={mostrarToast}
+            />
+          )}
 
-            <button onClick={() => setPage('cliente_pagos')}>
-              Pagos
-            </button>
+          {page === 'cl_pagos' && (
+            <Pagos
+              setPage={setPage}
+              usuarioActual={usuarioActual}
+              facturas={facturas}
+              setFacturas={setFacturas}
+              mostrarToast={mostrarToast}
+            />
+          )}
 
-            <button onClick={() => setPage('cliente_soporte')}>
-              Soporte
-            </button>
-
-            <button
-              onClick={cerrarSesion}
-              style={{ marginLeft: 'auto' }}
-            >
-              Cerrar sesión
-            </button>
-          </nav>
-
-          {/* Vistas del Cliente */}
-          {page === 'cliente_panel' && <PanelCliente />}
-
-          {page === 'cliente_servicios' && <MisServicios />}
-
-          {page === 'cliente_pagos' && <Pagos />}
-
-          {page === 'cliente_cotizacion' && <Cotizacion />}
-
-          {page === 'cliente_seguimiento' && <SeguimientoServicio />}
-
-          {page === 'cliente_solicitar' && <SolicitarServicio />}
-
-          {page === 'cliente_soporte' && <Soporte />}
+          {page === 'cl_soporte' && (
+            <Soporte
+              setPage={setPage}
+              usuarioActual={usuarioActual}
+              serviciosCliente={serviciosCliente}
+              ticketsSoporte={ticketsSoporte}
+              setTicketsSoporte={setTicketsSoporte}
+              mostrarToast={mostrarToast}
+            />
+          )}
         </div>
       )}
 
-      {/* PANEL TEMPORAL ADMINISTRADOR */}
+      {/* Tarjeta temporal solo para Administrador */}
       {page === 'panel' && usuarioActual && (
-        <div
-          style={{
-            padding: '40px',
-            maxWidth: '500px',
-            margin: '60px auto'
-          }}
-          className="card"
-        >
+        <div style={{ padding: '40px', maxWidth: '500px', margin: '60px auto' }} className="card">
           <h2>Sesión iniciada</h2>
-
-          <p style={{ margin: '10px 0' }}>
-            <strong>Nombre:</strong> {usuarioActual.nombre}
-          </p>
-
-          <p style={{ margin: '10px 0' }}>
-            <strong>Correo:</strong> {usuarioActual.correo}
-          </p>
-
-          <p style={{ margin: '10px 0 20px' }}>
-            <strong>Rol activo:</strong> {usuarioActual.rol.toUpperCase()}
-          </p>
-
-          <button onClick={cerrarSesion} className="btn btn-primario">
-            Cerrar sesión
-          </button>
+          <p style={{ margin: '10px 0' }}><strong>Nombre:</strong> {usuarioActual.nombre}</p>
+          <p style={{ margin: '10px 0' }}><strong>Correo:</strong> {usuarioActual.correo}</p>
+          <p style={{ margin: '10px 0 20px' }}><strong>Rol activo:</strong> {usuarioActual.rol.toUpperCase()}</p>
+          <button onClick={cerrarSesion} className="btn btn-primario">Cerrar sesión</button>
         </div>
       )}
     </div>
