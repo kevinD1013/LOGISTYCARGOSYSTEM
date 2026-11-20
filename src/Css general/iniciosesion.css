@@ -1,0 +1,199 @@
+.login-contenedor {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── PANEL IZQUIERDO ── */
+.login-banner {
+  width: 45%;
+  background: linear-gradient(rgba(35, 18, 8, 0.72), rgba(35, 18, 8, 0.85)),
+              url('/imagenes/fondo_login.jpeg') center/cover no-repeat;
+  color: var(--blanco);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-marca {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.login-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.login-marca-titulo {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.login-marca-titulo span {
+  color: var(--terracota);
+}
+
+.login-marca-sub {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--topo-claro);
+  margin-top: 3px;
+}
+
+.login-hero h1 {
+  font-size: 36px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.login-hero h1 span {
+  color: var(--ocre);
+}
+
+.login-hero p {
+  font-size: 14px;
+  color: var(--topo-claro);
+  line-height: 1.6;
+  max-width: 360px;
+}
+
+.login-metricas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.login-metrica-caja {
+  border: 1px solid var(--madera-media);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.login-metrica-valor {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ocre);
+}
+
+.login-metrica-texto {
+  font-size: 11px;
+  color: var(--topo);
+  margin-top: 2px;
+}
+
+/* ── PANEL DERECHO (FORMULARIO) ── */
+.login-panel-form {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: var(--crema);
+}
+
+.login-caja-form {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-titulo {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.login-subtitulo {
+  font-size: 13.5px;
+  color: var(--topo);
+  margin-bottom: 24px;
+}
+
+.login-roles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.login-rol-card {
+  background: var(--blanco);
+  border: 1.5px solid var(--linea);
+  border-radius: 12px;
+  padding: 16px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.login-rol-card .material-symbols-outlined {
+  font-size: 24px;
+  color: var(--topo-claro);
+}
+
+.login-rol-card p {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.login-rol-card.activo {
+  border-color: var(--terracota);
+  background: rgba(193, 98, 45, 0.08);
+}
+
+.login-rol-card.activo .material-symbols-outlined,
+.login-rol-card.activo p {
+  color: var(--terracota);
+}
+
+.login-campo {
+  margin-bottom: 16px;
+}
+
+.login-olvido {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.login-enlace {
+  font-size: 12.5px;
+  color: var(--terracota);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-btn-full {
+  width: 100%;
+  padding: 13px;
+}
+
+.login-registro-texto {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--topo);
+}
+
+.login-aviso-rol {
+  margin-top: 16px;
+  background: rgba(201, 154, 60, 0.12);
+  border: 1px solid rgba(201, 154, 60, 0.4);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #8A6820;
+}
+
+@media (max-width: 768px) {
+  .login-banner { display: none; }
+}

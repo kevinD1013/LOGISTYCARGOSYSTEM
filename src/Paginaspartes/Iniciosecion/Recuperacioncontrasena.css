@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .recuperacion {
   display: flex;
   justify-content: center;
@@ -38,4 +39,74 @@
   width: 100%;
   padding: 10px;
   cursor: pointer;
+=======
+.recuperar-contenedor {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(rgba(35, 18, 8, 0.35), rgba(35, 18, 8, 0.45)),
+              url('/imagenes/recuperar_contrase.png') center/cover no-repeat;
+}
+
+.recuperar-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 36px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(44, 26, 14, 0.18);
+}
+
+.recuperar-icono {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: rgba(201, 154, 60, 0.16);
+  color: #8A6820;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+}
+
+.recuperar-icono .material-symbols-outlined {
+  font-size: 26px;
+}
+
+.recuperar-titulo {
+  font-size: 21px;
+  margin-bottom: 6px;
+}
+
+.recuperar-texto {
+  font-size: 13px;
+  color: var(--topo);
+  margin-bottom: 22px;
+}
+
+.recuperar-campo {
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.recuperar-btn {
+  width: 100%;
+}
+
+.recuperar-volver {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--topo);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.recuperar-volver:hover {
+  color: var(--terracota);
+>>>>>>> main
 }

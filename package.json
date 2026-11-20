@@ -10,8 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
+=======
+    "leaflet": "^1.9.4",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-leaflet": "^5.0.0"
+>>>>>>> main
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
