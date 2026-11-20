@@ -1,14 +1,43 @@
 import { useState, useEffect } from 'react';
 
+// Listas editables solo desde código
 import { ADMINISTRADORES } from './datos/administradores';
 import { CONDUCTORES } from './datos/conductores';
 
+// Módulo Autenticación
 import Iniciosesion from './Paginaspartes/Iniciosecion/Iniciosesion';
 import Registrocliente from './Paginaspartes/Iniciosecion/Registrocliente';
 import Recuperacioncontrasena from './Paginaspartes/Iniciosecion/Recuperacioncontrasena';
 
-import NavbarAdmin from './componentes/NavbarAdmin';
-import PanelAdministrador from './Paginaspartes/Administrador/PanelAdministrador';
+// Módulo Conductor (Cabecera y 7 vistas independientes)
+import HeaderConductor from './componentes/HeaderConductor';
+import PanelConductor from './Paginaspartes/Conductor/PanelConductor';
+import ParadaActual from './Paginaspartes/Conductor/ParadaActual';
+import ChecklistCarga from './Paginaspartes/Conductor/ChecklistCarga';
+import GpsNavegacion from './Paginaspartes/Conductor/GpsNavegacion';
+import MiVehiculo from './Paginaspartes/Conductor/MiVehiculo';
+import ReportarNovedad from './Paginaspartes/Conductor/ReportarNovedad';
+import ReportarProblemaMecanico from './Paginaspartes/Conductor/ReportarProblemaMecanico';
+import HistorialConductor from './Paginaspartes/Conductor/HistorialConductor';
+
+const INVENTARIO_INICIAL = [
+  { id: 1, nombre: 'Sofá modular 3 puestos', categoria: 'Sala / Comedor', marcado: true },
+  { id: 2, nombre: 'Nevera Nevecón Samsung', categoria: 'Electrodoméstico', marcado: true },
+  { id: 3, nombre: 'Comedor madera 6 puestos', categoria: 'Sala / Comedor', marcado: false },
+  { id: 4, nombre: 'Cama Queen + Base cama', categoria: 'Alcoba', marcado: false },
+  { id: 5, nombre: '14 Cajas selladas y etiquetadas', categoria: 'Cajas / Embalaje', marcado: false }
+];
+
+const PAGINAS_CONDUCTOR = [
+  'dash_conductor',
+  'co_parada',
+  'co_checklist',
+  'co_gps',
+  'co_vehiculo',
+  'co_novedad',
+  'co_mecanico',
+  'co_historial'
+];
 
 export default function App() {
   const [page, setPage] = useState('login');
@@ -16,6 +45,13 @@ export default function App() {
   const [usuarioActual, setUsuarioActual] = useState(null);
   const [toast, setToast] = useState('');
 
+  // Estados compartidos entre todas las vistas del Conductor
+  const [etapaActual, setEtapaActual] = useState(1);
+  const [inventario, setInventario] = useState(INVENTARIO_INICIAL);
+  const [novedades, setNovedades] = useState([]);
+  const [fallasMecanicas, setFallasMecanicas] = useState([]);
+
+  // Clientes registrados desde el formulario
   const [clientes, setClientes] = useState(() => {
     const guardados = localStorage.getItem('lc_clientes');
     return guardados ? JSON.parse(guardados) : [];
@@ -30,6 +66,7 @@ export default function App() {
     setTimeout(() => setToast(''), 3000);
   };
 
+  // Solo registra clientes
   const registrarCliente = (nuevoCliente) => {
     const correoLimpio = nuevoCliente.correo.toLowerCase();
     const existe = [...clientes, ...ADMINISTRADORES, ...CONDUCTORES].some(
@@ -47,6 +84,7 @@ export default function App() {
     return true;
   };
 
+  // Valida según el rol seleccionado
   const doLogin = (correoIngresado, passwordIngresada) => {
     if (!role) {
       mostrarToast('Selecciona primero un rol');
@@ -70,8 +108,12 @@ export default function App() {
     }
 
     setUsuarioActual(encontrado);
-    if (role === 'admin') setPage('dash_admin');
-    else setPage('panel');
+
+    if (encontrado.rol === 'conductor') {
+      setPage('dash_conductor');
+    } else {
+      setPage('panel');
+    }
   };
 
   const cerrarSesion = () => {
@@ -80,9 +122,6 @@ export default function App() {
     setPage('login');
   };
 
-  const todosLosUsuarios = [...ADMINISTRADORES, ...CONDUCTORES, ...clientes];
-  const paginasAdmin = ['dash_admin', 'ad_servicios', 'ad_asignaciones', 'ad_vehiculos', 'ad_conductores', 'ad_clientes'];
-
   return (
     <div>
       {toast && (
@@ -90,58 +129,126 @@ export default function App() {
           position: 'fixed', bottom: '20px', right: '20px', zIndex: 999,
           background: 'var(--madera)', color: 'var(--blanco)',
           padding: '12px 18px', borderRadius: '10px',
-          display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px'
+          display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
         }}>
           <span className="material-symbols-outlined" style={{ color: 'var(--ocre)' }}>info</span>
           <span>{toast}</span>
         </div>
       )}
 
+      {/* Módulo Autenticación */}
       {page === 'login' && (
-        <Iniciosesion role={role} setRole={setRole} setPage={setPage} doLogin={doLogin} />
+        <Iniciosesion
+          role={role}
+          setRole={setRole}
+          setPage={setPage}
+          doLogin={doLogin}
+        />
       )}
 
       {page === 'register' && (
-        <Registrocliente setPage={setPage} registrarCliente={registrarCliente} mostrarToast={mostrarToast} />
+        <Registrocliente
+          setPage={setPage}
+          registrarCliente={registrarCliente}
+          mostrarToast={mostrarToast}
+        />
       )}
 
       {page === 'recover' && (
-        <Recuperacioncontrasena setPage={setPage} mostrarToast={mostrarToast} />
+        <Recuperacioncontrasena
+          setPage={setPage}
+          mostrarToast={mostrarToast}
+        />
       )}
 
-      {/* Módulo Administrador */}
-      {paginasAdmin.includes(page) && usuarioActual && (
+      {/* Módulo Completo del Conductor */}
+      {PAGINAS_CONDUCTOR.includes(page) && usuarioActual && (
         <div>
-          <NavbarAdmin
+          <HeaderConductor
             page={page}
             setPage={setPage}
             usuarioActual={usuarioActual}
             cerrarSesion={cerrarSesion}
+            mostrarToast={mostrarToast}
           />
 
-          {page === 'dash_admin' && (
-            <PanelAdministrador
+          {page === 'dash_conductor' && (
+            <PanelConductor
               usuarioActual={usuarioActual}
-              usuarios={todosLosUsuarios}
               setPage={setPage}
+              etapaActual={etapaActual}
+              inventario={inventario}
+              novedades={novedades}
+              fallasMecanicas={fallasMecanicas}
             />
           )}
 
-          {page !== 'dash_admin' && (
-            <div style={{ padding: '40px', textAlign: 'center' }}>
-              <h2>Subsección de Oficina: {page}</h2>
-              <p style={{ color: 'var(--topo)', margin: '8px 0 18px' }}>
-                Esta vista la construiremos en los siguientes bloques.
-              </p>
-              <button onClick={() => setPage('dash_admin')} className="btn btn-primario">
-                Volver al Dashboard
-              </button>
-            </div>
+          {page === 'co_parada' && (
+            <ParadaActual
+              setPage={setPage}
+              etapaActual={etapaActual}
+              setEtapaActual={setEtapaActual}
+              mostrarToast={mostrarToast}
+            />
+          )}
+
+          {page === 'co_checklist' && (
+            <ChecklistCarga
+              setPage={setPage}
+              inventario={inventario}
+              setInventario={setInventario}
+              mostrarToast={mostrarToast}
+            />
+          )}
+
+          {page === 'co_gps' && (
+            <GpsNavegacion
+              setPage={setPage}
+              usuarioActual={usuarioActual}
+              mostrarToast={mostrarToast}
+            />
+          )}
+
+          {page === 'co_vehiculo' && (
+            <MiVehiculo
+              setPage={setPage}
+              usuarioActual={usuarioActual}
+              mostrarToast={mostrarToast}
+            />
+          )}
+
+          {page === 'co_novedad' && (
+            <ReportarNovedad
+              setPage={setPage}
+              usuarioActual={usuarioActual}
+              novedades={novedades}
+              setNovedades={setNovedades}
+              mostrarToast={mostrarToast}
+            />
+          )}
+
+          {page === 'co_mecanico' && (
+            <ReportarProblemaMecanico
+              setPage={setPage}
+              usuarioActual={usuarioActual}
+              fallasMecanicas={fallasMecanicas}
+              setFallasMecanicas={setFallasMecanicas}
+              mostrarToast={mostrarToast}
+            />
+          )}
+
+          {page === 'co_historial' && (
+            <HistorialConductor
+              setPage={setPage}
+              usuarioActual={usuarioActual}
+              etapaActual={etapaActual}
+            />
           )}
         </div>
       )}
 
-      {/* Temporal para Cliente y Conductor */}
+      {/* Tarjeta temporal para Cliente y Admin */}
       {page === 'panel' && usuarioActual && (
         <div style={{ padding: '40px', maxWidth: '500px', margin: '60px auto' }} className="card">
           <h2>Sesión iniciada</h2>
