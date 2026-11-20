@@ -1,0 +1,45 @@
+
+.cotizacion {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.cotizacion h2 {
+  margin-bottom: 10px;
+}
+
+.cotizacion p {
+  margin-bottom: 20px;
+}
+
+.cotizacion form {
+  width: 400px;
+  max-width: 100%;
+}
+
+.cotizacion label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.cotizacion input,
+.cotizacion select,
+.cotizacion textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.cotizacion textarea {
+  height: 90px;
+  resize: vertical;
+}
+
+.cotizacion button {
+  padding: 10px 15px;
+  border: 1px solid #aaa;
+  background: #eee;
+  cursor: pointer;
+}
