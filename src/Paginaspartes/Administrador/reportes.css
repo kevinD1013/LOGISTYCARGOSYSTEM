@@ -1,0 +1,246 @@
+.arep-controles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.arep-periodos {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.arep-periodo-btn {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--linea);
+  background: var(--blanco);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--topo);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.arep-periodo-btn:hover {
+  border-color: var(--madera);
+  color: var(--madera-oscura);
+}
+
+.arep-periodo-btn.activo {
+  background: var(--madera-oscura);
+  border-color: var(--madera-oscura);
+  color: var(--blanco);
+}
+
+.arep-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.arep-kpi-card {
+  background: var(--blanco);
+  border: 1px solid var(--linea);
+  border-top: 4px solid var(--verde);
+  border-radius: 12px;
+  padding: 15px 16px;
+}
+
+.arep-kpi-card.terra {
+  border-top-color: var(--terracota);
+}
+
+.arep-kpi-card.ocre {
+  border-top-color: var(--ocre);
+}
+
+.arep-kpi-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--topo);
+  text-transform: uppercase;
+}
+
+.arep-kpi-valor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--madera-oscura);
+  margin-top: 4px;
+}
+
+.arep-kpi-sub {
+  font-size: 11.5px;
+  color: var(--topo);
+  margin-top: 3px;
+}
+
+.arep-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.arep-columna-izq,
+.arep-columna-der {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.arep-tarjeta-ingresos {
+  border-left: 4px solid var(--verde);
+}
+
+.arep-tarjeta-flota {
+  border-left: 4px solid var(--ocre);
+}
+
+.arep-barras-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.arep-barra-item {
+  background: var(--crema);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.arep-barra-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.arep-barra-titulo {
+  font-weight: 700;
+  color: var(--madera-oscura);
+}
+
+.arep-barra-monto {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: var(--terracota);
+}
+
+.arep-barra-track {
+  width: 100%;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--linea);
+  overflow: hidden;
+}
+
+.arep-barra-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--verde);
+  transition: width 0.25s ease;
+}
+
+.arep-barra-fill.terra {
+  background: var(--terracota);
+}
+
+.arep-barra-fill.ocre {
+  background: var(--ocre);
+}
+
+.arep-barra-pie {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--topo);
+  margin-top: 6px;
+}
+
+.arep-rendimiento-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.arep-conductor-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: var(--crema);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  padding: 11px 14px;
+}
+
+.arep-conductor-nombre {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--madera-oscura);
+}
+
+.arep-conductor-unidad {
+  font-size: 11.5px;
+  color: var(--topo);
+  margin-top: 2px;
+}
+
+.arep-conductor-datos {
+  text-align: right;
+}
+
+.arep-conductor-viajes {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--verde);
+}
+
+.arep-conductor-nota {
+  font-size: 11.5px;
+  color: var(--madera);
+  margin-top: 2px;
+}
+
+.arep-resumen-calidad {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.arep-calidad-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: var(--crema);
+  border: 1px solid var(--linea);
+  font-size: 13px;
+}
+
+@media (max-width: 880px) {
+  .arep-kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .arep-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .arep-kpis {
+    grid-template-columns: 1fr;
+  }
+}

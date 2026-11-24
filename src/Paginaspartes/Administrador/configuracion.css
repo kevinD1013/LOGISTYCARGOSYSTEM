@@ -1,0 +1,123 @@
+.aconf-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.aconf-columna-izq,
+.aconf-columna-der {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.aconf-tarjeta-tarifas {
+  border-top: 4px solid var(--terracota);
+}
+
+.aconf-tarjeta-operacion {
+  border-top: 4px solid var(--verde);
+}
+
+.aconf-tarjeta-sistema {
+  border-top: 4px solid var(--ocre);
+}
+
+.aconf-fila-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.aconf-fila-triple {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.aconf-switch-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.aconf-switch-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 13px;
+  background: var(--crema);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.aconf-switch-titulo {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--madera-oscura);
+}
+
+.aconf-switch-desc {
+  font-size: 11.5px;
+  color: var(--topo);
+  margin-top: 2px;
+}
+
+.aconf-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--verde);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.aconf-acciones {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.aconf-info-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.aconf-info-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--crema);
+  border: 1px solid var(--linea);
+  border-radius: 9px;
+  font-size: 12.5px;
+}
+
+.aconf-info-label {
+  color: var(--topo);
+}
+
+.aconf-info-valor {
+  font-weight: 700;
+  color: var(--madera-oscura);
+  text-align: right;
+}
+
+.aconf-mono {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--terracota);
+}
+
+@media (max-width: 860px) {
+  .aconf-grid,
+  .aconf-fila-doble,
+  .aconf-fila-triple {
+    grid-template-columns: 1fr;
+  }
+}

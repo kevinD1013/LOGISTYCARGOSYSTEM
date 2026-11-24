@@ -1,116 +1,303 @@
-// 1. Importamos la hoja de estilos exclusiva de este panel (estamos en JavaScript normal, aquí sí sirve //)
+import './admin_comun.css';
 import './panel_administrador.css';
 
+const ETAPAS_OPERACION = [
+  '1. Conductor en camino al origen',
+  '2. Cargando inventario en origen',
+  '3. En ruta hacia el destino',
+  '4. Entrega completada'
+];
 
-export default function PanelAdministrador({ usuarioActual, usuarios, setPage }) {
-  
- 
+const formatearCOP = (valor) => {
+  return new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    maximumFractionDigits: 0
+  }).format(valor);
+};
+
+export default function PanelAdministrador({
+  usuarioActual,
+  setPage,
+  etapaActual = 1,
+  serviciosCliente = [],
+  novedades = [],
+  fallasMecanicas = [],
+  facturas = [],
+  ticketsSoporte = [],
+  clientes = []
+}) {
+  const totalFacturado = facturas.reduce((acc, f) => acc + f.monto, 0);
+  const pendientesAsignar = serviciosCliente.filter(
+    (s) => s.estado === 'Programado'
+  ).length;
+  const alertasTotales = novedades.length + fallasMecanicas.length;
+  const ticketsAbiertos = ticketsSoporte.filter(
+    (t) => t.estado === 'Abierto'
+  ).length;
+
   return (
-    <main className="panel-admin-wrapper">
-      
-      {/* ── ENCABEZADO SUPERIOR ── */}
-      <div className="panel-admin-header">
+    <main className="adm-contenedor">
+      <div className="adm-subvista-header">
         <div>
-          <h1 style={{ fontSize: '26px' }}>Centro de Control — Oficina</h1>
-          <p style={{ fontSize: '13px', color: 'var(--topo)', marginTop: '4px' }}>
-            {/* Usamos ?. (Optional Chaining) para leer nombre y correo sin error si usuarioActual es null */}
-            Sesión iniciada como <strong>{usuarioActual?.nombre}</strong> ({usuarioActual?.correo})
+          <p className="adm-codigo-vista">
+            Consola de control · {usuarioActual?.nombre || 'Administrador'}
           </p>
+          <h1 className="adm-titulo-vista">Panel general de operaciones</h1>
         </div>
 
-        {/* Al hacer clic, la función flecha ejecuta setPage para navegar a Asignaciones */}
-        <button onClick={() => setPage('ad_asignaciones')} className="btn btn-primario">
-          <span className="material-symbols-outlined">add</span>
-          Nueva asignación
+        <button
+          type="button"
+          onClick={() => setPage('ad_asignaciones')}
+          className="btn btn-primario"
+        >
+          <span className="material-symbols-outlined">assignment_ind</span>
+          Despachar órdenes ({pendientesAsignar})
         </button>
       </div>
 
-      {/* ── TARJETAS DE MÉTRICAS (KPIs) ── */}
-      <section className="panel-admin-kpis">
-        <div className="card admin-kpi-card">
-          <p className="admin-kpi-titulo">Servicios hoy</p>
-          <p className="admin-kpi-valor">12</p>
-          <p className="admin-kpi-sub">4 en ruta actualmente</p>
+      <section className="padm-kpis">
+        <div className="padm-kpi-card">
+          <p className="padm-kpi-etiqueta">Órdenes activas / nuevas</p>
+          <p className="padm-kpi-valor">{1 + serviciosCliente.length}</p>
+          <p className="padm-kpi-sub">{pendientesAsignar} por asignar flota</p>
         </div>
 
-        <div className="card admin-kpi-card verde">
-          <p className="admin-kpi-titulo">Flota disponible</p>
-          <p className="admin-kpi-valor">11 / 16</p>
-          <p className="admin-kpi-sub">Camiones operativos</p>
+        <div className="padm-kpi-card verde">
+          <p className="padm-kpi-etiqueta">Facturación registrada</p>
+          <p className="padm-kpi-valor">{formatearCOP(totalFacturado)}</p>
+          <p className="padm-kpi-sub">{facturas.length} facturas en sistema</p>
         </div>
 
-        <div className="card admin-kpi-card ocre">
-          <p className="admin-kpi-titulo">Usuarios activos</p>
-          {/* .length cuenta dinámicamente cuántos elementos tiene el arreglo usuarios */}
-          <p className="admin-kpi-valor">{usuarios.length}</p>
-          <p className="admin-kpi-sub">Registrados en el sistema</p>
-        </div>
-
-        <div className="card admin-kpi-card rojo">
-          <p className="admin-kpi-titulo">Ingresos del día</p>
-          <p className="admin-kpi-valor">$4.8M</p>
-          <p className="admin-kpi-sub">+14% frente a ayer</p>
-        </div>
-      </section>
-
-      {/* ── CUADRÍCULA INFERIOR: TABLA DE USUARIOS + ACCESOS RÁPIDOS ── */}
-      <section className="panel-admin-grid">
-        
-        {/* Columna izquierda: Tabla de cuentas */}
-        <div className="card">
-          <h2 style={{ fontSize: '17px' }}>Cuentas registradas en el sistema</h2>
-          <p style={{ fontSize: '12px', color: 'var(--topo)', marginTop: '2px' }}>
-            Lectura en vivo desde administradores, conductores y clientes guardados
+        <div className="padm-kpi-card rojo">
+          <p className="padm-kpi-etiqueta">Alertas en ruta y taller</p>
+          <p className="padm-kpi-valor">{alertasTotales}</p>
+          <p className="padm-kpi-sub">
+            {novedades.length} vial(es) · {fallasMecanicas.length} mecánica(s)
           </p>
-
-          <table className="tabla-admin-usuarios">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Rol</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* .map() recorre el arreglo usuarios y crea una fila <tr> por cada cuenta */}
-              {/* key={idx} le da un identificador único a cada fila para el Virtual DOM */}
-              {usuarios.map((u, idx) => (
-                <tr key={idx}>
-                  <td style={{ fontWeight: 600 }}>{u.nombre}</td>
-                  <td>{u.correo}</td>
-                  <td>
-                    {/* Template literal: une la clase fija 'badge-rol' con el rol dinámico ('admin', 'conductor' o 'cliente') */}
-                    <span className={`badge-rol ${u.rol}`}>
-                      {/* .toUpperCase() convierte el texto a mayúsculas */}
-                      {u.rol.toUpperCase()}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
 
-        {/* Columna derecha: Botones de navegación rápida */}
-        <div className="card">
-          <h2 style={{ fontSize: '17px', marginBottom: '12px' }}>Accesos rápidos</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <button onClick={() => setPage('ad_servicios')} className="btn btn-secundario" style={{ justifyContent: 'flex-start' }}>
-              <span className="material-symbols-outlined">receipt_long</span> Gestionar servicios
-            </button>
-            <button onClick={() => setPage('ad_asignaciones')} className="btn btn-secundario" style={{ justifyContent: 'flex-start' }}>
-              <span className="material-symbols-outlined">assignment_ind</span> Asignar rutas
-            </button>
-            <button onClick={() => setPage('ad_vehiculos')} className="btn btn-secundario" style={{ justifyContent: 'flex-start' }}>
-              <span className="material-symbols-outlined">local_shipping</span> Control de vehículos
-            </button>
-            <button onClick={() => setPage('ad_conductores')} className="btn btn-secundario" style={{ justifyContent: 'flex-start' }}>
-              <span className="material-symbols-outlined">badge</span> Equipo de conductores
-            </button>
-          </div>
+        <div className="padm-kpi-card ocre">
+          <p className="padm-kpi-etiqueta">Tickets PQRS abiertos</p>
+          <p className="padm-kpi-valor">{ticketsAbiertos}</p>
+          <p className="padm-kpi-sub">{clientes.length + 1} clientes activos</p>
         </div>
-
       </section>
+
+      <div className="padm-grid">
+        <div className="padm-columna-izq">
+          <section className="card padm-tarjeta-operacion">
+            <div className="padm-op-header">
+              <div>
+                <p className="adm-codigo-vista">Monitoreo en vivo · SRV-2026-00852</p>
+                <h2 className="padm-op-titulo">Mudanza Residencial (Chapinero → Suba)</h2>
+              </div>
+              <span className={`badge ${etapaActual === 3 ? 'badge-verde' : 'badge-terra'}`}>
+                {ETAPAS_OPERACION[etapaActual]}
+              </span>
+            </div>
+
+            <div className="padm-op-detalle">
+              <div>
+                <p className="padm-op-label">Conductor asignado</p>
+                <p className="padm-op-dato">Javier Morales</p>
+              </div>
+              <div>
+                <p className="padm-op-label">Vehículo en ruta</p>
+                <p className="padm-op-dato">Chevrolet NPR · XYZ-789</p>
+              </div>
+              <div>
+                <p className="padm-op-label">Cliente titular</p>
+                <p className="padm-op-dato">Ana García</p>
+              </div>
+            </div>
+
+            <div className="padm-acciones-op">
+              <button
+                type="button"
+                onClick={() => setPage('ad_servicios')}
+                className="btn btn-primario"
+              >
+                <span className="material-symbols-outlined">inventory_2</span>
+                Gestionar todos los servicios
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setPage('ad_vehiculos')}
+                className="btn btn-secundario"
+              >
+                <span className="material-symbols-outlined">local_shipping</span>
+                Ver estado de flota
+              </button>
+            </div>
+          </section>
+
+          <section className="card">
+            <h2 className="adm-subtitulo-card">Bitácora de novedades y alertas técnicas</h2>
+
+            {alertasTotales === 0 ? (
+              <div className="adm-caja-info">
+                Sin novedades viales ni fallas mecánicas reportadas en la jornada actual.
+              </div>
+            ) : (
+              <div className="padm-alertas-lista">
+                {fallasMecanicas.map((falla, idx) => (
+                  <div key={`falla-${idx}`} className="padm-alerta-item critica">
+                    <span className="material-symbols-outlined padm-alerta-icono">
+                      build_circle
+                    </span>
+                    <div>
+                      <p className="padm-alerta-titulo">
+                        Falla Mecánica ({falla.placa || 'XYZ-789'}) · Severidad: {falla.severidad}
+                      </p>
+                      <p className="padm-alerta-texto">
+                        {falla.sistema}: {falla.descripcion} ({falla.hora})
+                      </p>
+                    </div>
+                  </div>
+                ))}
+
+                {novedades.map((nov, idx) => (
+                  <div key={`nov-${idx}`} className="padm-alerta-item">
+                    <span className="material-symbols-outlined padm-alerta-icono">
+                      warning
+                    </span>
+                    <div>
+                      <p className="padm-alerta-titulo">
+                        Novedad en ruta · {nov.tipo} ({nov.hora})
+                      </p>
+                      <p className="padm-alerta-texto">{nov.detalle}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        </div>
+
+        <aside className="padm-columna-der">
+          <div className="card">
+            <h2 className="adm-subtitulo-card">Módulos de administración</h2>
+
+            <div className="padm-modulos-lista">
+              <button
+                type="button"
+                onClick={() => setPage('ad_asignaciones')}
+                className="padm-modulo-btn"
+              >
+                <div className="padm-modulo-izq">
+                  <div className="padm-modulo-icono">
+                    <span className="material-symbols-outlined">assignment_ind</span>
+                  </div>
+                  <div>
+                    <p className="padm-modulo-titulo">Despacho y asignaciones</p>
+                    <p className="padm-modulo-desc">
+                      Asigna conductor y camión a solicitudes nuevas
+                    </p>
+                  </div>
+                </div>
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setPage('ad_conductores')}
+                className="padm-modulo-btn"
+              >
+                <div className="padm-modulo-izq">
+                  <div className="padm-modulo-icono verde">
+                    <span className="material-symbols-outlined">badge</span>
+                  </div>
+                  <div>
+                    <p className="padm-modulo-titulo">Gestión de conductores</p>
+                    <p className="padm-modulo-desc">
+                      Licencias, disponibilidad y turnos del equipo
+                    </p>
+                  </div>
+                </div>
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setPage('ad_vehiculos')}
+                className="padm-modulo-btn"
+              >
+                <div className="padm-modulo-izq">
+                  <div className="padm-modulo-icono ocre">
+                    <span className="material-symbols-outlined">local_shipping</span>
+                  </div>
+                  <div>
+                    <p className="padm-modulo-titulo">Flota y mantenimiento</p>
+                    <p className="padm-modulo-desc">
+                      Control de camiones, SOAT, tecnomecánica y taller
+                    </p>
+                  </div>
+                </div>
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setPage('ad_clientes')}
+                className="padm-modulo-btn"
+              >
+                <div className="padm-modulo-izq">
+                  <div className="padm-modulo-icono">
+                    <span className="material-symbols-outlined">group</span>
+                  </div>
+                  <div>
+                    <p className="padm-modulo-titulo">Clientes y soporte PQRS</p>
+                    <p className="padm-modulo-desc">
+                      Directorio registrado y resolución de tickets
+                    </p>
+                  </div>
+                </div>
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setPage('ad_reportes')}
+                className="padm-modulo-btn"
+              >
+                <div className="padm-modulo-izq">
+                  <div className="padm-modulo-icono verde">
+                    <span className="material-symbols-outlined">bar_chart</span>
+                  </div>
+                  <div>
+                    <p className="padm-modulo-titulo">Reportes e indicadores</p>
+                    <p className="padm-modulo-desc">
+                      Ingresos por ruta, cumplimiento y recaudo
+                    </p>
+                  </div>
+                </div>
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setPage('ad_configuracion')}
+                className="padm-modulo-btn"
+              >
+                <div className="padm-modulo-izq">
+                  <div className="padm-modulo-icono ocre">
+                    <span className="material-symbols-outlined">settings</span>
+                  </div>
+                  <div>
+                    <p className="padm-modulo-titulo">Tarifas y configuración</p>
+                    <p className="padm-modulo-desc">
+                      Precios base por vehículo y parámetros operativos
+                    </p>
+                  </div>
+                </div>
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
     </main>
   );
 }

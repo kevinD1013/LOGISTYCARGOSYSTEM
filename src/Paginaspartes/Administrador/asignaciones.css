@@ -1,0 +1,129 @@
+.asig-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1.1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.asig-tarjeta-despacho {
+  border-top: 4px solid var(--terracota);
+}
+
+.asig-tarjeta-activas {
+  border-top: 4px solid var(--verde);
+}
+
+.asig-pendientes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.asig-orden-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--linea);
+  background: var(--crema);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.asig-orden-btn:hover {
+  border-color: var(--terracota);
+}
+
+.asig-orden-btn.seleccionada {
+  background: rgba(193, 98, 45, 0.11);
+  border-color: var(--terracota);
+}
+
+.asig-orden-codigo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--topo);
+}
+
+.asig-orden-titulo {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--madera-oscura);
+  margin-top: 2px;
+}
+
+.asig-orden-ruta {
+  font-size: 12px;
+  color: var(--madera);
+  margin-top: 2px;
+}
+
+.asig-fila-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.asig-resumen-previo {
+  background: var(--crema);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  font-size: 12.5px;
+  color: var(--madera);
+  line-height: 1.5;
+}
+
+.asig-activas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.asig-activa-card {
+  background: var(--crema);
+  border: 1px solid var(--linea);
+  border-left: 4px solid var(--verde);
+  border-radius: 10px;
+  padding: 13px 15px;
+}
+
+.asig-activa-card.pendiente {
+  border-left-color: var(--ocre);
+}
+
+.asig-activa-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.asig-activa-titulo {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--madera-oscura);
+  margin-bottom: 6px;
+}
+
+.asig-activa-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 12px;
+  color: var(--madera);
+}
+
+@media (max-width: 840px) {
+  .asig-grid,
+  .asig-fila-doble {
+    grid-template-columns: 1fr;
+  }
+}
