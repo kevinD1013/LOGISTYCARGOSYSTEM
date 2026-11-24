@@ -1,0 +1,144 @@
+.hadm-header {
+  background: var(--madera-oscura);
+  color: var(--blanco);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 4px 16px rgba(34, 24, 18, 0.24);
+}
+
+.hadm-superior {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hadm-usuario-bloque {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hadm-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--ocre);
+  color: var(--madera-oscura);
+  font-weight: 800;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hadm-nombre {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--blanco);
+}
+
+.hadm-subtitulo {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.72);
+  margin-top: 1px;
+}
+
+.hadm-acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hadm-estado-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(74, 124, 89, 0.22);
+  border: 1px solid rgba(74, 124, 89, 0.55);
+  color: #a9e0b9;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hadm-punto-activo {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #6ee794;
+}
+
+.hadm-btn-salir {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--blanco);
+  padding: 7px 13px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.hadm-btn-salir:hover {
+  background: rgba(168, 66, 48, 0.35);
+  border-color: var(--rojo);
+}
+
+.hadm-nav-barra {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.hadm-nav-contenedor {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.hadm-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 12px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.hadm-tab:hover {
+  color: var(--blanco);
+}
+
+.hadm-tab.activa {
+  color: var(--ocre);
+  border-bottom-color: var(--ocre);
+}
+
+@media (max-width: 768px) {
+  .hadm-superior,
+  .hadm-nav-contenedor {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

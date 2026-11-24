@@ -1,0 +1,157 @@
+.acli-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1.25fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.acli-tarjeta-dir {
+  border-top: 4px solid var(--verde);
+}
+
+.acli-tarjeta-tickets {
+  border-top: 4px solid var(--terracota);
+}
+
+.acli-buscador {
+  margin-bottom: 14px;
+}
+
+.acli-lista-clientes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.acli-cliente-card {
+  background: var(--crema);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  padding: 13px 15px;
+}
+
+.acli-cliente-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.acli-cliente-perfil {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.acli-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--terracota);
+  color: var(--blanco);
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.acli-nombre {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--madera-oscura);
+}
+
+.acli-correo {
+  font-size: 12px;
+  color: var(--topo);
+  margin-top: 1px;
+}
+
+.acli-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--linea);
+  font-size: 12px;
+  color: var(--madera);
+}
+
+.acli-lista-tickets {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.acli-ticket-card {
+  background: var(--crema);
+  border: 1px solid var(--linea);
+  border-left: 4px solid var(--ocre);
+  border-radius: 10px;
+  padding: 13px 15px;
+}
+
+.acli-ticket-card.resuelto {
+  border-left-color: var(--verde);
+}
+
+.acli-ticket-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.acli-ticket-codigo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--topo);
+}
+
+.acli-ticket-asunto {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--madera-oscura);
+  margin-bottom: 5px;
+}
+
+.acli-ticket-desc {
+  font-size: 12.5px;
+  color: var(--madera);
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.acli-ticket-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 9px;
+  border-top: 1px solid var(--linea);
+  font-size: 11.5px;
+  color: var(--topo);
+}
+
+.acli-vacio {
+  background: var(--crema);
+  border: 1px dashed var(--linea);
+  border-radius: 10px;
+  padding: 22px 16px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--topo);
+}
+
+@media (max-width: 860px) {
+  .acli-grid {
+    grid-template-columns: 1fr;
+  }
+}

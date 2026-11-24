@@ -30,6 +30,17 @@ import MisServicios from './Paginaspartes/Cliente/MisServicios';
 import Pagos from './Paginaspartes/Cliente/Pagos';
 import Soporte from './Paginaspartes/Cliente/Soporte';
 
+// Módulo Administrador (Cabecera y 8 vistas)
+import HeaderAdministrador from './componentes/HeaderAdministrador';
+import PanelAdministrador from './Paginaspartes/Administrador/PanelAdministrador';
+import Servicios from './Paginaspartes/Administrador/Servicios';
+import Asignaciones from './Paginaspartes/Administrador/Asignaciones';
+import Conductores from './Paginaspartes/Administrador/Conductores';
+import Vehiculos from './Paginaspartes/Administrador/Vehiculos';
+import Clientes from './Paginaspartes/Administrador/Clientes';
+import Reportes from './Paginaspartes/Administrador/Reportes';
+import Configuracion from './Paginaspartes/Administrador/Configuracion';
+
 const INVENTARIO_INICIAL = [
   { id: 1, nombre: 'Sofá modular 3 puestos', categoria: 'Sala / Comedor', marcado: true },
   { id: 2, nombre: 'Nevera Nevecón Samsung', categoria: 'Electrodoméstico', marcado: true },
@@ -101,41 +112,107 @@ const PAGINAS_CLIENTE = [
   'cl_soporte'
 ];
 
+const PAGINAS_ADMIN = [
+  'dash_admin',
+  'ad_servicios',
+  'ad_asignaciones',
+  'ad_conductores',
+  'ad_vehiculos',
+  'ad_clientes',
+  'ad_reportes',
+  'ad_configuracion'
+];
+
 export default function App() {
   const [page, setPage] = useState('login');
   const [role, setRole] = useState('');
   const [usuarioActual, setUsuarioActual] = useState(null);
   const [toast, setToast] = useState('');
 
-  // Estados operativos compartidos entre Conductor, Cliente y Admin
-  const [etapaActual, setEtapaActual] = useState(1);
-  const [inventario, setInventario] = useState(INVENTARIO_INICIAL);
-  const [novedades, setNovedades] = useState([]);
-  const [fallasMecanicas, setFallasMecanicas] = useState([]);
+// Estados operativos compartidos (guardados en localStorage)
+  const [etapaActual, setEtapaActual] = useState(() => {
+    const guardada = localStorage.getItem('lc_etapa');
+    return guardada ? Number(guardada) : 1;
+  });
 
-  // Estados propios del flujo del Cliente
+  const [inventario, setInventario] = useState(() => {
+    const guardado = localStorage.getItem('lc_inventario');
+    return guardado ? JSON.parse(guardado) : INVENTARIO_INICIAL;
+  });
+
+  const [novedades, setNovedades] = useState(() => {
+    const guardadas = localStorage.getItem('lc_novedades');
+    return guardadas ? JSON.parse(guardadas) : [];
+  });
+
+  const [fallasMecanicas, setFallasMecanicas] = useState(() => {
+    const guardadas = localStorage.getItem('lc_fallas');
+    return guardadas ? JSON.parse(guardadas) : [];
+  });
+
+  // Estados del flujo del Cliente (guardados en localStorage)
   const [cotizacionSeleccionada, setCotizacionSeleccionada] = useState(null);
-  const [serviciosCliente, setServiciosCliente] = useState([]);
-  const [facturas, setFacturas] = useState(FACTURAS_INICIALES);
-  const [ticketsSoporte, setTicketsSoporte] = useState(TICKETS_INICIALES);
 
-  // Clientes registrados desde el formulario
+  const [serviciosCliente, setServiciosCliente] = useState(() => {
+    const guardados = localStorage.getItem('lc_servicios');
+    return guardados ? JSON.parse(guardados) : [];
+  });
+
+  const [facturas, setFacturas] = useState(() => {
+    const guardadas = localStorage.getItem('lc_facturas');
+    return guardadas ? JSON.parse(guardadas) : FACTURAS_INICIALES;
+  });
+
+  const [ticketsSoporte, setTicketsSoporte] = useState(() => {
+    const guardados = localStorage.getItem('lc_tickets');
+    return guardados ? JSON.parse(guardados) : TICKETS_INICIALES;
+  });
+
+  // Estados del Administrador y Clientes (guardados en localStorage)
+  const [conductoresLista, setConductoresLista] = useState(() => {
+    const guardados = localStorage.getItem('lc_conductores');
+    return guardados ? JSON.parse(guardados) : [];
+  });
+
+  const [vehiculosFlota, setVehiculosFlota] = useState(() => {
+    const guardados = localStorage.getItem('lc_vehiculos');
+    return guardados ? JSON.parse(guardados) : [];
+  });
+
   const [clientes, setClientes] = useState(() => {
     const guardados = localStorage.getItem('lc_clientes');
     return guardados ? JSON.parse(guardados) : [];
   });
 
+  // Guarda automáticamente cualquier cambio en el navegador
   useEffect(() => {
+    localStorage.setItem('lc_etapa', String(etapaActual));
+    localStorage.setItem('lc_inventario', JSON.stringify(inventario));
+    localStorage.setItem('lc_novedades', JSON.stringify(novedades));
+    localStorage.setItem('lc_fallas', JSON.stringify(fallasMecanicas));
+    localStorage.setItem('lc_servicios', JSON.stringify(serviciosCliente));
+    localStorage.setItem('lc_facturas', JSON.stringify(facturas));
+    localStorage.setItem('lc_tickets', JSON.stringify(ticketsSoporte));
+    localStorage.setItem('lc_conductores', JSON.stringify(conductoresLista));
+    localStorage.setItem('lc_vehiculos', JSON.stringify(vehiculosFlota));
     localStorage.setItem('lc_clientes', JSON.stringify(clientes));
-  }, [clientes]);
-
+  }, [
+    etapaActual,
+    inventario,
+    novedades,
+    fallasMecanicas,
+    serviciosCliente,
+    facturas,
+    ticketsSoporte,
+    conductoresLista,
+    vehiculosFlota,
+    clientes
+  ]);
   const mostrarToast = (mensaje) => {
     setToast(mensaje);
     setTimeout(() => setToast(''), 3000);
   };
-
-  // Solo registra clientes
-  const registrarCliente = (nuevoCliente) => {
+const registrarCliente = (nuevoCliente) => {
     const correoLimpio = nuevoCliente.correo.toLowerCase();
     const existe = [...clientes, ...ADMINISTRADORES, ...CONDUCTORES].some(
       (u) => u.correo.toLowerCase() === correoLimpio
@@ -152,7 +229,6 @@ export default function App() {
     return true;
   };
 
-  // Valida según el rol seleccionado
   const doLogin = (correoIngresado, passwordIngresada) => {
     if (!role) {
       mostrarToast('Selecciona primero un rol');
@@ -161,11 +237,13 @@ export default function App() {
 
     let listaDelRol = [];
     if (role === 'cliente') listaDelRol = clientes;
-    else if (role === 'conductor') listaDelRol = CONDUCTORES;
+    else if (role === 'conductor') listaDelRol = [...CONDUCTORES, ...conductoresLista];
     else if (role === 'admin') listaDelRol = ADMINISTRADORES;
 
     const encontrado = listaDelRol.find(
       (u) =>
+        u.correo &&
+        u.password &&
         u.correo.toLowerCase() === correoIngresado.trim().toLowerCase() &&
         u.password === passwordIngresada
     );
@@ -182,7 +260,7 @@ export default function App() {
     } else if (encontrado.rol === 'cliente') {
       setPage('dash_cliente');
     } else {
-      setPage('panel');
+      setPage('dash_admin');
     }
   };
 
@@ -403,14 +481,100 @@ export default function App() {
         </div>
       )}
 
-      {/* Tarjeta temporal solo para Administrador */}
-      {page === 'panel' && usuarioActual && (
-        <div style={{ padding: '40px', maxWidth: '500px', margin: '60px auto' }} className="card">
-          <h2>Sesión iniciada</h2>
-          <p style={{ margin: '10px 0' }}><strong>Nombre:</strong> {usuarioActual.nombre}</p>
-          <p style={{ margin: '10px 0' }}><strong>Correo:</strong> {usuarioActual.correo}</p>
-          <p style={{ margin: '10px 0 20px' }}><strong>Rol activo:</strong> {usuarioActual.rol.toUpperCase()}</p>
-          <button onClick={cerrarSesion} className="btn btn-primario">Cerrar sesión</button>
+      {/* Módulo Completo del Administrador */}
+      {PAGINAS_ADMIN.includes(page) && usuarioActual && (
+        <div>
+          <HeaderAdministrador
+            page={page}
+            setPage={setPage}
+            usuarioActual={usuarioActual}
+            cerrarSesion={cerrarSesion}
+          />
+
+          {page === 'dash_admin' && (
+            <PanelAdministrador
+              usuarioActual={usuarioActual}
+              setPage={setPage}
+              etapaActual={etapaActual}
+              serviciosCliente={serviciosCliente}
+              novedades={novedades}
+              fallasMecanicas={fallasMecanicas}
+              facturas={facturas}
+              ticketsSoporte={ticketsSoporte}
+              clientes={clientes}
+            />
+          )}
+
+          {page === 'ad_servicios' && (
+            <Servicios
+              setPage={setPage}
+              serviciosCliente={serviciosCliente}
+              etapaActual={etapaActual}
+              setEtapaActual={setEtapaActual}
+              mostrarToast={mostrarToast}
+            />
+          )}
+
+          {page === 'ad_asignaciones' && (
+            <Asignaciones
+              setPage={setPage}
+              serviciosCliente={serviciosCliente}
+              setServiciosCliente={setServiciosCliente}
+              vehiculosFlota={vehiculosFlota}
+              conductoresLista={conductoresLista}
+              mostrarToast={mostrarToast}
+            />
+          )}
+
+          {page === 'ad_conductores' && (
+            <Conductores
+              setPage={setPage}
+              conductoresLista={conductoresLista}
+              setConductoresLista={setConductoresLista}
+              mostrarToast={mostrarToast}
+            />
+          )}
+
+          {page === 'ad_vehiculos' && (
+            <Vehiculos
+              setPage={setPage}
+              vehiculosFlota={vehiculosFlota}
+              setVehiculosFlota={setVehiculosFlota}
+              fallasMecanicas={fallasMecanicas}
+              mostrarToast={mostrarToast}
+            />
+          )}
+
+          {page === 'ad_clientes' && (
+            <Clientes
+              setPage={setPage}
+              clientes={clientes}
+              ticketsSoporte={ticketsSoporte}
+              setTicketsSoporte={setTicketsSoporte}
+              serviciosCliente={serviciosCliente}
+              mostrarToast={mostrarToast}
+            />
+          )}
+
+          {page === 'ad_reportes' && (
+            <Reportes
+              setPage={setPage}
+              facturas={facturas}
+              serviciosCliente={serviciosCliente}
+              etapaActual={etapaActual}
+              novedades={novedades}
+              fallasMecanicas={fallasMecanicas}
+              mostrarToast={mostrarToast}
+            />
+          )}
+
+          {page === 'ad_configuracion' && (
+            <Configuracion
+              setPage={setPage}
+              usuarioActual={usuarioActual}
+              mostrarToast={mostrarToast}
+            />
+          )}
         </div>
       )}
     </div>

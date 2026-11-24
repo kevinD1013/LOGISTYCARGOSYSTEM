@@ -132,9 +132,9 @@ export default function SeguimientoServicio({
               zoom={13}
               className="seg-leaflet-mapa"
             >
-              <TileLayer
-                attribution='&copy; OpenStreetMap contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+             <TileLayer
+                attribution='Tiles &copy; Esri &mdash; Source: Esri, HERE, Garmin, OpenStreetMap'
+                url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
               />
 
               <Polyline
